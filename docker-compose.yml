@@ -41,7 +41,7 @@ services:
     networks:
       - charlymatloc.net
     volumes:
-      - ./sql:/var/sql
+      - ./sql/auth:/docker-entrypoint-initdb.d
     restart: unless-stopped
 
   charlyoutils.db:
@@ -52,7 +52,7 @@ services:
     networks:
       - charlymatloc.net
     volumes:
-      - ./sql:/var/sql
+      - ./sql/outils:/docker-entrypoint-initdb.d
     restart: unless-stopped
 
   charlyreserv.db:
@@ -63,7 +63,7 @@ services:
     networks:
       - charlymatloc.net
     volumes:
-      - ./sql:/var/sql
+      - ./sql/reserv:/docker-entrypoint-initdb.d
     restart: unless-stopped
 
   #
