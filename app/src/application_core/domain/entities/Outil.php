@@ -10,14 +10,16 @@ class Outil
     private string $description;
     private float $prix;
     private string $image;
+    private int $stock;
 
-    public function __construct(int $id, int $categorie, string $nom, string $description, float $prix, string $image){
+    public function __construct(int $id, int $categorie, string $nom, string $description, float $prix, string $image, int $stock){
         $this->id = $id;
         $this->id_categorie = $categorie;
         $this->nom = $nom;
         $this->description = $description;
         $this->prix = $prix;
         $this->image = $image;
+        $this->stock = $stock;
     }
 
     public function getId(): string{
@@ -37,5 +39,8 @@ class Outil
     }
     public function getImage(): string{
         return $this->image;
+    }
+    public function getStock(): int{
+        return $this->stock;
     }
 }

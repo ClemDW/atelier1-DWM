@@ -11,4 +11,3 @@ CREATE TABLE public.reservations (
     -- Contrainte pour s'assurer que la date de début est avant la date de fin
     CONSTRAINT chk_date_range CHECK (date_debut <= date_fin)
 );
-

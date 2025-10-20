@@ -5,7 +5,9 @@ namespace charlymatloc\infra\repositories;
 use charlymatloc\core\application\ports\spi\repositoryInterfaces\OutilsRepositoryInterface;
 use charlymatloc\core\domain\entities\Categorie;
 use charlymatloc\core\domain\entities\Outil;
+use charlymatloc\infra\exceptions\OutilNotFoundException;
 use PDO;
+use PDOException;
 
 class OutilsRepository implements OutilsRepositoryInterface
 {
@@ -22,7 +24,7 @@ class OutilsRepository implements OutilsRepositoryInterface
         $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $outils = [];
         foreach ($rows as $row) {
-            $outils[] = new Outil($row['id_outil'], $row['id_categorie'], $row['nom'], $row['description'], $row['prix_journalier'], $row['image_url']);
+            $outils[] = new Outil($row['id_outil'], $row['id_categorie'], $row['nom'], $row['description'], $row['prix_journalier'], $row['image_url'], $row['stock']);
         }
         return $outils;
     }
@@ -34,7 +36,10 @@ class OutilsRepository implements OutilsRepositoryInterface
         $stmt->bindParam(':id', $id, PDO::PARAM_STR);
         $stmt->execute();
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
-        return new Outil($row['id_outil'], $row['id_categorie'], $row['nom'], $row['description'], $row['prix_journalier'], $row['image_url']);
+        if ($row ===false) {
+            throw new OutilNotFoundException($id);
+        }
+        return new Outil($row['id_outil'], $row['id_categorie'], $row['nom'], $row['description'], $row['prix_journalier'], $row['image_url'], $row['stock']);
     }
 
     public function findCategorieById(int $id): Categorie
@@ -44,6 +49,9 @@ class OutilsRepository implements OutilsRepositoryInterface
         $stmt->bindParam(':id', $id, PDO::PARAM_STR);
         $stmt->execute();
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        if ($row === false) {
+            throw new OutilNotFoundException($id);
+        }
         return new Categorie($row['id_categorie'], $row['nom']);
     }
 }
