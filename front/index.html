@@ -10,24 +10,27 @@
     <header class="header">
       <nav class="navbar">
         <div class="navbar__brand">CharlyMatloc</div>
-        <ul class="navbar__menu">
-          <li><a href="#" id="loginBtn">Connexion</a></li>
-        </ul>
+        <div class="navbar__spacer"></div>
+        <button class="login-btn">Connexion</button>
       </nav>
     </header>
 
     <main class="main">
-      <section class="hero">
-        <h1>Location d'outils entre particuliers</h1>
-        <p>Trouvez l'outil qu'il vous faut près de chez vous</p>
-      </section>
-
-      <section id="outils" class="tools-section">
-        <h2>Outils disponibles</h2>
-        <div id="toolsList" class="tools-grid"></div>
-      </section>
+      <div class="container">
+        <aside class="filters">
+          <h2>Filtres</h2>
+          <!-- Interface de filtres à ajouter ici -->
+        </aside>
+        <section id="outils" class="tools-section">
+          <h2>Outils disponibles</h2>
+          <div id="toolsList" class="tools-grid"></div>
+        </section>
+      </div>
     </main>
 
+    <footer class="footer">
+      <p>&copy; 2025 CharlyMatloc. Tous droits réservés.</p>
+    </footer>
     <script type="module" src="js/main.js"></script>
   </body>
 </html>
