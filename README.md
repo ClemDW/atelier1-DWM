@@ -12,5 +12,5 @@ BESANCON Marcelin DE WASCH Clément TOPCU Semih SALZAR Manech HERRMANN Vivien
 | ------------------ | ------- | --------- | -------- |
 | Fonctionnalité 1   | ✅      | Marcelin  | Manech   |
 | Fonctionnalité 2   | ✅      | Clément   | Manech   |
-| Fonctionnalité 3   | ✅      |           |          |
+| Fonctionnalité 3   | ✅      |           | Vivien   |
 | Fonctionnalité 4   | ✅      |           |          |

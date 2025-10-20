@@ -42,4 +42,15 @@ class OutilsService implements OutilsServiceInterface
             $outil->getPrix()
         );
     }
+
+    public function isOutilDisponible(int $id_outil, string $date): bool
+    {
+        $outil = $this->outilsRepository->findById($id_outil);
+        $stock = $outil->getStock();
+
+        // Count reserved quantities for this outil on this date
+        $reserved = $this->outilsRepository->countReservedOutils($id_outil, $date);
+
+        return ($stock - $reserved) > 0;
+    }
 }

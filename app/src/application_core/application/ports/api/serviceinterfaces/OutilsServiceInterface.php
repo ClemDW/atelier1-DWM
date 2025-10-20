@@ -9,4 +9,5 @@ interface OutilsServiceInterface
 {
     public function ListerOutils(): array;
     public function AfficherOutil(int $id): OutilAfficheDTO;
+    public function isOutilDisponible(int $id_outil, string $date): bool;
 }

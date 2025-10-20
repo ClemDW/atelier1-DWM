@@ -8,4 +8,5 @@ interface ReservRepositoryInterface
 {
     public function findAll(): array;
     public function findById(string $id): Reservation;
+    public function countReservedOutils(int $id_outil, string $date): int;
 }
