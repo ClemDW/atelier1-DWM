@@ -19,6 +19,19 @@ services:
       - charlyoutils.db
       - charlyreserv.db
     command: "php -S 0.0.0.0:80 -t /var/php/public"
+    restart: unless-stopped
+
+  charlyfront:
+    image: nginx:stable-alpine
+    ports:
+      - "3000:80"
+    volumes:
+      - ./front:/usr/share/nginx/html:ro
+    networks:
+      - charlymatloc.net
+    depends_on:
+      - api.charlymatloc
+    restart: unless-stopped
 
   charlyauth.db:
     image: "postgres:latest"
@@ -29,6 +42,7 @@ services:
       - charlymatloc.net
     volumes:
       - ./sql:/var/sql
+    restart: unless-stopped
 
   charlyoutils.db:
     image: "postgres:latest"
@@ -39,6 +53,7 @@ services:
       - charlymatloc.net
     volumes:
       - ./sql:/var/sql
+    restart: unless-stopped
 
   charlyreserv.db:
     image: "postgres:latest"
@@ -49,6 +64,7 @@ services:
       - charlymatloc.net
     volumes:
       - ./sql:/var/sql
+    restart: unless-stopped
 
   #
   # service administration des bases sql
@@ -59,3 +75,13 @@ services:
       - "8080:8080"
     networks:
       - charlymatloc.net
+
+  composer:
+    image: composer:2.8.6
+    command: ["composer", "install"]
+    networks:
+      - charlymatloc.net
+    volumes:
+      - ./app:/app
+    depends_on:
+      - api.charlymatloc
