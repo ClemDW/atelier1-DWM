@@ -1,4 +1,4 @@
-DROP TABLE IF EXISTS reservations;
+DROP TABLE IF EXISTS public.reservations CASCADE;
 CREATE TABLE public.reservations (
     id_reservation uuid PRIMARY KEY,
     id_utilisateur uuid NOT NULL,
