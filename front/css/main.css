@@ -1,0 +1,94 @@
+body {
+  font-family: sans-serif;
+  margin: 0;
+}
+
+.container {
+  display: flex;
+}
+
+.filters {
+  width: 20%;
+  padding: 20px;
+  background-color: #f0f0f0;
+}
+.filters button {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  background-color: #fff;
+  cursor: pointer;
+  text-align: left;
+}
+.filters button.active {
+  background-color: #007bff;
+  color: white;
+  border-color: #007bff;
+}
+
+.tools-section {
+  width: 80%;
+  padding: 20px;
+}
+
+.tools-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.tool-card {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  text-align: center;
+}
+.tool-card img {
+  max-width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 10px;
+}
+
+.header {
+  background-color: #333;
+  color: white;
+  padding: 1rem;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar__brand {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.navbar__menu {
+  list-style: none;
+  display: flex;
+  gap: 1rem;
+  margin: 0;
+}
+.navbar__menu a {
+  color: white;
+  text-decoration: none;
+}
+
+.main {
+  padding: 0;
+}
+
+.hero {
+  background-color: #f4f4f4;
+  text-align: center;
+  padding: 2rem;
+}
+
+/*# sourceMappingURL=main.css.map */
