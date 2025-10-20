@@ -59,13 +59,3 @@ services:
       - "8080:8080"
     networks:
       - charlymatloc.net
-
-  composer:
-    image: composer:2.8.6
-    command: ["composer", "install"]
-    networks:
-      - charlymatloc.net
-    volumes:
-      - ./app:/app
-    depends_on:
-      - api.charlymatloc
