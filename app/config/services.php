@@ -1,6 +1,10 @@
 <?php
 declare(strict_types=1);
 
+use charlymatloc\core\application\ports\api\serviceinterfaces\OutilsServiceInterface;
+use charlymatloc\core\application\ports\spi\repositoryInterfaces\OutilsRepositoryInterface;
+use charlymatloc\core\application\usecases\OutilsService;
+use charlymatloc\infra\repositories\OutilsRepository;
 use Psr\Container\ContainerInterface;
 
 return [
@@ -10,7 +14,7 @@ return [
         return new PDO(
             "{$db['driver']}:host={$db['host']};dbname={$db['dbname']}",
             $db['user'],
-            $db['pass']);
+            $db['password']);
     },
 
     'pdo.outils' => function (ContainerInterface $container) {
@@ -18,7 +22,7 @@ return [
         return new PDO(
             "{$db['driver']}:host={$db['host']};dbname={$db['dbname']}",
             $db['user'],
-            $db['pass']);
+            $db['password']);
     },
 
     'pdo.reservations' => function (ContainerInterface $container) {
@@ -26,6 +30,14 @@ return [
         return new PDO(
             "{$db['driver']}:host={$db['host']};dbname={$db['dbname']}",
             $db['user'],
-            $db['pass']);
+            $db['password']);
+    },
+
+    OutilsRepositoryInterface::class => function (ContainerInterface $container) {
+        return new OutilsRepository($container->get('pdo.outils'));
+    },
+
+    OutilsServiceInterface::class => function (ContainerInterface $container) {
+        return new OutilsService($container->get(OutilsRepositoryInterface::class));
     }
 ];
