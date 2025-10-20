@@ -1,0 +1,71 @@
+networks:
+  charlymatloc.net:
+    driver: bridge
+
+services:
+  api.charlymatloc:
+    build:
+      context: build
+      dockerfile: 8.4-cli.Dockerfile
+    ports:
+      - "6080:80"
+    volumes:
+      - ./app:/var/php
+    working_dir: /var/php
+    networks:
+      - charlymatloc.net
+    depends_on:
+      - charlyauth.db
+      - charlyoutils.db
+      - charlyreserv.db
+    command: "php -S 0.0.0.0:80 -t /var/php/public"
+
+  charlyauth.db:
+    image: "postgres:latest"
+    env_file: ./charlyauthdb.env
+    ports:
+      - "5432:5432"
+    networks:
+      - charlymatloc.net
+    volumes:
+      - ./sql:/var/sql
+
+  charlyoutils.db:
+    image: "postgres:latest"
+    env_file: ./charlyoutilsdb.env
+    ports:
+      - "5434:5432"
+    networks:
+      - charlymatloc.net
+    volumes:
+      - ./sql:/var/sql
+
+  charlyreserv.db:
+    image: "postgres:latest"
+    env_file: ./charlyreservdb.env
+    ports:
+      - "5433:5432"
+    networks:
+      - charlymatloc.net
+    volumes:
+      - ./sql:/var/sql
+
+  #
+  # service administration des bases sql
+  #
+  adminer:
+    image: adminer
+    ports:
+      - "8080:8080"
+    networks:
+      - charlymatloc.net
+
+  composer:
+    image: composer:2.8.6
+    command: ["composer", "install"]
+    networks:
+      - charlymatloc.net
+    volumes:
+      - ./app:/app
+    depends_on:
+      - api.charlymatloc
