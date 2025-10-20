@@ -24,7 +24,7 @@ class OutilsRepository implements OutilsRepositoryInterface
         $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $outils = [];
         foreach ($rows as $row) {
-            $outils[] = new Outil($row['id_outil'], $row['id_categorie'], $row['nom'], $row['description'], $row['prix_journalier'], $row['image_url']);
+            $outils[] = new Outil($row['id_outil'], $row['id_categorie'], $row['nom'], $row['description'], $row['prix_journalier'], $row['image_url'], $row['stock']);
         }
         return $outils;
     }
@@ -39,7 +39,7 @@ class OutilsRepository implements OutilsRepositoryInterface
         if ($row ===false) {
             throw new OutilNotFoundException($id);
         }
-        return new Outil($row['id_outil'], $row['id_categorie'], $row['nom'], $row['description'], $row['prix_journalier'], $row['image_url']);
+        return new Outil($row['id_outil'], $row['id_categorie'], $row['nom'], $row['description'], $row['prix_journalier'], $row['image_url'], $row['stock']);
     }
 
     public function findCategorieById(int $id): Categorie

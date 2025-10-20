@@ -22,7 +22,8 @@ class OutilsService implements OutilsServiceInterface
         foreach ($outils as $outil){
             $outilsDTO[] = new OutilListeDTO(
                 $outil->getNom(),
-                $outil->getImage()
+                $outil->getImage(),
+                $outil->getStock()
             );
         }
         return $outilsDTO;
@@ -35,6 +36,7 @@ class OutilsService implements OutilsServiceInterface
         return new OutilAfficheDTO(
             $outil->getNom(),
             $outil->getImage(),
+            $outil->getStock(),
             $outil->getDescription(),
             $categorie->getNom(),
             $outil->getPrix()
