@@ -6,7 +6,7 @@ class Reservation
 {
     private string $id;
     private string $user_id;
-    private array $outils;
+    private array $outils; // array of outil ids or objects
     private string $date_debut;
     private string $date_fin;
     private string $date_creation;

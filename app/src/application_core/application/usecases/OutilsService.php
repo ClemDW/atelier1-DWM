@@ -5,13 +5,17 @@ namespace charlymatloc\core\application\usecases;
 use charlymatloc\core\application\ports\api\dtos\OutilListeDTO;
 use charlymatloc\core\application\ports\api\serviceinterfaces\OutilsServiceInterface;
 use charlymatloc\core\application\ports\spi\repositoryInterfaces\OutilsRepositoryInterface;
+use charlymatloc\core\application\ports\spi\repositoryInterfaces\ReservRepositoryInterface;
 use charlymatloc\core\application\ports\api\dtos\OutilAfficheDTO;
 
 class OutilsService implements OutilsServiceInterface
 {
     private OutilsRepositoryInterface $outilsRepository;
-    public function __construct(OutilsRepositoryInterface $outilsRepository){
+    private ReservRepositoryInterface $reservRepository;
+
+    public function __construct(OutilsRepositoryInterface $outilsRepository, ReservRepositoryInterface $reservRepository){
         $this->outilsRepository = $outilsRepository;
+        $this->reservRepository = $reservRepository;
     }
 
 
@@ -48,8 +52,7 @@ class OutilsService implements OutilsServiceInterface
         $outil = $this->outilsRepository->findById($id_outil);
         $stock = $outil->getStock();
 
-        // Count reserved quantities for this outil on this date
-        $reserved = $this->outilsRepository->countReservedOutils($id_outil, $date);
+        $reserved = $this->reservRepository->countReservedOutils($id_outil, $date);
 
         return ($stock - $reserved) > 0;
     }

@@ -3,8 +3,10 @@ declare(strict_types=1);
 
 use charlymatloc\core\application\ports\api\serviceinterfaces\OutilsServiceInterface;
 use charlymatloc\core\application\ports\spi\repositoryInterfaces\OutilsRepositoryInterface;
+use charlymatloc\core\application\ports\spi\repositoryInterfaces\ReservRepositoryInterface;
 use charlymatloc\core\application\usecases\OutilsService;
 use charlymatloc\infra\repositories\OutilsRepository;
+use charlymatloc\infra\repositories\ReservRepository;
 use Psr\Container\ContainerInterface;
 
 return [
@@ -37,7 +39,11 @@ return [
         return new OutilsRepository($container->get('pdo.outils'));
     },
 
+    ReservRepositoryInterface::class => function (ContainerInterface $container) {
+        return new ReservRepository($container->get('pdo.reservations'));
+    },
+
     OutilsServiceInterface::class => function (ContainerInterface $container) {
-        return new OutilsService($container->get(OutilsRepositoryInterface::class));
+        return new OutilsService($container->get(OutilsRepositoryInterface::class), $container->get(ReservRepositoryInterface::class));
     }
 ];
