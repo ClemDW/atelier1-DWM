@@ -6,6 +6,7 @@ use charlymatloc\core\application\ports\api\dtos\CredentialsDTO;
 use charlymatloc\core\application\ports\api\dtos\InputUserDTO;
 use charlymatloc\core\application\ports\api\dtos\UserDTO;
 use charlymatloc\core\application\ports\api\serviceinterfaces\AuthServiceInterface;
+use charlymatloc\core\application\ports\spi\exceptions\InvalidCredentialsException;
 use charlymatloc\core\application\ports\spi\repositoryInterfaces\AuthRepositoryInterface;
 use \Ramsey\Uuid\Uuid;
 
@@ -25,5 +26,15 @@ class AuthService implements AuthServiceInterface
         $id = Uuid::uuid4();
         $user = $this->authRepository->create($id, $email, $password, $nom, $prenom);
         return new UserDTO($user->getId(), $user->getEmail(), $user->getNom(), $user->getPrenom());
+    }
+
+    public function byCredentials(CredentialsDTO $credentials)
+    {
+        $user = $this->authRepository->findByEmail($credentials->email);
+        if($user->getPassword() == $credentials->password){
+            return new UserDTO($user->getId(), $user->getEmail(), $user->getNom(), $user->getPrenom());
+        }else{
+            throw new InvalidCredentialsException();
+        }
     }
 }

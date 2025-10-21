@@ -9,4 +9,5 @@ use charlymatloc\core\application\ports\api\dtos\UserDTO;
 interface AuthServiceInterface
 {
     public function register(InputUserDTO $inputUserDTO) : UserDTO;
+    public function byCredentials(CredentialsDTO $credentials) : UserDTO;
 }
