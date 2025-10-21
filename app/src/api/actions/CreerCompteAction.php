@@ -18,7 +18,7 @@ class CreerCompteAction{
     {
         $dto = $request->getAttribute('inputUserDTO');
         $this->authService->register($dto);
-        $payload = ['success' => true, 'message' => 'Compte créé'];
+        $payload = ['success' => true, 'message' => 'Compte cree'];
         $response->getBody()->write(json_encode($payload, JSON_PRETTY_PRINT));
         return $response
             ->withHeader('Content-Type', 'application/json')
