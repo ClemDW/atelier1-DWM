@@ -7,15 +7,21 @@
     <link rel="stylesheet" href="css/main.css" />
   </head>
   <body>
+    <header class="header">
+      <div class="header__top">
+        <div class="header__brand">CharlyMatloc</div>
+        <a href="#login" class="login-btn">Connexion</a>
+      </div>
+    </header>
+
+
     <nav class="navbar">
-      <div class="navbar__brand">CharlyMatloc</div>
-      <div class="navbar__spacer"></div>
-      <a href="#home">Home</a>
+      <a href="#home">Accueil</a>
       <a href="#outils">Outils</a>
-      <a href="#login" class="login-btn">Connexion</a>
     </nav>
 
-    <main id="app"></main>
+    <main id="app">
+    </main>
 
     <template id="outils">
       <div class="container">
@@ -34,10 +40,19 @@
       <h2>HOME</h2>
     </template>
 
+    <template id="panier">
+      <h2>Panier</h2>
+    </template>
+
+    <a href="#panier" class="btn-panier">
+      <img src="./img/cart.png" alt="Panier">
+      <span>Panier</span>
+    </a>
+
 
     <footer class="footer">
       <p>&copy; 2025 CharlyMatloc. Tous droits réservés.</p>
     </footer>
-    <script src="js/main.js"></script>
+    <script type="module" src="js/main.js"></script>
   </body>
 </html>
