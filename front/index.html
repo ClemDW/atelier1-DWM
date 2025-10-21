@@ -7,30 +7,37 @@
     <link rel="stylesheet" href="css/main.css" />
   </head>
   <body>
-    <header class="header">
-      <nav class="navbar">
-        <div class="navbar__brand">CharlyMatloc</div>
-        <div class="navbar__spacer"></div>
-        <button class="login-btn">Connexion</button>
-      </nav>
-    </header>
+    <nav class="navbar">
+      <div class="navbar__brand">CharlyMatloc</div>
+      <div class="navbar__spacer"></div>
+      <a href="#home">Home</a>
+      <a href="#outils">Outils</a>
+      <a href="#login" class="login-btn">Connexion</a>
+    </nav>
 
-    <main class="main">
+    <main id="app"></main>
+
+    <template id="outils">
       <div class="container">
         <aside class="filters">
           <h2>Filtres</h2>
-          <!-- Interface de filtres à ajouter ici -->
+          
         </aside>
         <section id="outils" class="tools-section">
           <h2>Outils disponibles</h2>
           <div id="toolsList" class="tools-grid"></div>
         </section>
       </div>
-    </main>
+    </template>
+
+    <template id="home">
+      <h2>HOME</h2>
+    </template>
+
 
     <footer class="footer">
       <p>&copy; 2025 CharlyMatloc. Tous droits réservés.</p>
     </footer>
-    <script type="module" src="js/main.js"></script>
+    <script src="js/main.js"></script>
   </body>
 </html>

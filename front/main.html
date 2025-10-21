@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Mini SPA HTML</title>
+  <style>
+    nav a { margin: 10px; color: blue; text-decoration: none; }
+    nav a.active { font-weight: bold; }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="#home">Accueil</a>
+    <a href="#about">À propos</a>
+    <a href="#contact">Contact</a>
+  </nav>
+
+  <main id="app"></main>
+
+  <!-- Templates -->
+  <template id="home">
+    <h2>Bienvenue sur la page d'accueil</h2>
+    <p>Ceci est la page principale de notre application.</p>
+  </template>
+
+  <template id="about">
+    <h2>À propos</h2>
+    <p>Cette application est une démonstration d'une SPA sans framework.</p>
+  </template>
+
+  <template id="contact">
+    <h2>Contact</h2>
+    <p>Tu peux nous contacter à <b>contact@example.com</b>.</p>
+  </template>
+
+  <script>
+    const app = document.getElementById('app');
+    const links = document.querySelectorAll('nav a');
+
+    function render(route) {
+      const template = document.getElementById(route);
+      if (template) {
+        app.innerHTML = '';
+        app.appendChild(template.content.cloneNode(true));
+        links.forEach(link => {
+          link.classList.toggle('active', link.getAttribute('href') === `#${route}`);
+        });
+      } else {
+        app.innerHTML = '<h2>404 - Page non trouvée</h2>';
+      }
+    }
+
+    window.addEventListener('hashchange', () => {
+      const route = location.hash.substring(1) || 'home';
+      render(route);
+    });
+
+    // Afficher la page par défaut
+    render(location.hash.substring(1) || 'home');
+  </script>
+</body>
+</html>
