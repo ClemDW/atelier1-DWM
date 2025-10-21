@@ -1,9 +1,13 @@
 <?php
 declare(strict_types=1);
 
+use charlymatloc\core\application\ports\api\serviceinterfaces\AuthServiceInterface;
 use charlymatloc\core\application\ports\api\serviceinterfaces\OutilsServiceInterface;
+use charlymatloc\core\application\ports\spi\repositoryInterfaces\AuthRepositoryInterface;
 use charlymatloc\core\application\ports\spi\repositoryInterfaces\OutilsRepositoryInterface;
+use charlymatloc\core\application\usecases\AuthService;
 use charlymatloc\core\application\usecases\OutilsService;
+use charlymatloc\infra\repositories\AuthRepository;
 use charlymatloc\infra\repositories\OutilsRepository;
 use Psr\Container\ContainerInterface;
 
@@ -39,5 +43,13 @@ return [
 
     OutilsServiceInterface::class => function (ContainerInterface $container) {
         return new OutilsService($container->get(OutilsRepositoryInterface::class));
+    },
+
+    AuthRepositoryInterface::class => function (ContainerInterface $container) {
+        return new AuthRepository($container->get('pdo.auth'));
+    },
+
+    AuthServiceInterface::class => function (ContainerInterface $container) {
+        return new AuthService($container->get(AuthRepositoryInterface::class));
     }
 ];
