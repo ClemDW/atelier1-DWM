@@ -17,7 +17,7 @@ class VerifierDisponibiliteAction
 
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response, array $args)
     {
-        $id_outil = (int) $args['id'];
+        $id_outil = (string) $args['id'];
         $queryParams = $request->getQueryParams();
         $date = $queryParams['date'] ?? null;
 

@@ -12,7 +12,7 @@ class OutilAfficheDTO
     public string $categorie;
     public float $prix;
 
-    public function __construct(int $id, string $nom, string $image, int $stock, string $description, string $categorie, float $prix){
+    public function __construct(string $id, string $nom, string $image, int $stock, string $description, string $categorie, float $prix){
         $this->id = $id;
         $this->nom = $nom;
         $this->image = $image;
