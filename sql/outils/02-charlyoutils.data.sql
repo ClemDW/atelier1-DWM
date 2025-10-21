@@ -1,33 +1,43 @@
 INSERT INTO public.categories (nom_categorie) VALUES
-('Maçonnerie'),
-('Jardinage'),
-('Électricité'),
-('Menuiserie'),
-('Plomberie');
+('Bétionnière'),
+('Marteau-piqueur'),
+('Carroteuse'),
+('Niveau laser'),
+('Tondeuse'),
+('Motoculteur'),
+('Taille-haie'),
+('Débrousailleuse'),
+('Générateur Électrique'),
+('Testeur de Câbles'),
+('Pince à Sertir'),
+('Thermomètre'),
+('Scie Circulaire'),
+('Ponceuse'),
+('Cloueur'),
+('Raboteuse'),
+('Caméra'),
+('Soudeuse PVC'),
+('Furet');
 
-INSERT INTO public.outils (id_categorie, nom, description, prix_journalier, image_url, stock) VALUES
--- Maçonnerie (ID 1)
-((SELECT id_categorie FROM categories WHERE nom_categorie = 'Maçonnerie'), 'Bétonnière 180L', 'Mélangeur professionnel pour ciment et mortier.', 35.00, 'img/betonniere.jpg', 2),
-((SELECT id_categorie FROM categories WHERE nom_categorie = 'Maçonnerie'), 'Marteau-piqueur 10kg', 'Démolisseur puissant pour dalles et murs.', 45.00, 'img/marteau-piqueur.jpg', 3),
-((SELECT id_categorie FROM categories WHERE nom_categorie = 'Maçonnerie'), 'Carotteuse Diamant', 'Machine pour percer des trous dans le béton armé.', 60.00, 'img/carotteuse.jpg', 4),
-((SELECT id_categorie FROM categories WHERE nom_categorie = 'Maçonnerie'), 'Niveau Laser Rotatif', 'Niveau automatique pour travaux de grande envergure.', 25.00, 'img/niveau-laser.jpg', 3),
--- Jardinage (ID 2)
-((SELECT id_categorie FROM categories WHERE nom_categorie = 'Jardinage'), 'Tondeuse Autoportée', 'Tondeuse pour grands terrains, largeur de coupe 100cm.', 75.00, 'img/tondeuse-autoportee.jpg', 5),
-((SELECT id_categorie FROM categories WHERE nom_categorie = 'Jardinage'), 'Motoculteur 7CV', 'Pour retourner et préparer la terre avant plantation.', 40.00, 'img/motoculteur.jpg', 5),
-((SELECT id_categorie FROM categories WHERE nom_categorie = 'Jardinage'), 'Taille-haie Télescopique', 'Pour couper les haies en hauteur sans échelle.', 18.50, 'img/taille-haie.jpg', 8),
-((SELECT id_categorie FROM categories WHERE nom_categorie = 'Jardinage'), 'Débroussailleuse Pro', 'Pour nettoyer les terrains encombrés de broussailles.', 30.00, 'img/debroussailleuse.jpg', 10),
--- Électricité (ID 3)
-((SELECT id_categorie FROM categories WHERE nom_categorie = 'Électricité'), 'Générateur Électrique 3kW', 'Source d''alimentation portable pour chantiers.', 55.00, 'img/generateur.jpg', 4),
-((SELECT id_categorie FROM categories WHERE nom_categorie = 'Électricité'), 'Testeur de Câbles RJ45', 'Pour vérifier la continuité des réseaux informatiques.', 8.00, 'img/testeur-rj45.jpg', 15),
-((SELECT id_categorie FROM categories WHERE nom_categorie = 'Électricité'), 'Pince à Sertir Hydraulique', 'Pour cosses électriques de gros diamètre.', 22.00, 'img/pince-sertir.jpg', 15),
-((SELECT id_categorie FROM categories WHERE nom_categorie = 'Électricité'), 'Thermomètre Infrarouge', 'Pour la détection de points chauds et froids.', 15.00, 'img/thermo-ir.jpg', 15),
--- Menuiserie (ID 4)
-((SELECT id_categorie FROM categories WHERE nom_categorie = 'Menuiserie'), 'Scie Circulaire Plongeante', 'Pour coupes précises dans panneaux et bois massifs.', 28.50, 'img/scie-plongeante.jpg', 5),
-((SELECT id_categorie FROM categories WHERE nom_categorie = 'Menuiserie'), 'Ponceuse à Bande Pro', 'Pour le ponçage rapide de grandes surfaces en bois.', 20.00, 'img/ponceuse-bande.jpg', 7),
-((SELECT id_categorie FROM categories WHERE nom_categorie = 'Menuiserie'), 'Cloueur Pneumatique', 'Pour l''assemblage rapide de charpentes et planchers.', 33.00, 'img/cloueur.jpg', 5),
-((SELECT id_categorie FROM categories WHERE nom_categorie = 'Menuiserie'), 'Raboteuse-Dégauchisseuse', 'Machine pour mettre le bois d''équerre.', 70.00, 'img/raboteuse.jpg', 6),
--- Plomberie (ID 5)
-((SELECT id_categorie FROM categories WHERE nom_categorie = 'Plomberie'), 'Caméra d''Inspection 20m', 'Pour visualiser l''intérieur des canalisations.', 40.50, 'img/camera-plomberie.jpg', 5),
-((SELECT id_categorie FROM categories WHERE nom_categorie = 'Plomberie'), 'Soudeuse PVC Électrique', 'Pour l''assemblage par fusion de tubes plastiques.', 24.00, 'img/soudeuse-pvc.jpg', 10),
-((SELECT id_categorie FROM categories WHERE nom_categorie = 'Plomberie'), 'Furet Électrique', 'Pour déboucher les canalisations fortement obstruées.', 38.00, 'img/furet-electrique.jpg', 15),
-((SELECT id_categorie FROM categories WHERE nom_categorie = 'Plomberie'), 'Pince à Sertir Multicouche', 'Pour la pose de raccords multicouches.', 26.00, 'img/pince-multicouche.jpg', 15);
+
+INSERT INTO public.outils (id_categorie, id_outil, nom, description, prix_journalier, image_url) VALUES
+((SELECT id_categorie FROM categories WHERE nom_categorie = 'Bétionnière'), '2cd179a8-d38d-441e-a31b-d88a6611cea1', 'Bétonnière 180L', 'Mélangeur professionnel pour ciment et mortier.', 35.00, 'img/betonniere.jpg'),
+((SELECT id_categorie FROM categories WHERE nom_categorie = 'Marteau-piqueur'), '19ff8036-6f39-4414-a70e-043684b7e7ef', 'Marteau-piqueur 10kg', 'Démolisseur puissant pour dalles et murs.', 45.00, 'img/marteau-piqueur.jpg'),
+((SELECT id_categorie FROM categories WHERE nom_categorie = 'Carroteuse'), '0d13b42e-c5e4-4df1-bd7f-94dd71879f54', 'Carotteuse Diamant', 'Machine pour percer des trous dans le béton armé.', 60.00, 'img/carotteuse.jpg'),
+((SELECT id_categorie FROM categories WHERE nom_categorie = 'Niveau laser'), 'f8020548-022e-4009-8354-58c0aeafd5a7', 'Niveau Laser Rotatif', 'Niveau automatique pour travaux de grande envergure.', 25.00, 'img/niveau-laser.jpg'),
+((SELECT id_categorie FROM categories WHERE nom_categorie = 'Tondeuse'), '7cc2c89b-50c4-41a1-9ba3-8cb7bb49ee34', 'Tondeuse Autoportée', 'Tondeuse pour grands terrains, largeur de coupe 100cm.', 75.00, 'img/tondeuse-autoportee.jpg'),
+((SELECT id_categorie FROM categories WHERE nom_categorie = 'Motoculteur'), 'c0d6da57-8f53-44c7-b588-609fca6793ff', 'Motoculteur 7CV', 'Pour retourner et préparer la terre avant plantation.', 40.00, 'img/motoculteur.jpg'),
+((SELECT id_categorie FROM categories WHERE nom_categorie = 'Taille-haie'), 'ba7659c9-0d4b-49ac-8fab-84be56cd5d6d', 'Taille-haie Télescopique', 'Pour couper les haies en hauteur sans échelle.', 18.50, 'img/taille-haie.jpg'),
+((SELECT id_categorie FROM categories WHERE nom_categorie = 'Débrousailleuse'), 'd4eb93d9-2d59-4fdc-90cf-42eeb2d2cca6', 'Débroussailleuse Pro', 'Pour nettoyer les terrains encombrés de broussailles.', 30.00, 'img/debroussailleuse.jpg'),
+((SELECT id_categorie FROM categories WHERE nom_categorie = 'Générateur Électrique'), '0652ec54-022a-45ed-8f2a-efbb29c728a0', 'Générateur Électrique 3kW', 'Source d''alimentation portable pour chantiers.', 55.00, 'img/generateur.jpg'),
+((SELECT id_categorie FROM categories WHERE nom_categorie = 'Testeur de Câbles'), 'bb295f57-3291-4c8f-830a-6bf53bf0c480', 'Testeur de Câbles RJ45', 'Pour vérifier la continuité des réseaux informatiques.', 8.00, 'img/testeur-rj45.jpg'),
+((SELECT id_categorie FROM categories WHERE nom_categorie = 'Pince à Sertir'), 'ef8b9c95-fb78-4f64-a192-7672c8090ba0', 'Pince à Sertir', 'Pour cosses électriques de gros diamètre.', 22.00, 'img/pince-sertir.jpg'),
+((SELECT id_categorie FROM categories WHERE nom_categorie = 'Thermomètre'), 'e2e48724-5e0f-49a6-ba50-e12d975c396f', 'Thermomètre Infrarouge', 'Pour la détection de points chauds et froids.', 15.00, 'img/thermo-ir.jpg'),
+((SELECT id_categorie FROM categories WHERE nom_categorie = 'Scie Circulaire'), '3efdba80-c65d-418f-86f2-923931eb5263', 'Scie Circulaire Plongeante', 'Pour coupes précises dans panneaux et bois massifs.', 28.50, 'img/scie-plongeante.jpg'),
+((SELECT id_categorie FROM categories WHERE nom_categorie = 'Ponceuse'), 'b93687ec-dfdb-4997-a7de-8c1b1242987d', 'Ponceuse à Bande Pro', 'Pour le ponçage rapide de grandes surfaces en bois.', 20.00, 'img/ponceuse-bande.jpg'),
+((SELECT id_categorie FROM categories WHERE nom_categorie = 'Cloueur'), '7d1f1242-c039-4ed1-bb32-d15d8f0bc50d', 'Cloueur Pneumatique', 'Pour l''assemblage rapide de charpentes et planchers.', 33.00, 'img/cloueur.jpg'),
+((SELECT id_categorie FROM categories WHERE nom_categorie = 'Raboteuse'), 'a75a3e1f-250c-405e-8831-7bed1ba95724', 'Raboteuse', 'Machine pour mettre le bois d''équerre.', 70.00, 'img/raboteuse.jpg'),
+((SELECT id_categorie FROM categories WHERE nom_categorie = 'Caméra'), '871df92d-6b27-4210-8c73-1dfdd8527c19', 'Caméra d''Inspection 20m', 'Pour visualiser l''intérieur des canalisations.', 40.50, 'img/camera-plomberie.jpg'),
+((SELECT id_categorie FROM categories WHERE nom_categorie = 'Soudeuse PVC'), 'be83c120-a04e-41e6-9d4a-b7e12d1a6c18', 'Soudeuse PVC Électrique', 'Pour l''assemblage par fusion de tubes plastiques.', 24.00, 'img/soudeuse-pvc.jpg'),
+((SELECT id_categorie FROM categories WHERE nom_categorie = 'Furet'), 'a062b6fe-b3f1-48f9-b465-72bc85e2152a', 'Furet Électrique', 'Pour déboucher les canalisations fortement obstruées.', 38.00, 'img/furet-electrique.jpg'),
+((SELECT id_categorie FROM categories WHERE nom_categorie = 'Pince à Sertir'), '383b27ec-f95e-4cb3-ada7-a855636c4508', 'Pince à Sertir Multicouche', 'Pour la pose de raccords multicouches.', 26.00, 'img/pince-multicouche.jpg');
