@@ -1,3 +1,4 @@
+import Panier from './panier.js';
 const app = document.getElementById('app');
 const links = document.querySelectorAll('nav a');
 
@@ -85,12 +86,20 @@ function loadToolDetails(id) {
         <div class="tool-detail-card">
           <img src="${tool.image}" alt="${tool.nom}">
           <h2>${tool.nom}</h2>
+          <p>${tool.stock}</p>
           <p><strong>Description:</strong> ${tool.description}</p>
           <p><strong>Catégorie:</strong> ${tool.categorie}</p>
           <p><strong>Prix:</strong> ${tool.prix} €/jour</p>
+          <button class="plus">+</button>
+          <text class="quantity">1</text>
+          <button class="minus">-</button>
+          <input type="date" class="date-debut">
+          <input type="date" class="date-fin">
+          <button class="ajout-panier">Ajouter au panier</button>
           <a href="#outils" class="btn">Retour</a>
         </div>
       `;
+        buttonListener(tool);
       })
       .catch(error => {
         console.error("Erreur lors du chargement de l'outil :", error);
@@ -98,3 +107,37 @@ function loadToolDetails(id) {
       });
 }
 
+function buttonListener(tool) {
+    const ajoutPanier = document.querySelector('.ajout-panier');
+    const quantity = document.querySelector('.quantity');
+    const dateDebut = document.querySelector('.date-debut');
+    const dateFin = document.querySelector('.date-fin');
+    const plus = document.querySelector('.plus');
+    const minus = document.querySelector('.minus');
+    let quantite = parseInt(quantity.textContent);
+
+    ajoutPanier.addEventListener('click', () => {
+        const outil = {
+            id: tool.id,
+            nom: tool.nom,
+            image: tool.image,
+            prix: tool.prix,
+        };
+        Panier.ajouterOutil(outil, dateDebut.value, dateFin.value, quantite);
+    })
+
+    plus.addEventListener('click', ()=>{
+        console.log(quantite);
+        if(quantite < tool.stock) {
+            quantite = quantite + 1;
+            quantity.innerHTML = parseInt(quantity.textContent) + 1;
+        }
+    })
+
+    minus.addEventListener('click', ()=>{
+        if(quantite > 1) {
+            quantite = quantite - 1;
+            quantity.innerHTML = parseInt(quantity.textContent) - 1;
+        }
+    })
+}
