@@ -2,21 +2,33 @@ const app = document.getElementById('app');
 const links = document.querySelectorAll('nav a');
 
 function render(route) {
-  const template = document.getElementById(route);
-  if (template) {
+    const [baseRoute, param] = route.split('/');
+    let templateId = baseRoute;
+
+    if (baseRoute === 'outils' && param) {
+        templateId = 'outil';
+    }
+
+    const template = document.getElementById(templateId);
+
+    if (!template) {
+        app.innerHTML = '<h2>404 - Page non trouvée</h2>';
+        return;
+    }
+
     app.innerHTML = '';
     app.appendChild(template.content.cloneNode(true));
     links.forEach(link => {
-      link.classList.toggle('active', link.getAttribute('href') === `#${route}`);
+        link.classList.toggle('active', link.getAttribute('href') === `#${baseRoute}`);
     });
 
-    if (route === 'outils') {
-      loadTools();
+    if (baseRoute === 'outils') {
+        if (param) {
+            loadToolDetails(param);
+        } else {
+            loadTools();
+        }
     }
-
-  } else {
-    app.innerHTML = '<h2>404 - Page non trouvée</h2>';
-  }
 }
 
 window.addEventListener('hashchange', () => {
@@ -49,10 +61,40 @@ function displayTools(tools, container) {
     const toolCard = document.createElement("div");
     toolCard.classList.add("tool-card");
     toolCard.innerHTML = `
-      <img src="${tool.image || "assets/images/default-tool.svg"}" alt="${tool.nom}">
-      <h3>${tool.nom}</h3>
-      <p>Stock: ${tool.stock}</p>
+      <a href="#outils/${tool.id}">
+        <img src="${tool.image || "assets/images/default-tool.svg"}" alt="${tool.nom}">
+        <h3>${tool.nom}</h3>
+        <p>Stock: ${tool.stock}</p>
+      </a>
     `;
     container.appendChild(toolCard);
   });
 }
+
+function loadToolDetails(id) {
+  const detailContainer = document.getElementById("outilDetail");
+  const apiUrl = `http://localhost:6080/outils/${id}`;
+
+  fetch(apiUrl)
+      .then(response => {
+        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+        return response.json();
+      })
+      .then(tool => {
+        detailContainer.innerHTML = `
+        <div class="tool-detail-card">
+          <img src="${tool.image}" alt="${tool.nom}">
+          <h2>${tool.nom}</h2>
+          <p><strong>Description:</strong> ${tool.description}</p>
+          <p><strong>Catégorie:</strong> ${tool.categorie}</p>
+          <p><strong>Prix:</strong> ${tool.prix} €/jour</p>
+          <a href="#outils" class="btn">Retour</a>
+        </div>
+      `;
+      })
+      .catch(error => {
+        console.error("Erreur lors du chargement de l'outil :", error);
+        detailContainer.innerHTML = `<p>Impossible de charger les détails de l'outil.</p>`;
+      });
+}
+
