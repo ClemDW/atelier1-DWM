@@ -18,7 +18,15 @@ class OutilsRepository implements OutilsRepositoryInterface
     }
     public function findAll(): array
     {
-        $sql = "SELECT * FROM outils";
+        $sql = "SELECT 
+        o.id_outil,
+        o.id_categorie, 
+        o.nom, 
+        o.description, 
+        o.prix_journalier, 
+        o.image_url,
+        (SELECT COUNT(*) FROM outils o2 WHERE o2.id_categorie = o.id_categorie) as stock
+    FROM outils o";
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute();
         $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -28,6 +36,7 @@ class OutilsRepository implements OutilsRepositoryInterface
         }
         return $outils;
     }
+
 
     public function findById(int $id): Outil
     {

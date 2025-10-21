@@ -4,7 +4,7 @@ namespace charlymatloc\core\domain\entities;
 
 class Outil
 {
-    private int $id;
+    private string $id;
     private int $id_categorie;
     private string $nom;
     private string $description;
@@ -12,7 +12,7 @@ class Outil
     private string $image;
     private int $stock;
 
-    public function __construct(int $id, int $categorie, string $nom, string $description, float $prix, string $image, int $stock){
+    public function __construct(string $id, int $categorie, string $nom, string $description, float $prix, string $image, int $stock){
         $this->id = $id;
         $this->id_categorie = $categorie;
         $this->nom = $nom;
