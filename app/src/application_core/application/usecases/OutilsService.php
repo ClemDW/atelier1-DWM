@@ -34,7 +34,7 @@ class OutilsService implements OutilsServiceInterface
         return $outilsDTO;
     }
 
-    public function AfficherOutil(int $id): OutilAfficheDTO
+    public function AfficherOutil(string $id): OutilAfficheDTO
     {
         $outil = $this->outilsRepository->findById($id);
         $categorie = $this->outilsRepository->findCategorieById($outil->getIdCategorie());
@@ -49,7 +49,7 @@ class OutilsService implements OutilsServiceInterface
         );
     }
 
-    public function isOutilDisponible(int $id_outil, string $date): bool
+    public function isOutilDisponible(string $id_outil, string $date): bool
     {
         $outil = $this->outilsRepository->findById($id_outil);
         $stock = $outil->getStock();

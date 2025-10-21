@@ -38,9 +38,17 @@ class OutilsRepository implements OutilsRepositoryInterface
     }
 
 
-    public function findById(int $id): Outil
+    public function findById(string $id): Outil
     {
-        $sql = "SELECT * FROM outils WHERE id_outil = :id";
+        $sql = "SELECT 
+        o.id_outil,
+        o.id_categorie, 
+        o.nom, 
+        o.description, 
+        o.prix_journalier, 
+        o.image_url,
+        (SELECT COUNT(*) FROM outils o2 WHERE o2.id_categorie = o.id_categorie) as stock
+    FROM outils o WHERE id_outil = :id";
         $stmt = $this->pdo->prepare($sql);
         $stmt->bindParam(':id', $id, PDO::PARAM_STR);
         $stmt->execute();
