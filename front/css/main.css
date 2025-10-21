@@ -1,28 +1,22 @@
 .header {
   background-color: #333;
-  color: white;
-  padding: 2rem 1rem 1.5rem 1rem;
+  padding: 1% 1%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  color: #fff;
 }
 
-.navbar {
+.header__top {
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  justify-content: center;
 }
 
-.navbar__brand {
-  flex: 0 0 auto;
-  font-size: 2rem;
+.header__brand {
+  font-size: 30px;
   font-weight: bold;
 }
 
-.navbar__spacer {
-  flex: 1 1 auto;
-}
-
 .login-btn {
-  flex: 0 0 auto;
-  margin-left: auto;
   background: #fff;
   color: #333;
   border: none;
@@ -30,11 +24,13 @@
   padding: 0.5rem 1.2rem;
   font-size: 1rem;
   font-weight: bold;
+  text-decoration: none;
+  cursor: pointer;
   transition: background 0.2s, color 0.2s;
 }
 
 .login-btn:hover {
-  background: #007bff;
+  background: #585858;
   color: #fff;
 }
 
@@ -79,6 +75,30 @@
     font-size: 0.9rem;
     padding: 0.5rem 0;
   }
+}
+
+.navbar {
+  display: flex;
+  padding: 0.5vh;
+  gap: 20px;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(197, 197, 197);
+}
+
+.navbar a {
+  font-size: 20px;
+  text-decoration: none;
+  color: #333;
+  font-weight: bold;
+  padding: 6px 12px;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+}
+
+.navbar a:hover {
+  background-color: #585858;
+  color: #fff;
 }
 
 body {
@@ -139,6 +159,38 @@ body {
 
 .main {
   padding: 0;
+}
+
+.btn-panier {
+  position: fixed;
+  bottom: 2%;
+  right: 1%;
+  padding: 12px 20px;
+  background-color: #333;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.btn-panier img {
+  width: 32px;
+  height: 32px;
+  margin-bottom: 6px;
+}
+
+.btn-panier span {
+  color: white;
+  font-size: 14px;
 }
 
 /*# sourceMappingURL=main.css.map */
