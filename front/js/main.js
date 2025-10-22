@@ -120,8 +120,8 @@ function buttonListener(tool) {
 
     ajoutPanier.addEventListener('click', () => {
         const outil = {
-            id: tool.id,
-            nom: tool.nom,
+            id: tool.id_categorie,
+            nom: tool.nom_categorie,
             image: tool.image,
             prix: tool.prix,
         };
