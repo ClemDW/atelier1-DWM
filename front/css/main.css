@@ -395,11 +395,12 @@
 }
 
 .page-panier {
-  max-width: 1200px;
+  width: 100%;
   margin: 0 auto;
   padding: 2rem;
 }
-.page-panier h2 {
+.page-panier .title {
+  text-align: center;
   font-size: 2rem;
   color: #333;
   margin-bottom: 1.5rem;
@@ -408,7 +409,7 @@
   .page-panier {
     padding: 1.5rem;
   }
-  .page-panier h2 {
+  .page-panier .title {
     font-size: 1.75rem;
   }
 }
@@ -416,9 +417,55 @@
   .page-panier {
     padding: 1rem;
   }
-  .page-panier h2 {
+  .page-panier .title {
     font-size: 1.5rem;
   }
+}
+
+.panier-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.item-container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.item-icon {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.item-name {
+  font-size: 1.2rem;
+  color: #333;
+  margin: 0;
+}
+
+.btn-action {
+  background-color: #ff7214;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.2s;
+}
+
+.btn-action:hover {
+  background-color: #e06310;
 }
 
 .page-login {

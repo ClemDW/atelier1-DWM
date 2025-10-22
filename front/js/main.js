@@ -30,6 +30,9 @@ function render(route) {
         } else {
             loadTools();
         }
+    } else if (baseRoute === 'panier') {
+        const panierList = document.getElementById("panierList");
+        displayPanier(panierList);
     }
 }
 
@@ -139,4 +142,73 @@ function buttonListener(tool) {
             quantity.innerHTML = parseInt(quantity.textContent) - 1;
         }
     })
+}
+
+
+function displayPanier(container) {  
+  const panierList = document.getElementById("panierList");
+  const cookie = getCookie('panier');
+  const data = parseCookie(cookie);
+  const items = data?.items || null;
+
+  if(items != null){
+  } else {
+    panierList.innerHTML = "<h2>Panier vide</h2>";
+  }
+
+  items.forEach((item) => {
+    const toolCard = document.createElement("div");
+    toolCard.classList.add("panier-card");
+    toolCard.innerHTML = `
+      <div class="item-container">
+        <a href="#outils/${item.id}">
+          <img class="item-icon" src="${item.image || "assets/images/default-tool.svg"}" alt="${item.nom}">
+          <h2 class="item-name">${item.nom}</h2>
+        </a>
+        <button id="delete" class="btn-action">Supprimer</button>
+      </div>
+    `;
+    toolCard.querySelector('.btn-action').addEventListener('click', () => {
+      removeItemFromPanier(item.id);
+    });
+    container.appendChild(toolCard);
+  });
+}
+
+function removeItemFromPanier(id) {
+  const cookie = getCookie('panier');
+  const data = parseCookie(cookie);
+
+  if (!data) return;
+  data.items = data.items.filter(item => item.id !== id);
+
+  setCookie('panier', JSON.stringify(data));
+
+  window.location.reload();
+
+}
+
+function setCookie(name, value, days = 7) {
+  const expires = new Date();
+  expires.setTime(expires.getTime() + days * 24 * 60 * 60 * 1000);
+  document.cookie = `${name}=${encodeURIComponent(value)};expires=${expires.toUTCString()};path=/`;
+}
+
+function getCookie(name) {
+  const cookies = document.cookie.split(';');
+  for (let cookie of cookies) {
+    const [key, value] = cookie.trim().split('=');
+    if (key === name) return decodeURIComponent(value);
+  }
+  return null;
+}
+
+function parseCookie(cookieValue) {
+  if (!cookieValue) return null;
+  try {
+    return JSON.parse(cookieValue);
+  } catch (e) {
+    console.error("Erreur lors du parsing du cookie :", e);
+    return null;
+  }
 }
