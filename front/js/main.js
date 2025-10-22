@@ -1,4 +1,5 @@
 import Panier from './panier.js';
+import { API_URL } from "./config.js";
 const app = document.getElementById('app');
 const links = document.querySelectorAll('nav a');
 
@@ -42,7 +43,7 @@ render(location.hash.substring(1) || 'home');
 
 function loadTools() {
   const toolsList = document.getElementById("toolsList");
-  const apiUrl = "http://localhost:6080/outils";
+  const apiUrl = `${API_URL}/outils`;
 
   fetch(apiUrl)
     .then((response) => {
@@ -74,7 +75,7 @@ function displayTools(tools, container) {
 
 function loadToolDetails(id) {
   const detailContainer = document.getElementById("outilDetail");
-  const apiUrl = `http://localhost:6080/outils/${id}`;
+  const apiUrl = `${API_URL}/outils/${id}`;
 
   fetch(apiUrl)
       .then(response => {
