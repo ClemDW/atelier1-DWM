@@ -24,7 +24,7 @@ class CorsMiddleware{
     private function addCorsHeaders(ResponseInterface $response): ResponseInterface
     {
         return $response
-            ->withHeader('Access-Control-Allow-Origin', 'http://localhost:3000')
+            ->withHeader('Access-Control-Allow-Origin', $_ENV['url'])
             ->withHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept, Origin, Authorization, X-API-Key')
             ->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS')
             ->withHeader('Access-Control-Allow-Credentials', 'true')

@@ -27,7 +27,7 @@ return [
             ]
         ],
         'cors' => [
-            'origin' => ['http://localhost:3000'],
+            'origin' => [$_ENV['url']],
             'methods' => ['GET', 'POST', 'PUT', 'DELETE'],
             'headers.allow' => ['Content-Type', 'Authorization', 'X-Requested-With'],
         ]
