@@ -7,7 +7,15 @@ use charlymatloc\core\domain\entities\Outil;
 
 interface OutilsRepositoryInterface
 {
-    public function findAll(): array;
+
+    // Outils //
+
     public function findById(string $id): Outil;
+
+    // Catégories //
+
+    public function findAllCategories(): array;
     public function findCategorieById(int $id): Categorie;
+    public function calculateStock(int $id_categorie): int;
+
 }

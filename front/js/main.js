@@ -85,11 +85,9 @@ function loadToolDetails(id) {
       .then(tool => {
         detailContainer.innerHTML = `
         <div class="tool-detail-card">
-          <img src="${tool.image}" alt="${tool.nom}">
-          <h2>${tool.nom}</h2>
-          <p>${tool.stock}</p>
+          <img src="${tool.image}" alt="${tool.nom_categorie}">
+          <h2>${tool.nom_categorie}</h2>
           <p><strong>Description:</strong> ${tool.description}</p>
-          <p><strong>Catégorie:</strong> ${tool.categorie}</p>
           <p><strong>Prix:</strong> ${tool.prix} €/jour</p>
           <button class="plus">+</button>
           <text class="quantity">1</text>
