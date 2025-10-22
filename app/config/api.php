@@ -8,6 +8,8 @@ use charlymatloc\api\actions\ListerOutillagesAction;
 use charlymatloc\core\application\ports\api\serviceinterfaces\AuthServiceInterface;
 use charlymatloc\api\actions\AjouterAuPanierAction;
 use charlymatloc\api\actions\VerifierDisponibiliteAction;
+use charlymatloc\api\actions\AfficherHistoriqueAction;
+use charlymatloc\core\application\ports\api\serviceinterfaces\ReservServiceInterface;
 
 use charlymatloc\core\application\ports\api\serviceinterfaces\OutilsServiceInterface;
 
@@ -32,6 +34,11 @@ return [
     VerifierDisponibiliteAction::class => function($container){
         return new VerifierDisponibiliteAction($container->get(OutilsServiceInterface::class));
     },
+
+    AfficherHistoriqueAction::class => function($container){
+        return new AfficherHistoriqueAction($container->get(ReservServiceInterface::class));
+    },
+
 
     AjouterAuPanierAction::class => function($container){
         return new AjouterAuPanierAction($container->get(OutilsServiceInterface::class));
