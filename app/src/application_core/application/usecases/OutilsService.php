@@ -2,11 +2,11 @@
 
 namespace charlymatloc\core\application\usecases;
 
-use charlymatloc\core\application\ports\api\dtos\CategorieListeDTO;
+use charlymatloc\core\application\ports\api\dtos\OutillageAfficheDTO;
+use charlymatloc\core\application\ports\api\dtos\OutillageListeDTO;
 use charlymatloc\core\application\ports\api\serviceinterfaces\OutilsServiceInterface;
 use charlymatloc\core\application\ports\spi\repositoryInterfaces\OutilsRepositoryInterface;
 use charlymatloc\core\application\ports\spi\repositoryInterfaces\ReservRepositoryInterface;
-use charlymatloc\core\application\ports\api\dtos\CategorieAfficheDTO;
 
 class OutilsService implements OutilsServiceInterface
 {
@@ -19,37 +19,38 @@ class OutilsService implements OutilsServiceInterface
     }
 
 
-    public function ListerOutils(): array
+    public function ListerOutillages(): array
     {
-        $categories = $this->outilsRepository->findAllCategories();
-        $categoriesDTO = [];
+        $outillages = $this->outilsRepository->findAllOutillages();
+        $outillagesDTO = [];
 
-        foreach ($categories as $categorie) {
-            $stock = $this->outilsRepository->calculateStock($categorie->getIdCategorie());
+        foreach ($outillages as $outillage) {
+            $stock = $this->outilsRepository->calculateStock($outillage->getIdOutillage());
 
-            $categoriesDTO[] = new CategorieListeDTO(
-                $categorie->getIdCategorie(),
-                $categorie->getNomCategorie(),
-                $categorie->getImage(),
+            $outillagesDTO[] = new OutillageListeDTO(
+                $outillage->getIdOutillage(),
+                $outillage->getNomOutillage(),
+                $outillage->getImageUrl(),
                 $stock
             );
         }
 
-        return $categoriesDTO;
+        return $outillagesDTO;
     }
 
-    public function AfficherOutil(string $id): CategorieAfficheDTO
+    public function AfficherOutillage(string $id): OutillageAfficheDTO
     {
-        $outil = $this->outilsRepository->findCategorieById($id);
-        return new CategorieAfficheDTO(
-            $outil->getIdCategorie(),
-            $outil->getNomCategorie(),
-            $outil->getDescription(),
-            $outil->getPrix(),
-            $outil->getImage()
+        $outillage = $this->outilsRepository->findOutillageById($id);
+        return new OutillageAfficheDTO(
+            $outillage->getIdOutillage(),
+            $outillage->getNomOutillage(),
+            $outillage->getDescription(),
+            $outillage->getPrixJournalier(),
+            $outillage->getImageUrl()
         );
     }
 
+    /**  a  voir plus tard
     public function isOutilDisponible(string $id_outil, string $date): bool
     {
         $outil = $this->outilsRepository->findById($id_outil);
@@ -59,4 +60,5 @@ class OutilsService implements OutilsServiceInterface
 
         return ($stock - $reserved) > 0;
     }
+     */
 }

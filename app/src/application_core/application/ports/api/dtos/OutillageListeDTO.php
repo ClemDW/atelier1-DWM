@@ -2,7 +2,7 @@
 
 namespace charlymatloc\core\application\ports\api\dtos;
 
-class CategorieListeDTO
+class OutillageListeDTO
 {
     public string $id;
     public string $nom;
@@ -16,3 +16,4 @@ class CategorieListeDTO
         $this->stock = $stock;
     }
 }
+
