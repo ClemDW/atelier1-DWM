@@ -1,13 +1,12 @@
 {
-
-  "require" : {
+  "require": {
     "php": ">=8.2",
     "slim/slim": "^4.14",
     "slim/psr7": "^1.7",
     "ramsey/uuid": "^4.7",
     "firebase/php-jwt": "^6.10",
     "monolog/monolog": "^3.7",
-    "fakerphp/faker":"^1.23",
+    "fakerphp/faker": "^1.23",
     "php-di/php-di": "^7.0",
     "php-di/slim-bridge": "^3.4",
     "respect/validation": "^2.3.7",
@@ -21,10 +20,10 @@
     "phpstan/phpstan": "^1.11"
   },
   "autoload": {
-    "psr-4" : {
-      "charlymatloc\\api\\" : "./src/api",
-      "charlymatloc\\core\\" : "./src/application_core",
-      "charlymatloc\\infra\\" : "./src/infrastructure"
+    "psr-4": {
+      "charlymatloc\\api\\": "./src/api",
+      "charlymatloc\\core\\": "./src/application_core",
+      "charlymatloc\\infra\\": "./src/infrastructure"
     }
   }
 }
