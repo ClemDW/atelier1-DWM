@@ -48,7 +48,7 @@ return [
     },
 
     OutilsServiceInterface::class => function (ContainerInterface $container) {
-        return new OutilsService($container->get(OutilsRepositoryInterface::class));
+        return new OutilsService($container->get(OutilsRepositoryInterface::class), $container->get(ReservRepositoryInterface::class));
     },
 
     AuthRepositoryInterface::class => function (ContainerInterface $container) {

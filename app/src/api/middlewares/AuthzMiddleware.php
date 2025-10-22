@@ -18,8 +18,8 @@ class AuthzMiddleware implements MiddlewareInterface
     }
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
-        $payload = $request->getParsedBody();
-        $token = $payload['access_token'];
+        $header = $request->getHeaderLine('Authorization');
+        $token = sscanf($header, 'Bearer %s')[0];
         if($token == null){
             $response = new \Slim\Psr7\Response();
             $response->getBody()->write('Token manquant');

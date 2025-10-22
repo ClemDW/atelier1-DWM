@@ -18,7 +18,12 @@ class AuthnProvider implements AuthnProviderInterface
     public function signin(CredentialsDTO $credentials)
     {
         $user = $this->authService->byCredentials($credentials);
-        $user = json_encode($user);
+        $user = [
+            'id' => $user->id,
+            'email' => $user->email,
+            'nom' => $user->nom,
+            'prenom' => $user->prenom,
+        ];
         $accessToken = $this->jwtManager->createAccessToken((array)$user);
         $refreshToken = $this->jwtManager->createRefreshToken((array)$user);
         return [

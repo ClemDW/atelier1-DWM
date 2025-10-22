@@ -8,7 +8,13 @@ use Firebase\JWT\Key;
 
 class JWTManager{
 
-    public function createAccessToken(array $payload): string{
+    public function createAccessToken(array $p): string{
+        $payload['user'] = [
+            'id' => $p['id'],
+            'email' => $p['email'],
+            'nom' => $p['nom'],
+            'prenom' => $p['prenom']
+        ];
         $payload['exp'] = time() + 15 * 60;
         return JWT::encode($payload, $_ENV['JWT_SECRET'], 'HS256');
     }
@@ -20,9 +26,29 @@ class JWTManager{
     }
 
     public function decodeToken(string $token): UserDTO{
-        $token = sscanf($token, 'Bearer %s');
-        $payload = JWT::decode($token[1], new Key($_ENV['JWT_SECRET'], 'HS256'));
-        $user = new UserDTO($payload->id, $payload->email, $payload->nom, $payload->prenom);
-        return $user;
+        try {
+            $token = trim($token);
+
+            if (str_starts_with($token, 'Bearer ')) {
+                $token = substr($token, 7);
+            }
+
+            if (empty($token)) {
+                throw new \InvalidArgumentException('Token cannot be empty');
+            }
+
+            $payload = JWT::decode($token, new Key($_ENV['JWT_SECRET'], 'HS256'));
+            $payloadUser = $payload->user;
+            $user = new UserDTO(
+                $payloadUser->id,
+                $payloadUser->email,
+                $payloadUser->nom,
+                $payloadUser->prenom
+            );
+
+            return $user;
+        } catch (\Exception $e) {
+            throw new \InvalidArgumentException('Invalid token: ' . $e->getMessage());
+        }
     }
 }

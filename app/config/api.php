@@ -7,7 +7,6 @@ use charlymatloc\api\actions\CreerCompteAction;
 use charlymatloc\api\actions\ListerOutilsAction;
 use charlymatloc\core\application\ports\api\serviceinterfaces\AuthServiceInterface;
 use charlymatloc\api\actions\AjouterAuPanierAction;
-use charlymatloc\api\actions\ListerOutilsAction;
 use charlymatloc\api\actions\VerifierDisponibiliteAction;
 
 use charlymatloc\core\application\ports\api\serviceinterfaces\OutilsServiceInterface;
@@ -26,8 +25,9 @@ return [
         return new CreerCompteAction($container->get(AuthServiceInterface::class));
     },
 
-    ConnecterAction::class => function($container){
+    ConnecterAction::class => function($container) {
         return new ConnecterAction($container->get(AuthServiceInterface::class));
+    },
 
     VerifierDisponibiliteAction::class => function($container){
         return new VerifierDisponibiliteAction($container->get(OutilsServiceInterface::class));
@@ -35,6 +35,5 @@ return [
 
     AjouterAuPanierAction::class => function($container){
         return new AjouterAuPanierAction($container->get(OutilsServiceInterface::class));
-
     }
 ];

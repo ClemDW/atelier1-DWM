@@ -9,7 +9,6 @@ use charlymatloc\api\middlewares\AuthnMiddleware;
 use charlymatloc\api\middlewares\AuthzMiddleware;
 use charlymatloc\api\middlewares\CreerCompteMiddleware;
 use charlymatloc\api\actions\AjouterAuPanierAction;
-use charlymatloc\api\actions\ListerOutilsAction;
 use charlymatloc\api\actions\VerifierDisponibiliteAction;
 use Slim\App;
 
@@ -18,7 +17,6 @@ return function (App $app):App {
     $app->get('/outils', ListerOutilsAction::class)->add(AuthzMiddleware::class)->setName('lister_outils');
 
     $app->get('/outils/{id}', AfficherOutilAction::class)->setName('afficher_outil');
-
 
     $app->post('/users', CreerCompteAction::class)->add(CreerCompteMiddleware::class)->setName('creer_compte');
 
