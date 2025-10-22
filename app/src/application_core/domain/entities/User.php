@@ -7,13 +7,15 @@ class User
     private string $id;
     private string $email;
     private string $password;
-    private int $role;
+    private string $nom;
+    private string $prenom;
 
-    public function __construct(string $id, string $email, string $password, int $role){
+    public function __construct(string $id, string $email, string $password, string $nom, string $prenom){
         $this->id = $id;
         $this->email = $email;
         $this->password = $password;
-        $this->role = $role;
+        $this->nom = $nom;
+        $this->prenom = $prenom;
     }
 
     public function getId(): string{
@@ -28,8 +30,13 @@ class User
         return $this->password;
     }
 
-    public function getRole(): int{
-        return $this->role;
+    public function getNom(): string{
+        return $this->nom;
     }
+    public function getPrenom(): string{
+        return $this->prenom;
+    }
+
+
 
 }
