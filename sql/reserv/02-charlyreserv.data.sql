@@ -1,6 +1,6 @@
 INSERT INTO public.reservations (id_reservation, id_utilisateur, date_debut, date_fin, statut, prix_total) VALUES
 ('a41ccf5c-9365-4232-a6e7-9b62740b60e6', 'fbdb2514-4caf-4864-afca-89b565f5eece', '2025-10-01', '2025-10-05', 'Validé', 175.00),
-('f30cdbf8-0412-4dd5-a439-b8c173bf11cc', 'fbdb2514-4caf-4864-afca-89b565f5eece', '2025-10-02', '2025-10-02', 'En Attente', 0.00);
+('f30cdbf8-0412-4dd5-a439-b8c173bf11cc', 'fbdb2514-4caf-4864-afca-89b565f5eece', '2025-10-02', '2025-10-02', 'En Attente', 0.00),
 ('8a2f1c3d-9d4b-4f7a-b2c0-1a2b3c4d5e6f', 'fbdb2514-4caf-4864-afca-89b565f5eece', '2025-09-20', '2025-09-22', 'Terminé', 105.00),
 ('b7c3d2e1-2f4a-438b-a6b9-0f1e2d3c4b5a', 'fbdb2514-4caf-4864-afca-89b565f5eece', '2025-10-10', '2025-10-12', 'En Attente', 0.00),
 ('c1d2e3f4-1234-4abc-9def-0123456789ab', 'fbdb2514-4caf-4864-afca-89b565f5eece', '2025-11-01', '2025-11-07', 'Validé', 245.00),

@@ -109,7 +109,7 @@ function loadToolDetails(id) {
           <a href="#outils" class="btn">Retour</a>
         </div>
       `;
-      buttonListenerPanier(tool);
+      buttonListener(tool);
     })
     .catch((error) => {
       console.error("Erreur lors du chargement de l'outil :", error);
@@ -117,7 +117,7 @@ function loadToolDetails(id) {
     });
 }
 
-function buttonListenerPanier(tool) {
+function buttonListener(tool) {
   const ajoutPanier = document.querySelector(".ajout-panier");
   const quantity = document.querySelector(".quantity");
   const dateDebut = document.querySelector(".date-debut");
@@ -128,18 +128,8 @@ function buttonListenerPanier(tool) {
 
   ajoutPanier.addEventListener("click", () => {
     const outil = {
-      id: tool.id_categorie,
+      id: tool.id,
       nom: tool.nom,
-      id_outillage,
-      image: tool.image,
-      prix: tool.prix,
-    };
-    Panier.ajouterOutil(outil, dateDebut.value, dateFin.value, quantite);
-  });
-  ajoutPanier.addEventListener("click", () => {
-    const outil = {
-      id: tool.id_categorie,
-      nom: tool.nom_outillage,
       image: tool.image,
       prix: tool.prix,
     };
@@ -254,13 +244,70 @@ function renderHistorique(items, container) {
   });
 }
 
+function loadReservations() {
+  const container = document.getElementById("historiqueList");
+  const token = localStorage.getItem("access_token");
+  if (!token) {
+    container.innerHTML =
+      '<p>Vous devez être connecté pour voir votre historique. <a href="#login">Se connecter</a></p>';
+    return;
+  }
+
+  fetch(`${API_URL}/historique`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  })
+    .then((response) => {
+      if (response.status === 401) throw new Error("Non authentifié");
+      if (!response.ok)
+        throw new Error(`HTTP error! status: ${response.status}`);
+      return response.json();
+    })
+    .then((data) => renderHistorique(data, container))
+    .catch((err) => {
+      console.error("Erreur chargement historique:", err);
+      container.innerHTML = "<p>Impossible de charger l'historique.</p>";
+    });
+}
+
+function renderHistorique(items, container) {
+  if (!items || items.length === 0) {
+    container.innerHTML = "<p>Aucune réservation terminée trouvée.</p>";
+    return;
+  }
+  container.innerHTML = "";
+  items.forEach((r) => {
+    const card = document.createElement("div");
+    card.classList.add("reservation-card");
+    card.innerHTML = `
+      <h3>Reservation ${r.id}</h3>
+      <p><strong>Période:</strong> ${r.date_debut} → ${r.date_fin}</p>
+      <p><strong>Prix total:</strong> ${r.prix_total} €</p>
+      <p><strong>Statut:</strong> ${r.statut}</p>
+      <div><strong>Outils:</strong>
+        <ul>
+          ${(r.outils || [])
+            .map(
+              (o) => `<li>Outil ${o.id_outil} (quantité: ${o.quantite})</li>`
+            )
+            .join("")}
+        </ul>
+      </div>
+    `;
+    container.appendChild(card);
+  });
+}
+
 function removeItemFromPanier(id) {
   const cookie = getCookie("panier");
   const data = parseCookie(cookie);
 
   if (!data) return;
   data.items = data.items.filter((item) => item.id !== id);
+  data.items = data.items.filter((item) => item.id !== id);
 
+  setCookie("panier", JSON.stringify(data));
   setCookie("panier", JSON.stringify(data));
 
   window.location.reload();
