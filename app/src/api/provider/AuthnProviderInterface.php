@@ -4,6 +4,6 @@ namespace charlymatloc\api\provider;
 
 use charlymatloc\core\application\ports\api\dtos\CredentialsDTO;
 
-interface AuthProviderInterface{
+interface AuthnProviderInterface{
     public function signin(CredentialsDTO $credentials);
 }

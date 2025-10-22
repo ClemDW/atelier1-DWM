@@ -28,7 +28,7 @@ class AuthService implements AuthServiceInterface
         return new UserDTO($user->getId(), $user->getEmail(), $user->getNom(), $user->getPrenom());
     }
 
-    public function byCredentials(CredentialsDTO $credentials)
+    public function byCredentials(CredentialsDTO $credentials): UserDTO
     {
         $user = $this->authRepository->findByEmail($credentials->email);
         if($user->getPassword() == $credentials->password){
