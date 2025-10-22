@@ -2,7 +2,7 @@
 
 namespace charlymatloc\core\application\ports\api\dtos;
 
-class OutilListeDTO
+class CategorieListeDTO
 {
     public string $id;
     public string $nom;

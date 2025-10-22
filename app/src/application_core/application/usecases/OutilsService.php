@@ -2,11 +2,11 @@
 
 namespace charlymatloc\core\application\usecases;
 
-use charlymatloc\core\application\ports\api\dtos\OutilListeDTO;
+use charlymatloc\core\application\ports\api\dtos\CategorieListeDTO;
 use charlymatloc\core\application\ports\api\serviceinterfaces\OutilsServiceInterface;
 use charlymatloc\core\application\ports\spi\repositoryInterfaces\OutilsRepositoryInterface;
 use charlymatloc\core\application\ports\spi\repositoryInterfaces\ReservRepositoryInterface;
-use charlymatloc\core\application\ports\api\dtos\OutilAfficheDTO;
+use charlymatloc\core\application\ports\api\dtos\CategorieAfficheDTO;
 
 class OutilsService implements OutilsServiceInterface
 {
@@ -21,31 +21,32 @@ class OutilsService implements OutilsServiceInterface
 
     public function ListerOutils(): array
     {
-        $outils = $this->outilsRepository->findAll();
-        $outilsDTO = [];
-        foreach ($outils as $outil){
-            $outilsDTO[] = new OutilListeDTO(
-                $outil->getId(),
-                $outil->getNom(),
-                $outil->getImage(),
-                $outil->getStock()
+        $categories = $this->outilsRepository->findAllCategories();
+        $categoriesDTO = [];
+
+        foreach ($categories as $categorie) {
+            $stock = $this->outilsRepository->calculateStock($categorie->getIdCategorie());
+
+            $categoriesDTO[] = new CategorieListeDTO(
+                $categorie->getIdCategorie(),
+                $categorie->getNomCategorie(),
+                $categorie->getImage(),
+                $stock
             );
         }
-        return $outilsDTO;
+
+        return $categoriesDTO;
     }
 
-    public function AfficherOutil(string $id): OutilAfficheDTO
+    public function AfficherOutil(string $id): CategorieAfficheDTO
     {
-        $outil = $this->outilsRepository->findById($id);
-        $categorie = $this->outilsRepository->findCategorieById($outil->getIdCategorie());
-        return new OutilAfficheDTO(
-            $outil->getId(),
-            $outil->getNom(),
-            $outil->getImage(),
-            $outil->getStock(),
+        $outil = $this->outilsRepository->findCategorieById($id);
+        return new CategorieAfficheDTO(
+            $outil->getIdCategorie(),
+            $outil->getNomCategorie(),
             $outil->getDescription(),
-            $categorie->getNom(),
-            $outil->getPrix()
+            $outil->getPrix(),
+            $outil->getImage()
         );
     }
 
