@@ -77,6 +77,31 @@ class ReservRepository implements ReservRepositoryInterface
         return $row['total'] ?? 0;
     }
 
+    public function findByUserAndStatut(string $userId, string $statut): array
+    {
+        $sql = "SELECT * FROM reservations WHERE id_utilisateur = :userId AND LOWER(statut) = LOWER(:statut)";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindParam(':userId', $userId, PDO::PARAM_STR);
+        $stmt->bindParam(':statut', $statut, PDO::PARAM_STR);
+        $stmt->execute();
+        $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $reservations = [];
+        foreach ($rows as $row) {
+            $outils = $this->getOutilsForReservation($row['id_reservation']);
+            $reservations[] = new Reservation(
+                $row['id_reservation'],
+                $row['id_utilisateur'],
+                $outils,
+                $row['date_debut'],
+                $row['date_fin'],
+                $row['date_creation'],
+                $row['statut'],
+                $row['prix_total']
+            );
+        }
+        return $reservations;
+    }
+
     private function getOutilsForReservation(string $id_reservation): array
     {
         $sql = "SELECT id_outil, quantite FROM reservation_outils WHERE id_reservation = :id";

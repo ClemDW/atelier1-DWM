@@ -11,6 +11,8 @@ use charlymatloc\core\application\usecases\OutilsService;
 use charlymatloc\infra\repositories\AuthRepository;
 use charlymatloc\infra\repositories\OutilsRepository;
 use charlymatloc\infra\repositories\ReservRepository;
+use charlymatloc\core\application\usecases\ReservService;
+use charlymatloc\core\application\ports\api\serviceinterfaces\ReservServiceInterface;
 use Psr\Container\ContainerInterface;
 
 return [
@@ -45,6 +47,10 @@ return [
 
     ReservRepositoryInterface::class => function (ContainerInterface $container) {
         return new ReservRepository($container->get('pdo.reservations'));
+    },
+
+    ReservServiceInterface::class => function (ContainerInterface $container) {
+        return new ReservService($container->get(ReservRepositoryInterface::class));
     },
 
     OutilsServiceInterface::class => function (ContainerInterface $container) {
