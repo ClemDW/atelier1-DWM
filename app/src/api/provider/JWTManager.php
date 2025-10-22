@@ -2,7 +2,9 @@
 
 namespace charlymatloc\api\provider;
 
+use charlymatloc\core\application\ports\api\dtos\UserDTO;
 use Firebase\JWT\JWT;
+use Firebase\JWT\Key;
 
 class JWTManager{
 
@@ -17,7 +19,10 @@ class JWTManager{
         return $refreshToken;
     }
 
-    public function decodeToken(string $token): array{
-        return [];
+    public function decodeToken(string $token): UserDTO{
+        $token = sscanf($token, 'Bearer %s');
+        $payload = JWT::decode($token[1], new Key($_ENV['JWT_SECRET'], 'HS256'));
+        $user = new UserDTO($payload->id, $payload->email, $payload->nom, $payload->prenom);
+        return $user;
     }
 }

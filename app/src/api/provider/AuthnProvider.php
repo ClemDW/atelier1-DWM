@@ -3,6 +3,7 @@
 namespace charlymatloc\api\provider;
 
 use charlymatloc\core\application\ports\api\dtos\CredentialsDTO;
+use charlymatloc\core\application\ports\api\dtos\UserDTO;
 use charlymatloc\core\application\ports\api\serviceinterfaces\AuthServiceInterface;
 use charlymatloc\api\provider\JWTManager;
 
@@ -25,6 +26,11 @@ class AuthnProvider implements AuthnProviderInterface
             'access_token' => $accessToken,
             'refresh_token' => $refreshToken
         ];
+    }
 
+    public function getSignedInUser(string $token): UserDTO
+    {
+        $user = $this->jwtManager->decodeToken($token);
+        return $user;
     }
 }
