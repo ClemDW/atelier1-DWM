@@ -1,67 +1,62 @@
-@import "partials/mixins";
-@import "partials/header";
-@import "partials/footer";
-@import "partials/media";
+// ==========================================
+// CHARLYMATLOC - STYLES PRINCIPAUX
+// ==========================================
+
+// 1. Mixins et utilitaires
+@use "partials/mixins" as *;
+
+// 2. Layout (header, nav, footer)
+@use "partials/header";
+@use "partials/navbar";
+@use "partials/footer";
+
+// 3. Composants réutilisables
+@use "components/cart-button";
+
+// 4. Templates (pages)
+@use "templates/home";
+@use "templates/outils";
+@use "templates/outil";
+@use "templates/panier";
+@use "templates/login";
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
 
 body {
-  font-family: sans-serif;
-  margin: 0;
+  font-family: OCR A Std, monospace;
+  display: flex;
+  flex-direction: column;
 }
 
 .container {
   display: flex;
+  flex: 1;
 }
 
-.filters {
-  width: 20%;
-  padding: 20px;
-  background-color: #f0f0f0;
-
-  button {
-    display: block;
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    background-color: #fff;
-    cursor: pointer;
-    text-align: left;
-
-    &.active {
-      background-color: #007bff;
-      color: white;
-      border-color: #007bff;
-    }
-  }
-}
-
-.tools-section {
-  width: 80%;
-  padding: 20px;
-}
-
-.tools-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 20px;
-}
-
-.tool-card {
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  padding: 10px;
-  text-align: center;
-
-  img {
-    max-width: 100%;
-    height: 150px;
-    object-fit: cover;
-    border-bottom: 1px solid #ccc;
-    margin-bottom: 10px;
-    text-decoration: none;
-  }
+#app {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 .main {
   padding: 0;
+}
+
+// Media queries
+.container {
+  @include respond-to(medium) {
+    flex-direction: column;
+  }
+}
+
+.footer {
+  @include respond-to(small) {
+    font-size: 0.9rem;
+    padding: 0.5rem 0;
+  }
 }

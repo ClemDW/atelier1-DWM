@@ -1,0 +1,102 @@
+@use "../partials/mixins" as *;
+
+// Template: Page d'accueil
+.home-section {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 3rem 2rem;
+  line-height: 1.8;
+
+  h2 {
+    font-size: 2.5rem;
+    color: #333;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    font-weight: bold;
+  }
+
+  > p {
+    font-size: 1.15rem;
+    color: #555;
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 2rem 0;
+
+    li {
+      padding: 1rem 0;
+      padding-left: 2.5rem;
+      position: relative;
+      font-size: 1.1rem;
+      color: #444;
+
+      &::before {
+        content: "✓";
+        position: absolute;
+        left: 0;
+        color: #ff7214;
+        font-weight: bold;
+        font-size: 1.5rem;
+      }
+    }
+  }
+
+  strong {
+    color: #ff7214;
+    font-size: 1.2rem;
+  }
+
+  > p:last-child {
+    text-align: center;
+    margin-top: 2.5rem;
+    font-size: 1.25rem;
+  }
+
+  // Media queries
+  @include respond-to(medium) {
+    padding: 2rem 1.5rem;
+
+    h2 {
+      font-size: 2rem;
+    }
+
+    > p {
+      font-size: 1rem;
+    }
+
+    ul li {
+      font-size: 1rem;
+      padding-left: 2rem;
+    }
+  }
+
+  @include respond-to(small) {
+    padding: 1.5rem 1rem;
+
+    h2 {
+      font-size: 1.6rem;
+    }
+
+    > p {
+      font-size: 0.95rem;
+    }
+
+    ul li {
+      font-size: 0.95rem;
+      padding: 0.75rem 0;
+      padding-left: 1.75rem;
+
+      &::before {
+        font-size: 1.2rem;
+      }
+    }
+
+    > p:last-child {
+      font-size: 1.1rem;
+    }
+  }
+}

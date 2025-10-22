@@ -25,6 +25,11 @@ return [
                 'user' => $_ENV['reservations.username'],
                 'password' => $_ENV['reservations.password'],
             ]
+        ],
+        'cors' => [
+            'origin' => [$_ENV['url']],
+            'methods' => ['GET', 'POST', 'PUT', 'DELETE'],
+            'headers.allow' => ['Content-Type', 'Authorization', 'X-Requested-With'],
         ]
     ]
 ];

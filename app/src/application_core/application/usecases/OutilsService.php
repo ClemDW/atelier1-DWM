@@ -2,54 +2,60 @@
 
 namespace charlymatloc\core\application\usecases;
 
-use charlymatloc\core\application\ports\api\dtos\OutilListeDTO;
+use charlymatloc\core\application\ports\api\dtos\CategorieListeDTO;
 use charlymatloc\core\application\ports\api\serviceinterfaces\OutilsServiceInterface;
 use charlymatloc\core\application\ports\spi\repositoryInterfaces\OutilsRepositoryInterface;
-use charlymatloc\core\application\ports\api\dtos\OutilAfficheDTO;
+use charlymatloc\core\application\ports\spi\repositoryInterfaces\ReservRepositoryInterface;
+use charlymatloc\core\application\ports\api\dtos\CategorieAfficheDTO;
 
 class OutilsService implements OutilsServiceInterface
 {
     private OutilsRepositoryInterface $outilsRepository;
-    public function __construct(OutilsRepositoryInterface $outilsRepository){
+    private ReservRepositoryInterface $reservRepository;
+
+    public function __construct(OutilsRepositoryInterface $outilsRepository, ReservRepositoryInterface $reservRepository){
         $this->outilsRepository = $outilsRepository;
+        $this->reservRepository = $reservRepository;
     }
 
 
     public function ListerOutils(): array
     {
-        $outils = $this->outilsRepository->findAll();
-        $outilsDTO = [];
-        foreach ($outils as $outil){
-            $outilsDTO[] = new OutilListeDTO(
-                $outil->getNom(),
-                $outil->getImage(),
-                $outil->getStock()
+        $categories = $this->outilsRepository->findAllCategories();
+        $categoriesDTO = [];
+
+        foreach ($categories as $categorie) {
+            $stock = $this->outilsRepository->calculateStock($categorie->getIdCategorie());
+
+            $categoriesDTO[] = new CategorieListeDTO(
+                $categorie->getIdCategorie(),
+                $categorie->getNomCategorie(),
+                $categorie->getImage(),
+                $stock
             );
         }
-        return $outilsDTO;
+
+        return $categoriesDTO;
     }
 
-    public function AfficherOutil(int $id): OutilAfficheDTO
+    public function AfficherOutil(string $id): CategorieAfficheDTO
     {
-        $outil = $this->outilsRepository->findById($id);
-        $categorie = $this->outilsRepository->findCategorieById($outil->getIdCategorie());
-        return new OutilAfficheDTO(
-            $outil->getNom(),
-            $outil->getImage(),
-            $outil->getStock(),
+        $outil = $this->outilsRepository->findCategorieById($id);
+        return new CategorieAfficheDTO(
+            $outil->getIdCategorie(),
+            $outil->getNomCategorie(),
             $outil->getDescription(),
-            $categorie->getNom(),
-            $outil->getPrix()
+            $outil->getPrix(),
+            $outil->getImage()
         );
     }
 
-    public function isOutilDisponible(int $id_outil, string $date): bool
+    public function isOutilDisponible(string $id_outil, string $date): bool
     {
         $outil = $this->outilsRepository->findById($id_outil);
         $stock = $outil->getStock();
 
-        // Count reserved quantities for this outil on this date
-        $reserved = $this->outilsRepository->countReservedOutils($id_outil, $date);
+        $reserved = $this->reservRepository->countReservedOutils($id_outil, $date);
 
         return ($stock - $reserved) > 0;
     }

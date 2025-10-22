@@ -7,21 +7,47 @@
     <link rel="stylesheet" href="css/main.css" />
   </head>
   <body>
+    <header class="header">
+      <div class="header__top">
+        <div class="header__brand">CharlyMatloc</div>
+        <a href="#login" class="login-btn">Connexion</a>
+      </div>
+    </header>
+
     <nav class="navbar">
-      <div class="navbar__brand">CharlyMatloc</div>
-      <div class="navbar__spacer"></div>
-      <a href="#home">Home</a>
+      <a href="#home">Accueil</a>
       <a href="#outils">Outils</a>
-      <a href="#login" class="login-btn">Connexion</a>
     </nav>
 
     <main id="app"></main>
+
+    <template id="home">
+      <section class="home-section">
+        <h2>Bienvenue sur CharlyMatloc</h2>
+        <p>
+          CharlyMatloc est une plateforme de location d'outils. Trouvez
+          facilement l'outil dont vous avez besoin pour vos travaux, vos projets
+          de bricolage ou de jardinage, sans avoir à l'acheter.
+        </p>
+        <ul>
+          <li>Consultez la liste des outils disponibles.</li>
+          <li>Filtrez selon vos besoins (catégorie, disponibilité, etc.).</li>
+          <li>
+            Ajoutez vos outils favoris à votre panier et réservez-les en
+            quelques clics.
+          </li>
+          <li>Profitez d'une location simple, rapide et sécurisée.</li>
+        </ul>
+        <p>
+          <strong>Rejoignez la communauté CharlyMatloc et louez malin !</strong>
+        </p>
+      </section>
+    </template>
 
     <template id="outils">
       <div class="container">
         <aside class="filters">
           <h2>Filtres</h2>
-          
         </aside>
         <section id="outils" class="tools-section">
           <h2>Outils disponibles</h2>
@@ -30,14 +56,24 @@
       </div>
     </template>
 
-    <template id="home">
-      <h2>HOME</h2>
+    <template id="outil">
+      <div id="outilDetail" class="outil-detail">
+        <p>Chargement de l'outil...</p>
+      </div>
     </template>
 
+    <template id="panier">
+      <h2>Panier</h2>
+    </template>
+
+    <a href="#panier" class="btn-panier">
+      <img src="./img/cart.png" alt="Panier" />
+      <span>Panier</span>
+    </a>
 
     <footer class="footer">
       <p>&copy; 2025 CharlyMatloc. Tous droits réservés.</p>
     </footer>
-    <script src="js/main.js"></script>
+    <script type="module" src="js/main.js"></script>
   </body>
 </html>

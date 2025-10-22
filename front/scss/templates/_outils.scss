@@ -1,0 +1,110 @@
+@use "../partials/mixins" as *;
+
+// Template: Page des outils
+.page-outils {
+  display: flex;
+  flex: 1;
+}
+
+// Filtres
+.filters {
+  width: 20%;
+  padding: 20px;
+  background-color: #f0f0f0;
+
+  h2 {
+    margin-top: 0;
+  }
+
+  button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    cursor: pointer;
+    text-align: left;
+    transition: background-color 0.2s;
+
+    &:hover {
+      background-color: #f8f8f8;
+    }
+
+    &.active {
+      background-color: #007bff;
+      color: white;
+      border-color: #007bff;
+    }
+  }
+
+  @include respond-to(medium) {
+    width: 100%;
+    padding: 10px;
+  }
+}
+
+// Section des outils
+.tools-section {
+  width: 80%;
+  padding: 20px;
+
+  h2 {
+    font-size: 2rem;
+    margin: 0 0 1.5rem 0;
+    color: #333;
+  }
+
+  @include respond-to(medium) {
+    width: 100%;
+    padding: 10px;
+  }
+}
+
+// Grille des outils
+.tools-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+// Carte d'outil
+.tool-card {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  text-align: center;
+  transition: all 0.3s ease;
+  background: white;
+
+  &:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+    border-color: #ff7214;
+  }
+
+  img {
+    max-width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 10px;
+    text-decoration: none;
+  }
+
+  h3 {
+    margin: 10px 0;
+    font-size: 1.1rem;
+    color: #333;
+  }
+
+  p {
+    margin: 5px 0;
+    color: #666;
+  }
+
+  @include respond-to(small) {
+    padding: 5px;
+    font-size: 0.95rem;
+  }
+}

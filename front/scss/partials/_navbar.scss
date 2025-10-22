@@ -1,0 +1,24 @@
+.navbar {
+  display: flex;
+  padding: 0.5vh;
+  gap: 20px;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(197, 197, 197);
+}
+
+.navbar a {
+  font-size: 20px;
+  text-decoration: none;
+  color: #333;
+  font-weight: bold;
+  padding: 6px 12px;
+  border-radius: 4px;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.navbar a:hover {
+  background-color: #ff7214;
+  color: #fff;
+  transform: scale(1.05);
+}

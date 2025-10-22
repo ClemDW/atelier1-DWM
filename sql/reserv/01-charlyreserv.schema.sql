@@ -15,7 +15,7 @@ CREATE TABLE public.reservations (
 DROP TABLE IF EXISTS public.reservation_outils CASCADE;
 CREATE TABLE public.reservation_outils (
     id_reservation uuid REFERENCES reservations(id_reservation) ON DELETE CASCADE,
-    id_outil INTEGER REFERENCES outils(id_outil) ON DELETE CASCADE,
+    id_outil uuid NOT NULL,
     quantite INTEGER NOT NULL DEFAULT 1 CHECK (quantite > 0),
     PRIMARY KEY (id_reservation, id_outil)
 );

@@ -1,0 +1,30 @@
+@use "../partials/mixins" as *;
+
+// Template: Page du panier
+.page-panier {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+
+  h2 {
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 1.5rem;
+  }
+
+  @include respond-to(medium) {
+    padding: 1.5rem;
+
+    h2 {
+      font-size: 1.75rem;
+    }
+  }
+
+  @include respond-to(small) {
+    padding: 1rem;
+
+    h2 {
+      font-size: 1.5rem;
+    }
+  }
+}
