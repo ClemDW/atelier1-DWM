@@ -10,5 +10,5 @@ CREATE TABLE public.categories (
 DROP TABLE IF EXISTS outils;
 CREATE TABLE public.outils (
     id_outil uuid PRIMARY KEY NOT NULL,
-    id_categorie INTEGER NOT NULL REFERENCES Categories(id_categorie)
+    id_categorie INTEGER NOT NULL REFERENCES categories(id_categorie)
 );
