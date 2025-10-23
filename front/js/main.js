@@ -33,6 +33,8 @@ function render(route) {
     } else if (baseRoute === 'panier') {
         const panierList = document.getElementById("panierList");
         displayPanier(panierList);
+    } else if (baseRoute === 'login') {
+        loadLoginPage();
     }
 }
 
@@ -145,7 +147,7 @@ function buttonListener(tool) {
 }
 
 
-function displayPanier(container) {  
+function displayPanier(container) {
   const panierList = document.getElementById("panierList");
   const cookie = getCookie('panier');
   const data = parseCookie(cookie);
@@ -211,4 +213,28 @@ function parseCookie(cookieValue) {
     console.error("Erreur lors du parsing du cookie :", e);
     return null;
   }
+}
+
+function loadLoginPage() {
+    const loginContainer = document.getElementById("loginContainer");
+    if (!loginContainer){
+        console.log("Erreur dans le chargement de la balise HTML");
+    }
+
+    loginContainer.innerHTML = `
+      <section id="page-login" class="page-login">
+        <h2>Connexion</h2>
+        <form id="loginForm" class="login-form">
+          <label for="email">Email :</label>
+          <input type="email" id="email" name="email" required>
+    
+          <label for="password">Mot de passe :</label>
+          <input type="password" id="password" name="password" required>
+    
+          <button type="submit" class="btn">Se connecter</button>
+        </form>
+    
+        <p id="loginMessage" class="login-message"></p>
+      </section>
+    `;
 }

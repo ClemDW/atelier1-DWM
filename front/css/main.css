@@ -479,6 +479,60 @@
   margin-bottom: 1.5rem;
   text-align: center;
 }
+.page-login form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+.page-login form label {
+  font-size: 1rem;
+  color: #555;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+.page-login form input {
+  padding: 0.75rem 1rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: border-color 0.3s;
+}
+.page-login form input:focus {
+  border-color: #ff7214;
+  outline: none;
+}
+.page-login form .error-message {
+  color: #ff4d4f;
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+}
+.page-login form button {
+  padding: 0.75rem 1rem;
+  background-color: #ff7214;
+  color: #333;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+.page-login form button:hover {
+  color: #fff;
+  scale: 1.01;
+}
+.page-login .forgot-password {
+  margin-top: 1rem;
+  text-align: right;
+  font-size: 0.9rem;
+}
+.page-login .forgot-password a {
+  color: #ff7214;
+  text-decoration: none;
+}
+.page-login .forgot-password a:hover {
+  text-decoration: underline;
+}
 @media (max-width: 900px) {
   .page-login {
     padding: 2rem 1.5rem;
