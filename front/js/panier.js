@@ -34,7 +34,6 @@ class Panier {
             i.date_debut === item.date_debut &&
             i.date_fin === item.date_fin
         );
-
         if (existingItem) {
             if (existingItem.quantite + item.quantite > outil.stock) {
                 alert(`Quantité maximale disponible pour ${outil.nom} est de ${outil.stock}.`);
