@@ -16,28 +16,28 @@ class CreerCompteMiddleware implements MiddlewareInterface
         $nom = $payload['nom'];
         if($nom == null){
             $response = new \Slim\Psr7\Response();
-            $response->getBody()->write('Nom manquant');
-            return $response->withStatus(400);
+            $response->getBody()->write(json_encode(['message' => 'Nom manquant']));
+            return $response->withHeader('Content-Type', 'application/json')->withStatus(400);
         }
 
         $prenom = $payload['prenom'];
         if($prenom == null){
             $response = new \Slim\Psr7\Response();
-            $response->getBody()->write('Prenom manquant');
-            return $response->withStatus(400);
+            $response->getBody()->write(json_encode(['message' => 'Prenom manquant']));
+            return $response->withHeader('Content-Type', 'application/json')->withStatus(400);
         }
 
         $email = $payload['email'];
         if($email == null){
             $response = new \Slim\Psr7\Response();
-            $response->getBody()->write('Email manquant');
-            return $response->withStatus(400);
+            $response->getBody()->write(json_encode(['message' => 'Email manquant']));
+            return $response->withHeader('Content-Type', 'application/json')->withStatus(400);
         }
         $password = $payload['password'];
         if($password == null){
             $response = new \Slim\Psr7\Response();
-            $response->getBody()->write('Password manquant');
-            return $response->withStatus(400);
+            $response->getBody()->write(json_encode(['message' => 'Password manquant']));
+            return $response->withHeader('Content-Type', 'application/json')->withStatus(400);
         }
 
         $nom = htmlspecialchars($nom);
@@ -47,8 +47,8 @@ class CreerCompteMiddleware implements MiddlewareInterface
         $email = filter_var($email, FILTER_SANITIZE_EMAIL);
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             $response = new \Slim\Psr7\Response();
-            $response->getBody()->write('Email invalide');
-            return $response->withStatus(400);
+            $response->getBody()->write(json_encode(['message' => 'Email invalide']));
+            return $response->withHeader('Content-Type', 'application/json')->withStatus(400);
         }
         $password = password_hash($password, PASSWORD_DEFAULT);
 

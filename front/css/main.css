@@ -370,6 +370,94 @@
   color: #333;
   font-weight: bold;
 }
+.tool-detail-card #gestionQuantite {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 10px;
+}
+.tool-detail-card #gestionQuantite .plus,
+.tool-detail-card #gestionQuantite .minus {
+  width: 40px;
+  height: 40px;
+  border: none;
+  background-color: #ff7214;
+  color: white;
+  font-size: 1.3rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.tool-detail-card #gestionQuantite .plus:hover,
+.tool-detail-card #gestionQuantite .minus:hover {
+  background-color: rgb(234.2, 93.68, 0);
+  transform: scale(1.1);
+}
+@media (max-width: 600px) {
+  .tool-detail-card #gestionQuantite .plus,
+  .tool-detail-card #gestionQuantite .minus {
+    width: 35px;
+    height: 35px;
+    font-size: 1.1rem;
+  }
+}
+.tool-detail-card #gestionQuantite .quantity {
+  display: inline-block;
+  min-width: 40px;
+  text-align: center;
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #333;
+}
+.tool-detail-card .date-debut,
+.tool-detail-card .date-fin {
+  width: 60%;
+  max-width: 300px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+  text-align: center;
+  color: #444;
+  transition: border-color 0.3s ease;
+}
+.tool-detail-card .date-debut:focus,
+.tool-detail-card .date-fin:focus {
+  outline: none;
+  border-color: #ff7214;
+  box-shadow: 0 0 4px rgba(255, 114, 20, 0.4);
+}
+@media (max-width: 600px) {
+  .tool-detail-card .date-debut,
+  .tool-detail-card .date-fin {
+    width: 80%;
+    font-size: 0.95rem;
+  }
+}
+.tool-detail-card .ajout-panier {
+  padding: 12px 30px;
+  background-color: #ff7214;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 10px;
+}
+.tool-detail-card .ajout-panier:hover {
+  background-color: rgb(224, 89.6, 0);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+@media (max-width: 600px) {
+  .tool-detail-card .ajout-panier {
+    font-size: 1rem;
+    padding: 10px 20px;
+  }
+}
 .tool-detail-card .btn {
   display: inline-block;
   padding: 12px 30px;
