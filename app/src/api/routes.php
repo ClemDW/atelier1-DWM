@@ -18,8 +18,14 @@ return function (App $app):App {
 
     $app->get('/outillages/{id}', AfficherOutillageAction::class)->setName('afficher_outil');
 
+    $app->options('/users', function ($request, $response) {
+        return $response;
+    });
     $app->post('/users', CreerCompteAction::class)->add(CreerCompteMiddleware::class)->setName('creer_compte');
 
+    $app->options('/login', function ($request, $response) {
+        return $response;
+    });
     $app->post('/login', ConnecterAction::class)->add(AuthnMiddleware::class)->setName('login');
 
     $app->get('/outils/{id}/disponibilite', VerifierDisponibiliteAction::class)->setName('verifier_disponibilite');

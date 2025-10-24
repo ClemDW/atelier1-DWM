@@ -17,8 +17,8 @@ class AuthnMiddleware implements MiddlewareInterface{
         $password = $payload['password'];
         if($email == null || $password == null){
             $response = new \Slim\Psr7\Response();
-            $response->getBody()->write('Email ou mot de passe manquant');
-            return $response->withStatus(400);
+            $response->getBody()->write(json_encode(['message' => 'Email ou mot de passe manquant']));
+            return $response->withHeader('Content-Type', 'application/json')->withStatus(400);
         }
         $credentials = new CredentialsDTO($email, $password);
         $request = $request->withAttribute('credentials', $credentials);
