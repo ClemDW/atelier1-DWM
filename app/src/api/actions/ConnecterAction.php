@@ -17,10 +17,39 @@ class ConnecterAction{
     }
 
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response,array $args){
-        $payload = $this->authnProvider->signin($request->getAttribute('credentials'));
-        $response->getBody()->write(json_encode($payload, JSON_PRETTY_PRINT));
-        return $response
-            ->withHeader('Content-Type', 'application/json')
-            ->withStatus(201);
+                try {
+
+
+            $payload = $this->authnProvider->signin($request->getAttribute('credentials'));
+
+
+            $response->getBody()->write(json_encode($payload, JSON_PRETTY_PRINT));
+
+
+            return $response
+
+
+                ->withHeader('Content-Type', 'application/json')
+
+
+                ->withStatus(200);
+
+
+        } catch (Exception $e) {
+
+
+            $response->getBody()->write(json_encode(['message' => 'Email ou mot de passe incorrect'], JSON_PRETTY_PRINT));
+
+
+            return $response
+
+
+                ->withHeader('Content-Type', 'application/json')
+
+
+                ->withStatus(401);
+
+
+        }
     }
 }

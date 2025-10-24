@@ -19,10 +19,20 @@ return function (App $app):App {
 
     $app->get('/outillages/{id}', AfficherOutillageAction::class)->setName('afficher_outil');
 
-    $app->post('/users', CreerCompteAction::class)->add(CreerCompteMiddleware::class)->setName('creer_compte');
+$app->options('/users', function ($request, $response) {
 
-    $app->post('/login', ConnecterAction::class)->add(AuthnMiddleware::class)->setName('login');
 
+        return $response;
+
+
+    });
+$app->options('/login', function ($request, $response) {
+
+
+        return $response;
+
+
+    });
     $app->get('/outils/{id}/disponibilite', VerifierDisponibiliteAction::class)->setName('verifier_disponibilite');
 
     $app->post('/panier/outils/{id}', AjouterAuPanierAction::class)->setName('ajouter_au_panier');
