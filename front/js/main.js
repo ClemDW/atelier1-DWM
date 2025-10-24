@@ -89,8 +89,8 @@ function loadToolDetails(id) {
       .then(tool => {
         detailContainer.innerHTML = `
         <div class="tool-detail-card">
-          <img src="${tool.image}" alt="${tool.nom_categorie}">
-          <h2>${tool.nom_categorie}</h2>
+          <img src="${tool.image}" alt="${tool.nom_outillage}">
+          <h2>${tool.nom_outillage}</h2>
           <p><strong>Description:</strong> ${tool.description}</p>
           <p><strong>Prix:</strong> ${tool.prix} €/jour</p>
           <button class="plus">+</button>
@@ -102,7 +102,7 @@ function loadToolDetails(id) {
           <a href="#outils" class="btn">Retour</a>
         </div>
       `;
-        buttonListener(tool);
+        buttonListenerPanier(tool);
       })
       .catch(error => {
         console.error("Erreur lors du chargement de l'outil :", error);
@@ -110,7 +110,7 @@ function loadToolDetails(id) {
       });
 }
 
-function buttonListener(tool) {
+function buttonListenerPanier(tool) {
     const ajoutPanier = document.querySelector('.ajout-panier');
     const quantity = document.querySelector('.quantity');
     const dateDebut = document.querySelector('.date-debut');
@@ -122,7 +122,7 @@ function buttonListener(tool) {
     ajoutPanier.addEventListener('click', () => {
         const outil = {
             id: tool.id_categorie,
-            nom: tool.nom_categorie,
+            nom: tool.nom_outillage,
             image: tool.image,
             prix: tool.prix,
         };
@@ -130,7 +130,6 @@ function buttonListener(tool) {
     })
 
     plus.addEventListener('click', ()=>{
-        console.log(quantite);
         if(quantite < tool.stock) {
             quantite = quantite + 1;
             quantity.innerHTML = parseInt(quantity.textContent) + 1;
