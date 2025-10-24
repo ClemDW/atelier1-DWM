@@ -11,11 +11,9 @@ use charlymatloc\core\application\ports\spi\repositoryInterfaces\ReservRepositor
 class OutilsService implements OutilsServiceInterface
 {
     private OutilsRepositoryInterface $outilsRepository;
-    private ReservRepositoryInterface $reservRepository;
 
-    public function __construct(OutilsRepositoryInterface $outilsRepository, ReservRepositoryInterface $reservRepository){
+    public function __construct(OutilsRepositoryInterface $outilsRepository){
         $this->outilsRepository = $outilsRepository;
-        $this->reservRepository = $reservRepository;
     }
 
 
