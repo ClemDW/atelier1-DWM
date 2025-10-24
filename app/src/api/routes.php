@@ -5,6 +5,7 @@ use charlymatloc\api\actions\AfficherOutillageAction;
 use charlymatloc\api\actions\ConnecterAction;
 use charlymatloc\api\actions\CreerCompteAction;
 use charlymatloc\api\actions\ListerOutillagesAction;
+use charlymatloc\api\actions\ListerCategoriesAction;
 use charlymatloc\api\middlewares\AuthnMiddleware;
 use charlymatloc\api\middlewares\AuthzMiddleware;
 use charlymatloc\api\middlewares\CreerCompteMiddleware;
@@ -17,6 +18,8 @@ return function (App $app):App {
     $app->get('/outillages', ListerOutillagesAction::class)->setName('lister_outils');
 
     $app->get('/outillages/{id}', AfficherOutillageAction::class)->setName('afficher_outil');
+
+    $app->get('/categories', ListerCategoriesAction::class)->setName('lister_categories');
 
     $app->options('/users', function ($request, $response) {
         return $response;

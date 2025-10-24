@@ -70,4 +70,41 @@ class OutilsRepository implements OutilsRepositoryInterface
         return (int) $result['stock'];
     }
 
+    public function findOutillagesByCategorie(int $categorieId): array
+    {
+        $sql = "SELECT * FROM outillage WHERE id_categorie = :categorieId";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindParam(':categorieId', $categorieId, PDO::PARAM_INT);
+        $stmt->execute();
+        $rows = $stmt->fetchAll();
+        $outillages = [];
+        foreach ($rows as $row) {
+            $outillages[] = new Outillage(
+                $row['id_outillage'],
+                $row['id_categorie'],
+                $row['nom_outillage'],
+                $row['description'],
+                $row['prix_journalier'],
+                $row['image_url']
+            );
+        }
+        return $outillages;
+    }
+
+    public function findAllCategories(): array
+    {
+        $sql = "SELECT * FROM categorie";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute();
+        $rows = $stmt->fetchAll();
+        $categories = [];
+        foreach ($rows as $row) {
+            $categories[] = new Categorie(
+                $row['id_categorie'],
+                $row['nom_categorie']
+            );
+        }
+        return $categories;
+    }
+
 }

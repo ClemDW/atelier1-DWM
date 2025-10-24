@@ -13,7 +13,14 @@ class ListerOutillagesAction{
     }
 
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response, array $args){
-        $outils = $this->outilsService->ListerOutillages();
+        $queryParams = $request->getQueryParams();
+        $categorieId = isset($queryParams['categorie']) ? (int)$queryParams['categorie'] : null;
+
+        if ($categorieId !== null) {
+            $outils = $this->outilsService->ListerOutillagesParCategorie($categorieId);
+        } else {
+            $outils = $this->outilsService->ListerOutillages();
+        }
 
         $response->getBody()->write(json_encode($outils, JSON_PRETTY_PRINT));
 

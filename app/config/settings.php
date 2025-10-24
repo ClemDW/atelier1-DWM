@@ -27,7 +27,7 @@ return [
             ]
         ],
         'cors' => [
-            'origin' => [$_ENV['url'] ?? 'http://localhost:10100'],
+            'origin' => [$_ENV['url']],
             'methods' => ['GET', 'POST', 'PUT', 'DELETE'],
             'headers.allow' => ['Content-Type', 'Authorization', 'X-Requested-With'],
         ]
