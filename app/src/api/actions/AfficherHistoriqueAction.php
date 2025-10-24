@@ -5,6 +5,7 @@ namespace charlymatloc\api\actions;
 use charlymatloc\core\application\ports\api\serviceinterfaces\ReservServiceInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use charlymatloc\core\application\ports\api\dtos\HistoriqueDTO;
 
 class AfficherHistoriqueAction
 {
@@ -32,19 +33,28 @@ class AfficherHistoriqueAction
         $reservations = $this->reservService->getUserReservations($userId, 'Terminé');
         $historique = [];
         foreach ($reservations as $reserv) {
-            $historique[] = [
-                'id' => method_exists($reserv, 'getId') ? $reserv->getId() : ($reserv->id ?? null),
-                'user_id' => method_exists($reserv, 'getUserId') ? $reserv->getUserId() : ($reserv->user_id ?? null),
-                'outils' => method_exists($reserv, 'getOutils') ? $reserv->getOutils() : ($reserv->outils ?? []),
-                'date_debut' => method_exists($reserv, 'getDateDebut') ? $reserv->getDateDebut() : ($reserv->date_debut ?? null),
-                'date_fin' => method_exists($reserv, 'getDateFin') ? $reserv->getDateFin() : ($reserv->date_fin ?? null),
-                'date_creation' => method_exists($reserv, 'getDateCreation') ? $reserv->getDateCreation() : ($reserv->date_creation ?? null),
-                'statut' => method_exists($reserv, 'getStatut') ? $reserv->getStatut() : ($reserv->statut ?? null),
-                'prix_total' => method_exists($reserv, 'getPrixTotal') ? $reserv->getPrixTotal() : ($reserv->prix_total ?? null),
-            ];
+            $id = method_exists($reserv, 'getId') ? (string)$reserv->getId() : ((string)($reserv->id ?? ''));
+            $user_id = method_exists($reserv, 'getUserId') ? (string)$reserv->getUserId() : ((string)($reserv->user_id ?? ''));
+            $outils = method_exists($reserv, 'getOutils') ? $reserv->getOutils() : ($reserv->outils ?? []);
+            $date_creation = method_exists($reserv, 'getDateCreation') ? (string)$reserv->getDateCreation() : ((string)($reserv->date_creation ?? ''));
+            $statut = method_exists($reserv, 'getStatut') ? (string)$reserv->getStatut() : ((string)($reserv->statut ?? ''));
+            $prix_total = method_exists($reserv, 'getPrixTotal') ? (float)$reserv->getPrixTotal() : ((float)($reserv->prix_total ?? 0.0));
+
+            $historique[] = new HistoriqueDTO(
+                $id,
+                $user_id,
+                $outils,
+                $date_creation,
+                $statut,
+                $prix_total
+            );
         }
 
-        $response->getBody()->write(json_encode($historique, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
+        $historiqueArray = array_map(function (HistoriqueDTO $dto) {
+            return get_object_vars($dto);
+        }, $historique);
+
+        $response->getBody()->write(json_encode($historiqueArray, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
         return $response->withHeader('Content-Type', 'application/json')->withStatus(200);
     }
 }

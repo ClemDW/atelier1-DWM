@@ -30,8 +30,6 @@ class ReservRepository implements ReservRepositoryInterface
                 $row['id_reservation'],
                 $row['id_utilisateur'],
                 $outils,
-                $row['date_debut'],
-                $row['date_fin'],
                 $row['date_creation'],
                 $row['statut'],
                 $row['prix_total']
@@ -55,8 +53,6 @@ class ReservRepository implements ReservRepositoryInterface
             $row['id_reservation'],
             $row['id_utilisateur'],
             $outils,
-            $row['date_debut'],
-            $row['date_fin'],
             $row['date_creation'],
             $row['statut'],
             $row['prix_total']

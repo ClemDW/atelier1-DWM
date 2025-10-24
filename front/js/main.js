@@ -38,7 +38,6 @@ class Auth {
   }
 }
 
-// Mise à jour de la section auth dans le header
 function updateAuthSection() {
   const authSection = document.getElementById("auth-section");
   const user = Auth.getUser();
@@ -99,7 +98,7 @@ function render(route) {
       loadTools();
       loadCategories();
       const categoryFilter = document.getElementById("categoryFilter");
-      categoryFilter.addEventListener('change', (e) => {
+      categoryFilter.addEventListener("change", (e) => {
         const categorieId = e.target.value;
         loadTools(categorieId || null);
       });
@@ -109,6 +108,10 @@ function render(route) {
     displayPanier(panierList);
   } else if (baseRoute === "login") {
     setupLoginPage();
+  } else if (baseRoute === "historique") {
+    loadReservations();
+  } else if (baseRoute === "reservations") {
+    loadReservations();
   }
 }
 
@@ -148,7 +151,8 @@ function loadCategories() {
 
   fetch(apiUrl)
     .then((response) => {
-      if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+      if (!response.ok)
+        throw new Error(`HTTP error! status: ${response.status}`);
       return response.json();
     })
     .then((data) => {
@@ -219,7 +223,9 @@ function loadToolDetails(id) {
 }
 
 function loadReservations() {
-  const container = document.getElementById("historiqueList");
+  const container =
+    document.getElementById("historiqueList") ||
+    document.getElementById("reservationsList");
   const token = localStorage.getItem("access_token");
   if (!token) {
     container.innerHTML =
@@ -232,16 +238,21 @@ function loadReservations() {
       Authorization: `Bearer ${token}`,
     },
   })
-    .then((response) => {
-      if (response.status === 401) throw new Error("Non authentifié");
-      if (!response.ok)
-        throw new Error(`HTTP error! status: ${response.status}`);
+    .then(async (response) => {
+      if (response.status === 401) {
+        const text = await response.text().catch(() => null);
+        throw new Error(`Non authentifié (401) ${text || ""}`);
+      }
+      if (!response.ok) {
+        const text = await response.text().catch(() => null);
+        throw new Error(`HTTP ${response.status} ${text || ""}`);
+      }
       return response.json();
     })
     .then((data) => renderHistorique(data, container))
     .catch((err) => {
       console.error("Erreur chargement historique:", err);
-      container.innerHTML = "<p>Impossible de charger l'historique.</p>";
+      container.innerHTML = `<p>Impossible de charger l'historique : ${err.message}</p>`;
     });
 }
 
@@ -254,17 +265,27 @@ function renderHistorique(items, container) {
   items.forEach((r) => {
     const card = document.createElement("div");
     card.classList.add("reservation-card");
+    const periode =
+      r.date_debut && r.date_fin
+        ? `${r.date_debut} → ${r.date_fin}`
+        : r.date_creation || "Date inconnue";
     card.innerHTML = `
-      <h3>Reservation ${r.id}</h3>
-      <p><strong>Période:</strong> ${r.date_debut} → ${r.date_fin}</p>
+      <h3>Réservation ${r.id}</h3>
+      <p><strong>Date:</strong> ${periode}</p>
       <p><strong>Prix total:</strong> ${r.prix_total} €</p>
       <p><strong>Statut:</strong> ${r.statut}</p>
       <div><strong>Outils:</strong>
         <ul>
           ${(r.outils || [])
-            .map(
-              (o) => `<li>Outil ${o.id_outil} (quantité: ${o.quantite})</li>`
-            )
+            .map((o) => {
+              const id =
+                o.id_outil || o.id || o.id_outillage || o.outil_id || "N/A";
+              const quantite = o.quantite || o.quantity || o.qty || 1;
+              const nom = o.nom || o.nom_outillage || "";
+              return `<li>${
+                nom ? `${nom} (id: ${id})` : `Outil ${id}`
+              } (quantité: ${quantite})</li>`;
+            })
             .join("")}
         </ul>
       </div>
