@@ -145,7 +145,7 @@ function buttonListener(tool) {
 }
 
 
-function displayPanier(container) {  
+function displayPanier(container) {
   const panierList = document.getElementById("panierList");
   const cookie = getCookie('panier');
   const data = parseCookie(cookie);
@@ -165,6 +165,9 @@ function displayPanier(container) {
           <img class="item-icon" src="${item.image || "assets/images/default-tool.svg"}" alt="${item.nom}">
           <h2 class="item-name">${item.nom}</h2>
         </a>
+        <h3 class="item-price">${item.prix}€/jour</h3>
+        <h4 class="item-dates">du ${item.date_debut} au ${item.date_fin}</h4>
+        <input type="number" class="item-quantity" value="${item.quantite}" min="1" max="10">
         <button id="delete" class="btn-action">Supprimer</button>
       </div>
     `;

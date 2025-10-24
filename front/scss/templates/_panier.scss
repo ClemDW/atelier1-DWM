@@ -8,16 +8,14 @@
   padding: 2rem;
 
   .title {
-    text-align: center;
+    
     font-size: 2rem;
     color: #333;
     margin-bottom: 1.5rem;
   }
 
-
   @include respond-to(medium) {
     padding: 1.5rem;
-
     .title {
       font-size: 1.75rem;
     }
@@ -25,56 +23,89 @@
 
   @include respond-to(small) {
     padding: 1rem;
-
     .title {
       font-size: 1.5rem;
     }
   }
-  
 }
+
 .panier-card {
-    max-width: 75%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background-color: #f9f9f9;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 1rem;
-    margin-bottom: 1rem;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  }
+  margin-left: 10%;
+  max-width: 80%;
+  display: flex;
+  align-items: center;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 1rem 1.5rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  position: relative;
+}
 
-  .item-container {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-  }
+.item-container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex: 1;
+}
 
-  .item-icon {
-    width: 60px;
-    height: 60px;
-    object-fit: cover;
-    border-radius: 4px;
-  }
+.item-container a {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  text-decoration: none;
+  color: inherit;
+}
 
-  .item-name {
-    font-size: 1.2rem;
-    color: #333;
-    margin: 0;
-  }
+.item-icon {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 4px;
+}
 
-  .btn-action {
-    background-color: #ff7214;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    padding: 0.5rem 1rem;
-    cursor: pointer;
-    font-weight: bold;
-    transition: background-color 0.2s;
-  }
+.item-name {
+  font-size: 1.2rem;
+  color: #333;
+  margin: 0;
+}
 
-  .btn-action:hover {
-    background-color: #e06310;
-  }
+.btn-action {
+  position: absolute;
+  right: 1.5%;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: #ff7214;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.2s;
+}
+
+.item-quantity {
+  width: 50px;
+  padding: 0.4rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+  text-align: center;
+  margin-left: 5rem;
+}
+
+.item-price {
+  margin-left: 5%;
+  font-weight: normal;
+}
+
+.item-dates {
+  margin-left: 5%;
+  font-weight: normal;
+}
+
+.btn-action:hover {
+  background-color: #e06310;
+}
