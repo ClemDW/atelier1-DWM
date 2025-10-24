@@ -199,3 +199,23 @@
     }
   }
 }
+
+.datesContainer {
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+
+  .dateDebut,
+  .dateFin {
+    display: flex;
+    align-items: center;
+    margin: 10px;
+
+    p {
+      display: flex;
+      float: left;
+      color: #333;
+      padding-right: 10px;
+    }
+  }
+}

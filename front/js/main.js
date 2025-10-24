@@ -208,8 +208,18 @@ function loadToolDetails(id) {
               <text class="quantity">1</text>
               <button class="plus">+</button>
           </div>
-          <input type="date" class="date-debut">
-          <input type="date" class="date-fin">
+          <div class="datesContainer">
+            <div class="dateDebut">
+              <p>Date de début</p>
+              <input type="date" class="date-debut" onkeydown="return false">
+            </div>
+          
+            <div class="dateFin">
+              <p>Date de fin</p>
+              <input type="date" class="date-fin" onkeydown="return false">
+            </div>
+          </div>
+
           <button class="ajout-panier">Ajouter au panier</button>
           <a href="#outils" class="btn">Retour</a>
         </div>
@@ -302,8 +312,30 @@ function buttonListenerPanier(tool) {
   const plus = document.querySelector(".plus");
   const minus = document.querySelector(".minus");
   let quantite = parseInt(quantity.textContent);
+  let errorBox = document.createElement('p');
 
-  ajoutPanier.addEventListener("click", () => {
+  errorBox.classList.add("error-message");
+
+  const today = new Date().toISOString().split("T")[0];
+  dateDebut.setAttribute("min", today);
+  dateFin.setAttribute("min", today);
+
+  dateDebut.addEventListener("change", () => {
+    if (dateDebut.value) {
+      dateFin.setAttribute("min", dateDebut.value);
+    }
+  });
+
+  ajoutPanier.addEventListener('click', () => {
+    errorBox.textContent = "";
+
+    ajoutPanier.insertAdjacentElement('afterend', errorBox, );
+
+    if (!dateDebut.value || !dateFin.value) {
+      errorBox.textContent = 'Veuillez sélectionner une date de début et de fin avant d’ajouter au panier.';
+      return;
+    }
+
     const outil = {
       id: tool.id_outillage,
       nom: tool.nom_outillage,
@@ -311,6 +343,8 @@ function buttonListenerPanier(tool) {
       prix: tool.prix,
     };
     Panier.ajouterOutil(outil, dateDebut.value, dateFin.value, quantite);
+    errorBox.textContent = "Outil ajouté au panier !";
+    errorBox.classList.add("success");
   });
 
   plus.addEventListener("click", () => {

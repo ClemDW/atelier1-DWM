@@ -8,7 +8,7 @@
 
 // Filtres
 .filters {
-  width: 20%;
+  width: 15%;
   padding: 20px;
   background-color: #f0f0f0;
 
@@ -32,9 +32,9 @@
     }
 
     &.active {
-      background-color: #007bff;
+      background-color: #ff7214;
       color: white;
-      border-color: #007bff;
+      border-color: #ff6800;
     }
   }
 
@@ -43,6 +43,34 @@
     padding: 10px;
   }
 }
+
+#categoryFilter {
+  display: block;
+  width: 100%;
+  padding: 10px 12px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background-color: #fff;
+  font-size: 1rem;
+  color: #333;
+  transition: border-color 0.3s, box-shadow 0.3s;
+
+  &:hover {
+    outline: none;
+    border-color: #ff7214;
+  }
+
+  option {
+    padding: 8px;
+  }
+
+  @include respond-to(medium) {
+    font-size: 0.95rem;
+    padding: 8px 10px;
+  }
+}
+
 
 // Section des outils
 .tools-section {
@@ -101,6 +129,10 @@
   p {
     margin: 5px 0;
     color: #666;
+  }
+
+  a {
+    text-decoration: none;
   }
 
   @include respond-to(small) {
