@@ -2,6 +2,7 @@
 
 // Template: Page du panier
 .page-panier {
+  align-items: center;
   width: 100%;
   margin: 0 auto;
   padding: 2rem;
@@ -32,6 +33,7 @@
   
 }
 .panier-card {
+    max-width: 75%;
     display: flex;
     align-items: center;
     justify-content: space-between;
