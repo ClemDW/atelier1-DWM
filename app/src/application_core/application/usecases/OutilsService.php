@@ -36,6 +36,28 @@ class OutilsService implements OutilsServiceInterface
         return $outillagesDTO;
     }
 
+    public function ListerOutillagesParCategorie(int $categorieId): array
+    {
+        $outillages = $this->outilsRepository->findOutillagesByCategorie($categorieId);
+        $outillagesDTO = [];
+
+        foreach ($outillages as $outillage) {
+            $stock = $this->outilsRepository->calculateStock($outillage->getIdOutillage());
+
+            // Only include articles with available stock
+            if ($stock > 0) {
+                $outillagesDTO[] = new OutillageListeDTO(
+                    $outillage->getIdOutillage(),
+                    $outillage->getNomOutillage(),
+                    $outillage->getImageUrl(),
+                    $stock
+                );
+            }
+        }
+
+        return $outillagesDTO;
+    }
+
     public function AfficherOutillage(string $id): OutillageAfficheDTO
     {
         $outillage = $this->outilsRepository->findOutillageById($id);

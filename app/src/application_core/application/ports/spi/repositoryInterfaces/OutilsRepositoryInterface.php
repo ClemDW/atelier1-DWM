@@ -13,5 +13,9 @@ interface OutilsRepositoryInterface
     //public function calculateStock(int $id_outillage): int; a voir plus tard
     public function findAllOutillages(): array;
     public function findOutillageById(int $id_outillage): Outillage;
+    public function findOutillagesByCategorie(int $categorieId): array;
+
+    // Categories //
+    public function findAllCategories(): array;
 
 }

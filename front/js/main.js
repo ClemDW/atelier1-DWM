@@ -97,6 +97,12 @@ function render(route) {
       loadToolDetails(param);
     } else {
       loadTools();
+      loadCategories();
+      const categoryFilter = document.getElementById("categoryFilter");
+      categoryFilter.addEventListener('change', (e) => {
+        const categorieId = e.target.value;
+        loadTools(categorieId || null);
+      });
     }
   } else if (baseRoute === "panier") {
     const panierList = document.getElementById("panierList");
@@ -115,9 +121,12 @@ window.addEventListener("hashchange", () => {
 updateAuthSection();
 render(location.hash.substring(1) || "home");
 
-function loadTools() {
+function loadTools(categorieId = null) {
   const toolsList = document.getElementById("toolsList");
-  const apiUrl = `${API_URL}/outillages`;
+  let apiUrl = `${API_URL}/outillages`;
+  if (categorieId) {
+    apiUrl += `?categorie=${categorieId}`;
+  }
 
   fetch(apiUrl)
     .then((response) => {
@@ -130,6 +139,28 @@ function loadTools() {
       console.error("Error fetching tools:", error);
       toolsList.innerHTML =
         "<p>Impossible de charger les outils. Vérifiez que l'API est bien en cours d'exécution.</p>";
+    });
+}
+
+function loadCategories() {
+  const categoryFilter = document.getElementById("categoryFilter");
+  const apiUrl = `${API_URL}/categories`;
+
+  fetch(apiUrl)
+    .then((response) => {
+      if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+      return response.json();
+    })
+    .then((data) => {
+      data.forEach((category) => {
+        const option = document.createElement("option");
+        option.value = category.id_categorie;
+        option.textContent = category.nom_categorie;
+        categoryFilter.appendChild(option);
+      });
+    })
+    .catch((error) => {
+      console.error("Error fetching categories:", error);
     });
 }
 
