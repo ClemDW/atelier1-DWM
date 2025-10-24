@@ -105,10 +105,26 @@
     cursor: pointer;
     transition: all 0.3s;
     text-align: center;
-    
+    display: block;
+    margin: 0 auto;
+    background-color: #ff7214;
+    color: white;
+
     &:hover {
       transform: scale(1.02);
+      background-color: #e06310;
     }
+  }
+
+  .user-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+
+  .user-name {
+    color: #ff7214;
+    font-weight: bold;
   }
 
   // Media queries
