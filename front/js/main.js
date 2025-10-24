@@ -93,9 +93,11 @@ function loadToolDetails(id) {
           <h2>${tool.nom_outillage}</h2>
           <p><strong>Description:</strong> ${tool.description}</p>
           <p><strong>Prix:</strong> ${tool.prix} €/jour</p>
-          <button class="plus">+</button>
-          <text class="quantity">1</text>
-          <button class="minus">-</button>
+          <div id="gestionQuantite">
+              <button class="minus">-</button>
+              <text class="quantity">1</text>
+              <button class="plus">+</button>
+          </div>
           <input type="date" class="date-debut">
           <input type="date" class="date-fin">
           <button class="ajout-panier">Ajouter au panier</button>
@@ -120,6 +122,17 @@ function buttonListenerPanier(tool) {
     let quantite = parseInt(quantity.textContent);
 
     ajoutPanier.addEventListener('click', () => {
+
+        if (!dateDebut.value || !dateFin.value) {
+            alert('Veuillez sélectionner une date de début et de fin avant d’ajouter au panier.');
+            return;
+        }
+
+        if (new Date(dateDebut.value) > new Date(dateFin.value)) {
+            alert('La date de fin doit être postérieure à la date de début.');
+            return;
+        }
+
         const outil = {
             id: tool.id_outillage,
             nom: tool.nom_outillage,
