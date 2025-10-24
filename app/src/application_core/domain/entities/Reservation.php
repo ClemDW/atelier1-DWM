@@ -6,20 +6,16 @@ class Reservation
 {
     private string $id;
     private string $user_id;
-    private array $outils; // array of outil ids or objects
-    private string $date_debut;
-    private string $date_fin;
+    private array $reserv_outils;
     private string $date_creation;
     private string $statut;
     private float $prix_total;
 
-    public function __construct(string $id, string $user_id, array $outils, string $date_debut, string $date_fin, string $date_creation, string $statut, float $prix_total)
+    public function __construct(string $id, string $user_id, array $reserv_outils, string $date_creation, string $statut, float $prix_total)
     {
         $this->id = $id;
         $this->user_id = $user_id;
-        $this->outils = $outils;
-        $this->date_debut = $date_debut;
-        $this->date_fin = $date_fin;
+        $this->reserv_outils = $reserv_outils;
         $this->date_creation = $date_creation;
         $this->statut = $statut;
         $this->prix_total = $prix_total;
@@ -35,19 +31,9 @@ class Reservation
         return $this->user_id;
     }
 
-    public function getOutils(): array
+    public function getReservOutils(): array
     {
-        return $this->outils;
-    }
-
-    public function getDateDebut(): string
-    {
-        return $this->date_debut;
-    }
-
-    public function getDateFin(): string
-    {
-        return $this->date_fin;
+        return $this->reserv_outils;
     }
 
     public function getDateCreation(): string
@@ -64,4 +50,5 @@ class Reservation
     {
         return $this->prix_total;
     }
+
 }
