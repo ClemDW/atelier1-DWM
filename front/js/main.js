@@ -147,7 +147,7 @@ function displayTools(tools, container) {
 function loadToolDetails(id) {
   const detailContainer = document.getElementById("outilDetail");
   const apiUrl = `${API_URL}/outillages/${id}`;
-correction_auth_front
+
   fetch(apiUrl)
     .then(response => {
       if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
@@ -213,7 +213,7 @@ function buttonListenerPanier(tool) {
   });
 }
 
-correction_auth_front
+
 function displayPanier(container) {
   const panierList = document.getElementById("panierList");
   const cookie = getCookie('panier');
@@ -268,6 +268,7 @@ function removeItemFromPanier(date) {
     return;
   }
 
+  data.items = data.items.filter(item => item.date_fin !== date);
   setCookie('panier', JSON.stringify(data));
   window.location.reload();
 }
