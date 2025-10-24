@@ -28,11 +28,6 @@ class AuthRepository implements AuthRepositoryInterface
 
     public function create(string $id, string $email, string $password, string $nom, string $prenom): User
     {
-        var_dump($id);
-        var_dump($email);
-        var_dump($password);
-        var_dump($nom);
-        var_dump($prenom);
         $sql = "INSERT INTO users (id, nom, prenom, email, password) VALUES (:id, :nom, :prenom, :email, :password)";
         $stmt = $this->pdo->prepare($sql);
         $stmt->bindParam(':id', $id, PDO::PARAM_STR);
