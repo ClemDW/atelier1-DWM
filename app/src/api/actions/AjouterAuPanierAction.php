@@ -28,7 +28,7 @@ class AjouterAuPanierAction
 
         if ($this->outilsService->isOutilDisponible($id_outil, $date)) {
             // Return outil details for frontend panier
-            $outil = $this->outilsService->AfficherOutil($id_outil);
+            $outil = $this->outilsService->AfficherOutillage($id_outil);
             $response->getBody()->write(json_encode([
                 'success' => true,
                 'outil' => [

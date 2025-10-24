@@ -4,18 +4,14 @@ namespace charlymatloc\core\application\ports\spi\repositoryInterfaces;
 
 use charlymatloc\core\domain\entities\Categorie;
 use charlymatloc\core\domain\entities\Outil;
+use charlymatloc\core\domain\entities\Outillage;
 
 interface OutilsRepositoryInterface
 {
 
-    // Outils //
-
-    public function findById(string $id): Outil;
-
-    // Catégories //
-
-    public function findAllCategories(): array;
-    public function findCategorieById(int $id): Categorie;
-    public function calculateStock(int $id_categorie): int;
+    // Outillages //
+    //public function calculateStock(int $id_outillage): int; a voir plus tard
+    public function findAllOutillages(): array;
+    public function findOutillageById(int $id_outillage): Outillage;
 
 }

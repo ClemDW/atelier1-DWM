@@ -48,7 +48,7 @@ render(location.hash.substring(1) || 'home');
 
 function loadTools() {
   const toolsList = document.getElementById("toolsList");
-  const apiUrl = `${API_URL}/outils`;
+  const apiUrl = `${API_URL}/outillages`;
 
   fetch(apiUrl)
     .then((response) => {
@@ -80,8 +80,7 @@ function displayTools(tools, container) {
 
 function loadToolDetails(id) {
   const detailContainer = document.getElementById("outilDetail");
-  const apiUrl = `${API_URL}/outils/${id}`;
-
+  const apiUrl = `${API_URL}/outillages/${id}`;
   fetch(apiUrl)
       .then(response => {
         if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
