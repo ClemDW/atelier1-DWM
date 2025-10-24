@@ -13,10 +13,10 @@
 
 ## Groupe
 
-- **[BESANCON Marcelin](https://github.com)** 
-- **[DE WASCH Clément](https://github.com)** 
-- **[TOPCU Semih](https://github.com)** 
-- **[SALZAR Manech](https://github.com)** 
+- **[BESANCON Marcelin](https://github.com/NaasaX)** 
+- **[DE WASCH Clément](https://github.com/ClemDW)** 
+- **[TOPCU Semih](https://github.com/cemquo)** 
+- **[SALZAR Manech](https://github.com/LeChenam)** 
 - **[HERRMANN Vivien](https://github.com/Vivienhrm)**
 
 ---
