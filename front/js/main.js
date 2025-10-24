@@ -45,8 +45,8 @@ function updateAuthSection() {
 
   if (user) {
     authSection.innerHTML = `
-      <div style="display: flex; align-items: center; gap: 15px;">
-        <span style="color: #ff7214; font-weight: bold;">
+      <div class="user-info">
+        <span class="user-name">
           ${user.prenom} ${user.nom}
         </span>
         <button id="logout-btn" class="login-btn">Déconnexion</button>
@@ -412,7 +412,7 @@ function setupLoginPage() {
       <p style="text-align: center; margin: 2rem 0;">
         Bienvenue ${Auth.getUser().prenom} ${Auth.getUser().nom} !
       </p>
-      <button id="goHome" class="btn" style="display: block; margin: 0 auto; background-color: #ff7214; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;">
+      <button id="goHome" class="btn">
         Retour à l'accueil
       </button>
     `;
