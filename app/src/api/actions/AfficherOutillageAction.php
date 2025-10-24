@@ -6,16 +6,15 @@ use charlymatloc\core\application\ports\api\serviceinterfaces\OutilsServiceInter
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
-class ListerOutilsAction{
+class AfficherOutillageAction{
     private OutilsServiceInterface $outilsService;
     public function __construct(OutilsServiceInterface $outilsService){
         $this->outilsService = $outilsService;
     }
 
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response, array $args){
-        $outils = $this->outilsService->ListerOutils();
-
-        $response->getBody()->write(json_encode($outils, JSON_PRETTY_PRINT));
+        $outil = $this->outilsService->AfficherOutillage($request->getAttribute('id'));
+        $response->getBody()->write(json_encode($outil, JSON_PRETTY_PRINT));
 
         return $response
             ->withHeader('Content-Type', 'application/json')

@@ -5,6 +5,7 @@ namespace charlymatloc\infra\repositories;
 use charlymatloc\core\application\ports\spi\repositoryInterfaces\OutilsRepositoryInterface;
 use charlymatloc\core\domain\entities\Categorie;
 use charlymatloc\core\domain\entities\Outil;
+use charlymatloc\core\domain\entities\Outillage;
 use charlymatloc\infra\exceptions\OutilNotFoundException;
 use PDO;
 use PDOException;
@@ -16,68 +17,53 @@ class OutilsRepository implements OutilsRepositoryInterface
     public function __construct(PDO $pdo){
         $this->pdo = $pdo;
     }
-    public function findAllCategories(): array
+
+    public function findAllOutillages(): array
     {
-        $sql = "SELECT 
-        c.id_categorie, 
-        c.nom_categorie, 
-        c.description, 
-        c.prix_journalier, 
-        c.image_url
-        FROM categories c";
+        $sql = "SELECT * FROM outillage";
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute();
-        $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        $outils = [];
+        $rows = $stmt->fetchAll();
+        $outillages = [];
         foreach ($rows as $row) {
-            $outils[] = new Categorie( $row['id_categorie'], $row['nom_categorie'], $row['description'], $row['prix_journalier'], $row['image_url']);
+            $outillages[] = new Outillage(
+                $row['id_outillage'],
+                $row['id_categorie'],
+                $row['nom_outillage'],
+                $row['description'],
+                $row['prix_journalier'],
+                $row['image_url']
+            );
         }
-        return $outils;
+        return $outillages;
     }
 
-
-    public function findById(string $id): Outil
+    public function findOutillageById(int $id_outillage): Outillage
     {
-        $sql = "SELECT 
-        o.id_outil,
-        o.id_categorie, 
-        o.nom, 
-        o.description, 
-        o.prix_journalier, 
-        o.image_url,
-        (SELECT COUNT(*) FROM outils o2 WHERE o2.id_categorie = o.id_categorie) as stock
-    FROM outils o WHERE id_outil = :id";
+        $sql = "SELECT * FROM outillage WHERE id_outillage = :id";
         $stmt = $this->pdo->prepare($sql);
-        $stmt->bindParam(':id', $id, PDO::PARAM_STR);
+        $stmt->bindParam(':id', $id_outillage, PDO::PARAM_INT);
         $stmt->execute();
-        $row = $stmt->fetch(PDO::FETCH_ASSOC);
-        if ($row ===false) {
-            throw new OutilNotFoundException($id);
-        }
-        return new Outil($row['id_outil'], $row['id_categorie'], $row['nom'], $row['description'], $row['prix_journalier'], $row['image_url'], $row['stock']);
+        $row = $stmt->fetch();
+        $outillage = new Outillage(
+            $row['id_outillage'],
+            $row['id_categorie'],
+            $row['nom_outillage'],
+            $row['description'],
+            $row['prix_journalier'],
+            $row['image_url']
+        );
+        return $outillage;
     }
 
-    public function findCategorieById(int $id): Categorie
+    public function calculateStock(int $id_outillage): int
     {
-        $sql = "SELECT * FROM categories WHERE id_categorie = :id";
-        $stmt = $this->pdo->prepare($sql);
-        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
-        $stmt->execute();
-        $row = $stmt->fetch(PDO::FETCH_ASSOC);
-        if ($row === false) {
-            throw new OutilNotFoundException($id);
-        }
-        return new Categorie($row['id_categorie'], $row['nom_categorie'], $row['description'], $row['prix_journalier'], $row['image_url']);
-    }
-
-    public function calculateStock(int $id_categorie): int
-    {
-        $sql = "SELECT COUNT(o.id_categorie) AS stock
+        $sql = "SELECT COUNT(*) AS stock
             FROM outils o
-            WHERE o.id_categorie = :id_categorie";
+            WHERE o.id_outillage = :id_outillage";
 
         $stmt = $this->pdo->prepare($sql);
-        $stmt->bindParam(':id_categorie', $id_categorie, PDO::PARAM_INT);
+        $stmt->bindParam(':id_outillage', $id_outillage, PDO::PARAM_INT);
         $stmt->execute();
 
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
