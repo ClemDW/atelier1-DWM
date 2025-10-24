@@ -109,7 +109,6 @@ function loadToolDetails(id) {
           <a href="#outils" class="btn">Retour</a>
         </div>
       `;
-      buttonListenerPanier(tool);
       buttonListener(tool);
     })
     .catch((error) => {
