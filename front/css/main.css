@@ -400,11 +400,6 @@
   margin: 0 auto;
   padding: 2rem;
 }
-.page-panier .title {
-  font-size: 2rem;
-  color: #333;
-  margin-bottom: 1.5rem;
-}
 @media (max-width: 900px) {
   .page-panier {
     padding: 1.5rem;
@@ -420,6 +415,13 @@
   .page-panier .title {
     font-size: 1.5rem;
   }
+}
+
+.title {
+  text-align: center;
+  font-size: 2rem;
+  color: #333;
+  margin-bottom: 1.5rem;
 }
 
 .panier-card {
@@ -486,16 +488,16 @@
   border-radius: 4px;
   font-size: 1rem;
   text-align: center;
-  margin-left: 5rem;
+  margin-left: 15%;
 }
 
 .item-price {
-  margin-left: 5%;
+  margin-left: 15%;
   font-weight: normal;
 }
 
 .item-dates {
-  margin-left: 5%;
+  margin-left: 15%;
   font-weight: normal;
 }
 
@@ -536,11 +538,6 @@
   border-color: #ff7214;
   outline: none;
 }
-.page-login form .error-message {
-  color: #ff4d4f;
-  font-size: 0.875rem;
-  margin-top: 0.25rem;
-}
 .page-login form button {
   padding: 0.75rem 1rem;
   background-color: #ff7214;
@@ -555,18 +552,6 @@
 .page-login form button:hover {
   color: #fff;
   scale: 1.01;
-}
-.page-login .forgot-password {
-  margin-top: 1rem;
-  text-align: right;
-  font-size: 0.9rem;
-}
-.page-login .forgot-password a {
-  color: #ff7214;
-  text-decoration: none;
-}
-.page-login .forgot-password a:hover {
-  text-decoration: underline;
 }
 @media (max-width: 900px) {
   .page-login {

@@ -7,13 +7,6 @@
   margin: 0 auto;
   padding: 2rem;
 
-  .title {
-    
-    font-size: 2rem;
-    color: #333;
-    margin-bottom: 1.5rem;
-  }
-
   @include respond-to(medium) {
     padding: 1.5rem;
     .title {
@@ -27,6 +20,13 @@
       font-size: 1.5rem;
     }
   }
+}
+
+.title {
+    text-align: center;
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 1.5rem;
 }
 
 .panier-card {
@@ -93,16 +93,16 @@
   border-radius: 4px;
   font-size: 1rem;
   text-align: center;
-  margin-left: 5rem;
+  margin-left: 15%;
 }
 
 .item-price {
-  margin-left: 5%;
+  margin-left: 15%;
   font-weight: normal;
 }
 
 .item-dates {
-  margin-left: 5%;
+  margin-left: 15%;
   font-weight: normal;
 }
 
