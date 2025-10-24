@@ -121,7 +121,7 @@ function buttonListenerPanier(tool) {
 
     ajoutPanier.addEventListener('click', () => {
         const outil = {
-            id: tool.id_categorie,
+            id: tool.id_outillage,
             nom: tool.nom_outillage,
             image: tool.image,
             prix: tool.prix,
@@ -225,7 +225,7 @@ function loadLoginPage() {
     loginContainer.innerHTML = `
       <section id="page-login" class="page-login">
         <h2>Connexion</h2>
-        <form id="loginForm" class="login-form">
+        <form id="loginForm" class="login-form" method="post">
           <label for="email">Email :</label>
           <input type="email" id="email" name="email" required>
     
@@ -238,4 +238,35 @@ function loadLoginPage() {
         <p id="loginMessage" class="login-message"></p>
       </section>
     `;
+    handleLogin();
+}
+
+function handleLogin() {
+    const loginForm = document.getElementById("loginForm");
+    const loginMessage = document.getElementById("loginMessage");
+
+    if (!loginForm || !loginMessage) {
+        message.textContent = "Identifiants manquants";
+        return;
+    }
+
+    loginForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+        const email = loginForm.email.value;
+        const password = loginForm.password.value;
+
+        try{
+            const response = fetch(`${API_URL}/login`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ email, password })
+            });
+            console.log(response);
+        }catch(error){
+            console.error("echec de la connexion");
+            message.textContent = "Identifiants incorrects.";
+        }
+    })
 }
