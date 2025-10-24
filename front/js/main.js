@@ -149,7 +149,8 @@ function displayPanier(container) {
   const panierList = document.getElementById("panierList");
   const cookie = getCookie('panier');
   const data = parseCookie(cookie);
-  const items = data?.items || null;
+  const items = data.items;
+  let sum = 0;
 
   if(items != null){
   } else {
@@ -157,6 +158,7 @@ function displayPanier(container) {
   }
 
   items.forEach((item) => {
+    sum += item.prix*item.quantite;
     const toolCard = document.createElement("div");
     toolCard.classList.add("panier-card");
     toolCard.innerHTML = `
@@ -165,30 +167,43 @@ function displayPanier(container) {
           <img class="item-icon" src="${item.image || "assets/images/default-tool.svg"}" alt="${item.nom}">
           <h2 class="item-name">${item.nom}</h2>
         </a>
-        <h3 class="item-price">${item.prix}€/jour</h3>
+        <h3 class="item-price">${item.prix*item.quantite}€/jour</h3>
         <h4 class="item-dates">du ${item.date_debut} au ${item.date_fin}</h4>
-        <input type="number" class="item-quantity" value="${item.quantite}" min="1" max="10">
+        <h3 class="item-quantity">x ${item.quantite}</h3>
         <button id="delete" class="btn-action">Supprimer</button>
       </div>
     `;
     toolCard.querySelector('.btn-action').addEventListener('click', () => {
-      removeItemFromPanier(item.id);
+      removeItemFromPanier(item.date_fin);
     });
     container.appendChild(toolCard);
   });
+
+  const subtotal = document.getElementById('subtotal');
+  subtotal.innerHTML = `
+    <h2>Sous total: ${sum}€</h2>
+    <button id="validate" class="btn-validate">Valider le panier</button>
+  `;
+
 }
 
-function removeItemFromPanier(id) {
+function removeItemFromPanier(date) {
   const cookie = getCookie('panier');
-  const data = parseCookie(cookie);
+  if (!cookie) return;
 
-  if (!data) return;
-  data.items = data.items.filter(item => item.id !== id);
+  let data;
+  try {
+    data = JSON.parse(cookie);
+  } catch (e) {
+    console.error("Erreur parsing cookie panier :", e);
+    return;
+  }
 
-  setCookie('panier', JSON.stringify(data));
+  data.items = data.items.filter(item => item.date_fin !== date);
+
+  setCookie('panier', JSON.stringify(data), 7);
 
   window.location.reload();
-
 }
 
 function setCookie(name, value, days = 7) {
@@ -205,6 +220,7 @@ function getCookie(name) {
   }
   return null;
 }
+
 
 function parseCookie(cookieValue) {
   if (!cookieValue) return null;

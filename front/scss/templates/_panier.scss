@@ -1,8 +1,6 @@
 @use "../partials/mixins" as *;
 
-// Template: Page du panier
 .page-panier {
-  align-items: center;
   width: 100%;
   margin: 0 auto;
   padding: 2rem;
@@ -27,35 +25,46 @@
     font-size: 2rem;
     color: #333;
     margin-bottom: 1.5rem;
-}
+  }
 
 .panier-card {
   margin-left: 10%;
   max-width: 80%;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   background-color: #f9f9f9;
   border: 1px solid #ddd;
   border-radius: 8px;
   padding: 1rem 1.5rem;
   margin-bottom: 1rem;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  position: relative;
 }
 
 .item-container {
   display: flex;
   align-items: center;
-  gap: 1rem;
-  flex: 1;
+  width: 100%;
+  justify-content: space-between; // image à gauche, bouton à droite
 }
 
-.item-container a {
+.item-left {
   display: flex;
   align-items: center;
   gap: 1rem;
-  text-decoration: none;
-  color: inherit;
+}
+
+.item-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  flex: 1
+}
+
+.item-right {
+  display: flex;
+  justify-content: flex-end;
 }
 
 .item-icon {
@@ -71,11 +80,15 @@
   margin: 0;
 }
 
-.btn-action {
-  position: absolute;
-  right: 1.5%;
-  top: 50%;
-  transform: translateY(-50%);
+.item-quantity,
+.item-price,
+.item-dates {
+  font-weight: normal;
+  text-align: center;
+}
+
+.btn-action,
+.btn-validate {
   background-color: #ff7214;
   color: #fff;
   border: none;
@@ -86,26 +99,71 @@
   transition: background-color 0.2s;
 }
 
-.item-quantity {
-  width: 50px;
-  padding: 0.4rem;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  font-size: 1rem;
-  text-align: center;
-  margin-left: 15%;
-}
-
-.item-price {
-  margin-left: 15%;
-  font-weight: normal;
-}
-
-.item-dates {
-  margin-left: 15%;
-  font-weight: normal;
-}
-
-.btn-action:hover {
+.btn-action:hover,
+.btn-validate:hover {
   background-color: #e06310;
+}
+
+
+.panier-subtotal {
+  margin-left: 10%;
+  max-width: 80%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: .2rem 1.5rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  position: fixed;
+  bottom: 6%;
+  width: 80%;
+}
+
+.btn-validate{
+}
+
+
+@include respond-to(medium) {
+  .panier-card,
+  .panier-subtotal {
+    max-width: 95%;
+    margin-left: 2.5%;
+  }
+
+  .item-quantity {
+    width: 40px;
+  }
+}
+
+@include respond-to(small) {
+  .panier-card
+  .panier-subtotal {
+    max-width: 100%;
+    margin-left: 0;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .item-container {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .item-left, .item-center, .item-right {
+    width: 100%;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+  }
+
+  .item-center {
+    justify-content: space-around; // répartir les 3 colonnes
+  }
+
+  .btn-action {
+    align-self: flex-end;
+    margin-top: 0.5rem;
+  }
 }
