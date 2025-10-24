@@ -110,6 +110,7 @@ function loadToolDetails(id) {
         </div>
       `;
       buttonListenerPanier(tool);
+      buttonListener(tool);
     })
     .catch((error) => {
       console.error("Erreur lors du chargement de l'outil :", error);
@@ -117,7 +118,7 @@ function loadToolDetails(id) {
     });
 }
 
-function buttonListenerPanier(tool) {
+function buttonListener(tool) {
   const ajoutPanier = document.querySelector(".ajout-panier");
   const quantity = document.querySelector(".quantity");
   const dateDebut = document.querySelector(".date-debut");
@@ -126,16 +127,6 @@ function buttonListenerPanier(tool) {
   const minus = document.querySelector(".minus");
   let quantite = parseInt(quantity.textContent);
 
-  ajoutPanier.addEventListener("click", () => {
-    const outil = {
-      id: tool.id_categorie,
-      nom: tool.nom,
-      id_outillage,
-      image: tool.image,
-      prix: tool.prix,
-    };
-    Panier.ajouterOutil(outil, dateDebut.value, dateFin.value, quantite);
-  });
   ajoutPanier.addEventListener("click", () => {
     const outil = {
       id: tool.id_categorie,
@@ -151,13 +142,6 @@ function buttonListenerPanier(tool) {
     if (quantite < tool.stock) {
       quantite = quantite + 1;
       quantity.innerHTML = parseInt(quantity.textContent) + 1;
-    }
-  });
-
-  minus.addEventListener("click", () => {
-    if (quantite > 1) {
-      quantite = quantite - 1;
-      quantity.innerHTML = parseInt(quantity.textContent) - 1;
     }
   });
 }
