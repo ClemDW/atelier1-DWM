@@ -128,8 +128,8 @@ function buttonListener(tool) {
 
   ajoutPanier.addEventListener("click", () => {
     const outil = {
-      id: tool.id,
-      nom: tool.nom,
+      id: tool.id_categorie,
+      nom: tool.nom_outillage,
       image: tool.image,
       prix: tool.prix,
     };
@@ -141,13 +141,6 @@ function buttonListener(tool) {
     if (quantite < tool.stock) {
       quantite = quantite + 1;
       quantity.innerHTML = parseInt(quantity.textContent) + 1;
-    }
-  });
-
-  minus.addEventListener("click", () => {
-    if (quantite > 1) {
-      quantite = quantite - 1;
-      quantity.innerHTML = parseInt(quantity.textContent) - 1;
     }
   });
 }
