@@ -79,7 +79,7 @@ class ReservRepository implements ReservRepositoryInterface
 
     private function getOutilsForReservation(string $id_reservation): array
     {
-        $sql = "SELECT id_outil, quantite FROM reservation_outils WHERE id_reservation = :id";
+        $sql = "SELECT id_outil FROM reservation_outils WHERE id_reservation = :id";
         $stmt = $this->pdo->prepare($sql);
         $stmt->bindParam(':id', $id_reservation, PDO::PARAM_STR);
         $stmt->execute();
@@ -88,9 +88,31 @@ class ReservRepository implements ReservRepositoryInterface
         foreach ($rows as $row) {
             $outils[] = [
                 'id_outil' => $row['id_outil'],
-                'quantite' => $row['quantite']
             ];
         }
         return $outils;
+    }
+
+    public function findByUserAndStatut(string $userId, string $statut): array
+    {
+        $sql = "SELECT * FROM reservations WHERE id_utilisateur = :userId AND statut = :statut";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindParam(':userId', $userId, PDO::PARAM_STR);
+        $stmt->bindParam(':statut', $statut, PDO::PARAM_STR);
+        $stmt->execute();
+        $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $reservations = [];
+        foreach ($rows as $row) {
+            $outils = $this->getOutilsForReservation($row['id_reservation']);
+            $reservations[] = new Reservation(
+                $row['id_reservation'],
+                $row['id_utilisateur'],
+                $outils,
+                $row['date_creation'],
+                $row['statut'],
+                $row['prix_total']
+            );
+        }
+        return $reservations;
     }
 }

@@ -12,6 +12,9 @@ use charlymatloc\infra\repositories\AuthRepository;
 use charlymatloc\infra\repositories\OutilsRepository;
 use charlymatloc\infra\repositories\ReservRepository;
 use Psr\Container\ContainerInterface;
+use charlymatloc\core\application\ports\api\serviceinterfaces\ReservServiceInterface;
+use charlymatloc\core\application\usecases\ReservService;
+
 
 return [
 
@@ -57,5 +60,9 @@ return [
 
     AuthServiceInterface::class => function (ContainerInterface $container) {
         return new AuthService($container->get(AuthRepositoryInterface::class));
+    },
+
+    ReservServiceInterface::class => function (ContainerInterface $container) {
+        return new ReservService($container->get(ReservRepositoryInterface::class));
     }
 ];

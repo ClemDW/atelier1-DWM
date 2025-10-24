@@ -10,6 +10,7 @@ use charlymatloc\api\middlewares\AuthzMiddleware;
 use charlymatloc\api\middlewares\CreerCompteMiddleware;
 use charlymatloc\api\actions\AjouterAuPanierAction;
 use charlymatloc\api\actions\VerifierDisponibiliteAction;
+use charlymatloc\api\actions\AfficherHistoriqueAction;
 use Slim\App;
 
 return function (App $app):App {
@@ -31,6 +32,10 @@ return function (App $app):App {
     $app->get('/outils/{id}/disponibilite', VerifierDisponibiliteAction::class)->setName('verifier_disponibilite');
 
     $app->post('/panier/outils/{id}', AjouterAuPanierAction::class)->setName('ajouter_au_panier');
+
+    $app->get('/historique', AfficherHistoriqueAction::class)
+        ->add(AuthzMiddleware::class)
+        ->setName('afficher_historique');
 
 
     return $app;
