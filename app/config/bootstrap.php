@@ -11,10 +11,11 @@ $container = require __DIR__ . '/container.php';
 AppFactory::setContainer($container);
 $app = AppFactory::create();
 
-$app->add(new CorsMiddleware());
 $app->addBodyParsingMiddleware();
 $app->addRoutingMiddleware();
 $app->addErrorMiddleware(true, false, false);
+
+$app->add(new CorsMiddleware());
 
 $app = (require __DIR__ . '/../src/api/routes.php')($app);
 
