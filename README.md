@@ -13,10 +13,10 @@
 
 ## Groupe
 
-- **[BESANCON Marcelin](https://github.com/NaasaX)** 
-- **[DE WASCH Clément](https://github.com/ClemDW)** 
-- **[TOPCU Semih](https://github.com/cemquo)** 
-- **[SALZAR Manech](https://github.com/LeChenam)** 
+- **[BESANCON Marcelin](https://github.com/NaasaX)**
+- **[DE WASCH Clément](https://github.com/ClemDW)**
+- **[TOPCU Semih](https://github.com/cemquo)**
+- **[SALZAR Manech](https://github.com/LeChenam)**
 - **[HERRMANN Vivien](https://github.com/Vivienhrm)**
 
 ---
@@ -25,20 +25,20 @@
 
 ### Fonctionnalités implémentées ✅
 
-| Fonctionnalité | Description | État | Dev Front | Dev Back |
-| -------------- | ----------- | ---- | --------- | -------- |
-| Data & Schema SQL | Schémas et données SQL pour la base de données | ✅ | Clément | |
-| Fonctionnalité 1 | Affichage du catalogue d'outils (nom, image, stock disponible) | ✅ | Marcelin | Manech |
-| Fonctionnalité 2 | Détail d'un outil avec toutes les informations | ✅ | Semih | Manech |
-| Fonctionnalité 3 | Sélection d'un outil pour une date donnée et ajout au panier | ✅ | X | Vivien |
-| Fonctionnalité 4 | Visualisation du panier et calcul du montant total | ✅ | X | X |
-| Fonctionnalité 5 | Inscription sur la plateforme et création de compte | ✅ | Semih & Vivien | Vivien |
-| Fonctionnalité 6 | Authentification utilisateur | ✅ | Semih & Vivien | Vivien |
-| Fonctionnalité 7 | Gestion du panier pour utilisateur authentifié | ✅ | X | X |
-| Fonctionnalité 8 | Accès aux outils précédemment réservés (« Mes réservations ») | ✅ | X | X |
-| Fonctionnalité 9 | Réservation sur plusieurs jours avec validation de disponibilité | ✅ | X | X |
-| Fonctionnalité 10 | Gestion des exemplaires multiples d'un outil | ✅ | X | X |
-| Filtrage par catégorie | Filtrage du catalogue par catégorie d'outils | ✅ | Vivien | Vivien |
+| Fonctionnalité         | Description                                                      | État | Dev Front      | Dev Back |
+| ---------------------- | ---------------------------------------------------------------- | ---- | -------------- | -------- |
+| Data & Schema SQL      | Schémas et données SQL pour la base de données                   | ✅   | Clément        |          |
+| Fonctionnalité 1       | Affichage du catalogue d'outils (nom, image, stock disponible)   | ✅   | Marcelin       | Manech   |
+| Fonctionnalité 2       | Détail d'un outil avec toutes les informations                   | ✅   | Semih          | Manech   |
+| Fonctionnalité 3       | Sélection d'un outil pour une date donnée et ajout au panier     | ✅   | X              | Vivien   |
+| Fonctionnalité 4       | Visualisation du panier et calcul du montant total               | ✅   | X              | X        |
+| Fonctionnalité 5       | Inscription sur la plateforme et création de compte              | ✅   | Semih & Vivien | Vivien   |
+| Fonctionnalité 6       | Authentification utilisateur                                     | ✅   | Semih & Vivien | Vivien   |
+| Fonctionnalité 7       | Gestion du panier pour utilisateur authentifié                   | ✅   | X              | X        |
+| Fonctionnalité 8       | Accès aux outils précédemment réservés (« Mes réservations »)    | ✅   | Marcelin       | Marcelin |
+| Fonctionnalité 9       | Réservation sur plusieurs jours avec validation de disponibilité | ✅   | X              | X        |
+| Fonctionnalité 10      | Gestion des exemplaires multiples d'un outil                     | ✅   | X              | X        |
+| Filtrage par catégorie | Filtrage du catalogue par catégorie d'outils                     | ✅   | Vivien         | Vivien   |
 
 ### Fonctionnalités à venir 🔄
 
@@ -57,28 +57,33 @@ CharlyMatLoc est une application web qui permet aux particuliers de louer du mat
 ### Fonctionnalités principales
 
 #### 🛠️ Catalogue d'outils
+
 - **Affichage du catalogue** : Présentation des outils avec nom, image et nombre d'exemplaires disponibles
 - **Détail d'un outil** : Page détaillée avec description complète, catégorie, tarif de location et image
 - **Filtrage par catégorie** : Sélection de catégories pour filtrer les outils disponibles
 - **Disponibilité en temps réel** : Affichage du stock disponible pour chaque outil
 
 #### 👤 Gestion des utilisateurs
+
 - **Inscription** : Création de compte utilisateur avec email et mot de passe
 - **Authentification** : Connexion sécurisée avec gestion de session
 - **Profil utilisateur** : Historique des réservations
 
 #### 🛒 Système de panier et réservation
+
 - **Ajout au panier** : Sélection d'outils pour une période donnée
 - **Gestion du panier** : Visualisation, modification et suppression d'articles
 - **Calcul automatique** : Montant total calculé selon la durée de location
 - **Validation de disponibilité** : Vérification de la disponibilité des outils sur la période choisie
 
 #### 📅 Gestion des réservations
+
 - **Réservation sur période** : Possibilité de réserver pour plusieurs jours consécutifs
 - **Gestion des exemplaires multiples** : Support pour plusieurs exemplaires du même outil
 - **Historique des réservations** : Accès aux réservations passées dans le profil utilisateur
 
 #### 🔧 Fonctionnalités techniques
+
 - **API REST** : Endpoints pour la gestion des outils, catégories et réservations
 - **Architecture modulaire** : Séparation claire entre présentation, logique métier et données
 - **Interface responsive** : Utilisable sur tous types de supports (desktop, tablette, mobile)
@@ -89,23 +94,27 @@ CharlyMatLoc est une application web qui permet aux particuliers de louer du mat
 ## Architecture technique
 
 ### Backend (PHP/Slim Framework)
+
 - **Framework** : Slim Framework pour le routage et la gestion des requêtes
 - **Architecture hexagonale** : Séparation des couches (API, Application, Infrastructure)
 - **Gestion des dépendances** : Injection de dépendances avec conteneur PHP-DI
 - **Sécurité** : Middleware d'authentification et gestion des sessions
 
 ### Frontend (Vanilla JavaScript)
+
 - **JavaScript ES6+** : Code modulaire avec imports/exports
 - **Architecture SPA** : Single Page Application avec routage côté client
 - **Gestion d'état** : Authentification et panier persistés localement
 - **Interface responsive** : CSS avec support mobile-first
 
 ### Base de données (MySQL)
+
 - **Schémas relationnels** : Tables pour utilisateurs, outils, catégories, réservations
 - **Gestion des stocks** : Suivi des exemplaires disponibles par outil
 - **Historique** : Conservation des réservations passées
 
 ### Conteneurisation (Docker)
+
 - **Environnement isolé** : Application entièrement dockerisée
 - **Services séparés** : PHP-FPM, Nginx, MySQL
 - **Déploiement simplifié** : `docker-compose` pour l'orchestration
@@ -115,18 +124,21 @@ CharlyMatLoc est une application web qui permet aux particuliers de louer du mat
 ## Installation et lancement
 
 ### Prérequis
+
 - Docker et Docker Compose installés
 - Git
 
 ### Installation
 
 1. **Cloner le dépôt**
+
    ```bash
    git clone https://github.com/Vivienhrm/SAE-S5-atelier1-DWM.git
    cd SAE-S5-atelier1-DWM
    ```
 
 2. **Installer les dépendances PHP**
+
    ```bash
    cd app
    composer install
@@ -134,22 +146,26 @@ CharlyMatLoc est une application web qui permet aux particuliers de louer du mat
    ```
 
 3. **Lancer l'application**
+
    ```bash
    docker-compose up --build -d
    ```
 
 4. **Accéder à l'application**
+
    - Frontend : `http://localhost:10100`
    - Adminer (gestion BDD) : `http://localhost:10111`
-   
-   - API : `http://localhost:10101` 
-   
+
+   - API : `http://localhost:10101`
+
    #### Exemple des routes de l'API :
+
    - `GET /outillages` - Liste des outils (avec filtrage par catégorie)
    - `GET /outillages/{id}` - Détail d'un outil
    - `GET /categories` - Liste des catégories
 
 ### Structure du projet
+
 ```
 .
 ├── app/                    # Code backend PHP
