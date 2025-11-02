@@ -106,5 +106,26 @@ class OutilsRepository implements OutilsRepositoryInterface
         }
         return $categories;
     }
+    public function findOutilsByIds(array $ids): array
+    {
+        if (empty($ids)) return [];
 
+        $inClause = implode(',', array_fill(0, count($ids), '?'));
+        $sql = "SELECT * FROM outils WHERE id_outil IN ($inClause)";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute($ids);
+        $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        $outils = [];
+        foreach ($rows as $row) {
+            $outillage = $this->findOutillageById((int)$row['id_outillage']);
+            $outils[] = [
+                'id_outil' => $row['id_outil'],
+                'disponible' => (bool)$row['disponible'],
+                'outillage' => $outillage
+            ];
+        }
+
+        return $outils;
+    }
 }

@@ -10,4 +10,5 @@ interface ReservRepositoryInterface
     public function findById(string $id): Reservation;
     public function countReservedOutils(int $id_outil, string $date): int;
     public function findByUserAndStatut(string $userId, string $statut): array;
+    public function findOutilIdsByReservation(string $id_reservation): array;
 }

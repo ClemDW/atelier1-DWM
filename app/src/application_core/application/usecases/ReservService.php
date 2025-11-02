@@ -3,21 +3,33 @@
 namespace charlymatloc\core\application\usecases;
 
 use charlymatloc\core\application\ports\api\serviceinterfaces\ReservServiceInterface;
+use charlymatloc\core\application\ports\spi\repositoryInterfaces\OutilsRepositoryInterface;
 use charlymatloc\core\application\ports\spi\repositoryInterfaces\ReservRepositoryInterface;
 
 class ReservService implements ReservServiceInterface
 {
     private ReservRepositoryInterface $reservRepository;
+    private OutilsRepositoryInterface $outilsRepository;
 
-    public function __construct(ReservRepositoryInterface $reservRepository)
-    {
+    public function __construct(ReservRepositoryInterface $reservRepository, OutilsRepositoryInterface $outilsRepository) {
         $this->reservRepository = $reservRepository;
+        $this->outilsRepository = $outilsRepository;
     }
 
-    public function getUserReservations(string $userId, string $status): array
+
+    public function getUserReservations(string $userId, string $statut): array
     {
-        return $this->reservRepository->findByUserAndStatut($userId, $status);
+        $reservations = $this->reservRepository->findByUserAndStatut($userId, $statut);
+
+        foreach ($reservations as $reservation) {
+            $outilIds = $this->reservRepository->findOutilIdsByReservation($reservation->getId());
+            $outils = $this->outilsRepository->findOutilsByIds($outilIds);
+            $reservation->setReservOutils($outils);
+        }
+
+        return $reservations;
     }
+
 
     public function getAllUserReservations(string $userId): array
     {

@@ -111,4 +111,14 @@ class ReservRepository implements ReservRepositoryInterface
         }
         return $reservations;
     }
+
+    public function findOutilIdsByReservation(string $id_reservation): array
+    {
+        $sql = "SELECT id_outil FROM reservation_outils WHERE id_reservation = :id";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindParam(':id', $id_reservation);
+        $stmt->execute();
+        $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return array_column($rows, 'id_outil');
+    }
 }

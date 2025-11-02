@@ -31,6 +31,11 @@ class Reservation
         return $this->user_id;
     }
 
+    public function setReservOutils(array $reserv_outils): void
+    {
+        $this->reserv_outils = $reserv_outils;
+    }
+
     public function getReservOutils(): array
     {
         return $this->reserv_outils;
