@@ -5,6 +5,7 @@ namespace charlymatloc\core\application\usecases;
 use charlymatloc\core\application\ports\api\serviceinterfaces\ReservServiceInterface;
 use charlymatloc\core\application\ports\spi\repositoryInterfaces\OutilsRepositoryInterface;
 use charlymatloc\core\application\ports\spi\repositoryInterfaces\ReservRepositoryInterface;
+use charlymatloc\core\domain\entities\Reservation;
 
 class ReservService implements ReservServiceInterface
 {
@@ -20,15 +21,32 @@ class ReservService implements ReservServiceInterface
     public function getUserReservations(string $userId, string $statut): array
     {
         $reservations = $this->reservRepository->findByUserAndStatut($userId, $statut);
+        $result = [];
 
         foreach ($reservations as $reservation) {
             $outilIds = $this->reservRepository->findOutilIdsByReservation($reservation->getId());
-            $outils = $this->outilsRepository->findOutilsByIds($outilIds);
-            $reservation->setReservOutils($outils);
+            $outils = [];
+
+            foreach ($outilIds as $id_outil) {
+                $outil = $this->outilsRepository->findOutillageByOutilId($id_outil);
+                if ($outil) {
+                    $outils[] = $outil;
+                }
+            }
+
+            $result[] = new Reservation(
+                $reservation->getId(),
+                $reservation->getUserId(),
+                $outils,
+                $reservation->getDateCreation(),
+                $reservation->getStatut(),
+                $reservation->getPrixTotal()
+            );
         }
 
-        return $reservations;
+        return $result;
     }
+
 
 
     public function getAllUserReservations(string $userId): array

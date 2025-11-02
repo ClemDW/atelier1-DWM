@@ -106,26 +106,29 @@ class OutilsRepository implements OutilsRepositoryInterface
         }
         return $categories;
     }
-    public function findOutilsByIds(array $ids): array
+
+    public function findOutillageByOutilId(string $id_outil): ?array
     {
-        if (empty($ids)) return [];
-
-        $inClause = implode(',', array_fill(0, count($ids), '?'));
-        $sql = "SELECT * FROM outils WHERE id_outil IN ($inClause)";
+        $sql = "SELECT id_outillage, disponible FROM outils WHERE id_outil = :id_outil";
         $stmt = $this->pdo->prepare($sql);
-        $stmt->execute($ids);
-        $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $stmt->bindParam(':id_outil', $id_outil);
+        $stmt->execute();
+        $outil = $stmt->fetch(\PDO::FETCH_ASSOC);
 
-        $outils = [];
-        foreach ($rows as $row) {
-            $outillage = $this->findOutillageById((int)$row['id_outillage']);
-            $outils[] = [
-                'id_outil' => $row['id_outil'],
-                'disponible' => (bool)$row['disponible'],
-                'outillage' => $outillage
-            ];
+        if (!$outil) {
+            return null;
         }
 
-        return $outils;
+        $sql2 = "SELECT id_outillage, nom_outillage, description, prix_journalier, image_url
+             FROM outillage WHERE id_outillage = :id_outillage";
+        $stmt2 = $this->pdo->prepare($sql2);
+        $stmt2->bindParam(':id_outillage', $outil['id_outillage']);
+        $stmt2->execute();
+        $outillage = $stmt2->fetch(\PDO::FETCH_ASSOC);
+
+        $outil['outillage'] = $outillage ?: [];
+
+        return $outil;
     }
+
 }

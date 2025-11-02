@@ -14,7 +14,7 @@ interface OutilsRepositoryInterface
     public function findAllOutillages(): array;
     public function findOutillageById(int $id_outillage): Outillage;
     public function findOutillagesByCategorie(int $categorieId): array;
-    public function findOutilsByIds(array $ids): array;
+    public function findOutillageByOutilId(string $id_outil): ?array;
 
     // Categories //
     public function findAllCategories(): array;

@@ -4,6 +4,8 @@ namespace charlymatloc\infra\repositories;
 
 use charlymatloc\core\application\ports\spi\repositoryInterfaces\ReservRepositoryInterface;
 use charlymatloc\core\domain\entities\Reservation;
+use DateTime;
+use DateTimeZone;
 use PDO;
 use PDOException;
 
@@ -100,11 +102,14 @@ class ReservRepository implements ReservRepositoryInterface
         $reservations = [];
         foreach ($rows as $row) {
             $outils = $this->getOutilsForReservation($row['id_reservation']);
+            $dt = new DateTime($row['date_creation'], new DateTimeZone('UTC'));
+            $dt->setTimezone(new DateTimeZone('Europe/Paris'));
+            $dateFormatee = $dt->format('d/m/Y H:i');
             $reservations[] = new Reservation(
                 $row['id_reservation'],
                 $row['id_utilisateur'],
                 $outils,
-                $row['date_creation'],
+                $dateFormatee,
                 $row['statut'],
                 $row['prix_total']
             );
