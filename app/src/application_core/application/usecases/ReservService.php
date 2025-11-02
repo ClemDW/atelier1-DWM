@@ -5,21 +5,51 @@ namespace charlymatloc\core\application\usecases;
 use charlymatloc\core\application\ports\api\dtos\ReservationDTO;
 use charlymatloc\core\application\ports\api\dtos\ReservOutilDTO;
 use charlymatloc\core\application\ports\api\serviceinterfaces\ReservServiceInterface;
+use charlymatloc\core\application\ports\spi\repositoryInterfaces\OutilsRepositoryInterface;
 use charlymatloc\core\application\ports\spi\repositoryInterfaces\ReservRepositoryInterface;
+use charlymatloc\core\domain\entities\Reservation;
 
 class ReservService implements ReservServiceInterface
 {
     private ReservRepositoryInterface $reservRepository;
+    private OutilsRepositoryInterface $outilsRepository;
 
-    public function __construct(ReservRepositoryInterface $reservRepository)
-    {
+    public function __construct(ReservRepositoryInterface $reservRepository, OutilsRepositoryInterface $outilsRepository) {
         $this->reservRepository = $reservRepository;
+        $this->outilsRepository = $outilsRepository;
     }
 
-    public function getUserReservations(string $userId, string $status): array
+
+    public function getUserReservations(string $userId, string $statut): array
     {
-        return $this->reservRepository->findByUserAndStatut($userId, $status);
+        $reservations = $this->reservRepository->findByUserAndStatut($userId, $statut);
+        $result = [];
+
+        foreach ($reservations as $reservation) {
+            $outilIds = $this->reservRepository->findOutilIdsByReservation($reservation->getId());
+            $outils = [];
+
+            foreach ($outilIds as $id_outil) {
+                $outil = $this->outilsRepository->findOutillageByOutilId($id_outil);
+                if ($outil) {
+                    $outils[] = $outil;
+                }
+            }
+
+            $result[] = new Reservation(
+                $reservation->getId(),
+                $reservation->getUserId(),
+                $outils,
+                $reservation->getDateCreation(),
+                $reservation->getStatut(),
+                $reservation->getPrixTotal()
+            );
+        }
+
+        return $result;
     }
+
+
 
     public function getAllUserReservations(string $userId): array
     {

@@ -141,4 +141,29 @@ class OutilsRepository implements OutilsRepositoryInterface
         }
         return $outils;
     }
+
+    public function findOutillageByOutilId(string $id_outil): ?array
+    {
+        $sql = "SELECT id_outillage, disponible FROM outils WHERE id_outil = :id_outil";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindParam(':id_outil', $id_outil);
+        $stmt->execute();
+        $outil = $stmt->fetch(\PDO::FETCH_ASSOC);
+
+        if (!$outil) {
+            return null;
+        }
+
+        $sql2 = "SELECT id_outillage, nom_outillage, description, prix_journalier, image_url
+             FROM outillage WHERE id_outillage = :id_outillage";
+        $stmt2 = $this->pdo->prepare($sql2);
+        $stmt2->bindParam(':id_outillage', $outil['id_outillage']);
+        $stmt2->execute();
+        $outillage = $stmt2->fetch(\PDO::FETCH_ASSOC);
+
+        $outil['outillage'] = $outillage ?: [];
+
+        return $outil;
+    }
+
 }

@@ -280,21 +280,15 @@ function renderHistorique(items, container) {
         ? `${r.date_debut} → ${r.date_fin}`
         : r.date_creation || "Date inconnue";
     card.innerHTML = `
-      <h3>Réservation ${r.id}</h3>
-      <p><strong>Date:</strong> ${periode}</p>
+      <p><strong>Réservation pour la date du :</strong> ${periode}</p>
       <p><strong>Prix total:</strong> ${r.prix_total} €</p>
       <p><strong>Statut:</strong> ${r.statut}</p>
       <div><strong>Outils:</strong>
         <ul>
           ${(r.outils || [])
             .map((o) => {
-              const id =
-                o.id_outil || o.id || o.id_outillage || o.outil_id || "N/A";
-              const quantite = o.quantite || o.quantity || o.qty || 1;
-              const nom = o.nom || o.nom_outillage || "";
-              return `<li>${
-                nom ? `${nom} (id: ${id})` : `Outil ${id}`
-              } (quantité: ${quantite})</li>`;
+                const nom = o.outillage?.nom_outillage
+                return `<li>${nom}</li>`; // Quantité ?
             })
             .join("")}
         </ul>

@@ -4,6 +4,8 @@ namespace charlymatloc\infra\repositories;
 
 use charlymatloc\core\application\ports\spi\repositoryInterfaces\ReservRepositoryInterface;
 use charlymatloc\core\domain\entities\Reservation;
+use DateTime;
+use DateTimeZone;
 use PDO;
 use PDOException;
 
@@ -100,11 +102,14 @@ class ReservRepository implements ReservRepositoryInterface
         $reservations = [];
         foreach ($rows as $row) {
             $outils = $this->getOutilsForReservation($row['id_reservation']);
+            $dt = new DateTime($row['date_creation'], new DateTimeZone('UTC'));
+            $dt->setTimezone(new DateTimeZone('Europe/Paris'));
+            $dateFormatee = $dt->format('d/m/Y H:i');
             $reservations[] = new Reservation(
                 $row['id_reservation'],
                 $row['id_utilisateur'],
                 $outils,
-                $row['date_creation'],
+                $dateFormatee,
                 $row['statut'],
                 $row['prix_total']
             );
@@ -151,5 +156,13 @@ class ReservRepository implements ReservRepositoryInterface
         } catch (PDOException $e) {
             throw new \Exception("Error creating reservation outil: " . $e->getMessage());
         }
+    public function findOutilIdsByReservation(string $id_reservation): array
+    {
+        $sql = "SELECT id_outil FROM reservation_outils WHERE id_reservation = :id";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindParam(':id', $id_reservation);
+        $stmt->execute();
+        $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return array_column($rows, 'id_outil');
     }
 }

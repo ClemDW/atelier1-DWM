@@ -63,6 +63,6 @@ return [
     },
 
     ReservServiceInterface::class => function (ContainerInterface $container) {
-        return new ReservService($container->get(ReservRepositoryInterface::class));
+        return new ReservService($container->get(ReservRepositoryInterface::class),$container->get(OutilsRepositoryInterface::class));
     }
 ];
