@@ -18,16 +18,27 @@ class AuthzMiddleware implements MiddlewareInterface
     }
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
-        $header = $request->getHeaderLine('Authorization');
-        $token = sscanf($header, 'Bearer %s')[0];
-        if($token == null){
-            $response = new \Slim\Psr7\Response();
-            $response->getBody()->write('Token manquant');
-            return $response->withStatus(400);
-        }
+        try {
+            $header = $request->getHeaderLine('Authorization');
+            $token = sscanf($header, 'Bearer %s')[0];
+            if ($token == null) {
+                $response = new \Slim\Psr7\Response();
+                $response->getBody()->write('Token manquant');
+                return $response->withStatus(400);
+            }
 
-        $user = $this->authnProvider->getSignedInUser($token);
-        $request = $request->withAttribute('user', $user);
-        return $handler->handle($request);
+            $user = $this->authnProvider->getSignedInUser($token);
+            $id = $user->id;
+            $request = $request->withAttribute('user', $user);
+            return $handler->handle($request);
+        } catch (\InvalidArgumentException $e){
+            $response = new \Slim\Psr7\Response();
+            $response->getBody()->write('Token invalide : ' . $e->getMessage());
+            return $response->withStatus(401);
+        } catch (\Exception $e){
+            $response = new \Slim\Psr7\Response();
+            $response->getBody()->write('Accès non autorisé : ' . $e->getMessage());
+            return $response->withStatus(401);
+        }
     }
 }

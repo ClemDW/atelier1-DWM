@@ -39,6 +39,9 @@ class JWTManager{
 
             $payload = JWT::decode($token, new Key($_ENV['JWT_SECRET'], 'HS256'));
             $payloadUser = $payload->user;
+            if($payloadUser->id === null || $payloadUser->email === null || $payloadUser->nom === null || $payloadUser->prenom === null){
+                throw new \InvalidArgumentException('Token payload is missing required user information');
+            }
             $user = new UserDTO(
                 $payloadUser->id,
                 $payloadUser->email,

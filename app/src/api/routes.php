@@ -45,8 +45,8 @@ return function (App $app):App {
     $app->options('/reservations', function ($request, $response) {return $response;});
 
     $app->post('/reservations', CreerReservation::class)
-        ->add(AuthzMiddleware::class)
         ->add(CreerReservationMiddleware::class)
+        ->add(AuthzMiddleware::class)
         ->setName('creer_reservation');
 
     return $app;

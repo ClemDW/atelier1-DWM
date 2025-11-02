@@ -356,6 +356,13 @@ function buttonListenerPanier(tool) {
   });
 }
 
+function calculerJoursEntreDates(date_debut, date_fin) {
+    const debut = new Date(date_debut);
+    const fin = new Date(date_fin);
+    const diffTime = Math.abs(fin - debut);
+    return Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1;
+}
+
 function displayPanier(container) {
   const panierList = document.getElementById("panierList");
   const cookie = getCookie("panier");
@@ -369,7 +376,7 @@ function displayPanier(container) {
   }
 
   items.forEach((item) => {
-    sum += item.prix * item.quantite;
+    sum += item.prix * item.quantite * calculerJoursEntreDates(item.date_debut, item.date_fin);
     const toolCard = document.createElement("div");
     toolCard.classList.add("panier-card");
     toolCard.innerHTML = `
@@ -400,10 +407,11 @@ function displayPanier(container) {
     <button id="validate" class="btn-validate">Valider le panier</button>
   `;
   subtotal.querySelector(".btn-validate").addEventListener("click", () => {
+      const token = localStorage.getItem("access_token");
       let envoi = fetch(`${API_URL}/reservations`, {
           method: "POST",
           headers: {
-              Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+              Authorization: `Bearer ${token}`,
               "Content-Type": "application/json"
           },
           body: JSON.stringify({
@@ -414,9 +422,12 @@ function displayPanier(container) {
                   date_fin: item.date_fin,
               })),
               prix_total: sum,
-
           })
       })
+
+      setCookie("panier", JSON.stringify({ items: [] }));
+      alert("Panier validé ! Vos outils ont été réservés.");
+      window.location.reload();
   })
 }
 

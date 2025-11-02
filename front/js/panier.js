@@ -63,6 +63,12 @@ class Panier {
         document.cookie = `panier=${JSON.stringify(panierData)}; path=/; max-age=${60 * 60 * 24 * 7}`;
     }
 
+    calculerJoursEntreDates(date_debut, date_fin) {
+        const debut = new Date(date_debut);
+        const fin = new Date(date_fin);
+        const diffTime = Math.abs(fin - debut);
+        return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    }
 }
 
 export default new Panier();

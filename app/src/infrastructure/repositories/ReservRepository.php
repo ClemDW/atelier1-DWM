@@ -156,6 +156,8 @@ class ReservRepository implements ReservRepositoryInterface
         } catch (PDOException $e) {
             throw new \Exception("Error creating reservation outil: " . $e->getMessage());
         }
+    }
+
     public function findOutilIdsByReservation(string $id_reservation): array
     {
         $sql = "SELECT id_outil FROM reservation_outils WHERE id_reservation = :id";

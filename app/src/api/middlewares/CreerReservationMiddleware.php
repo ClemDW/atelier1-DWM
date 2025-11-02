@@ -38,10 +38,21 @@ class CreerReservationMiddleware implements MiddlewareInterface
                 $outilsDtos[] = new ReservOutilDTO($id_reservation, $id_outil, $outil['date_debut'], $outil['date_fin']);
             }
         }
-        $credentials = $request->getAttribute('credentials');
+        $attributs = $request->getAttributes();
+        if(!isset($attributs['user'])){
+            $response = new \Slim\Psr7\Response();
+            $response->getBody()->write('Utilisateur non authentifié');
+            return $response->withStatus(401);
+        }
+        $user = $request->getAttribute('user');
+        if($user == null){
+            $response = new \Slim\Psr7\Response();
+            $response->getBody()->write('Utilisateur non authentifié');
+            return $response->withStatus(401);
+        }
         $date_creation = date('Y-m-d H:i:s');
-        $id_user = $credentials['id_user'];
-        $prix_total = 0;
+        $id_user = $user->id;
+        $prix_total = $recup['prix_total'];
         $status = 'validé';
         $reservationDTO = new ReservationDTO($id_reservation, $id_user, $date_creation, $status, $prix_total);
         $request = $request->withAttribute('reservationDTO', $reservationDTO);
