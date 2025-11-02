@@ -409,8 +409,8 @@ function displayPanier(container) {
       let envoi = fetch(`${API_URL}/reservations`, {
           method: "POST",
           headers: {
-              "Content-Type": "application/json",
               Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+              "Content-Type": "application/json"
           },
           body: JSON.stringify({
               outils: items.map((item) => ({

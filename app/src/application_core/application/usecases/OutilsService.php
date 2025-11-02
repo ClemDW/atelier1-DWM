@@ -74,4 +74,9 @@ class OutilsService implements OutilsServiceInterface
     {
         return $this->outilsRepository->checkAssezOutils($id_outillage, $quantite);
     }
+
+    public function getOutilsDisponibles(int $id_outillage): array
+    {
+        return $this->outilsRepository->outilsDisponibles($id_outillage);
+    }
 }

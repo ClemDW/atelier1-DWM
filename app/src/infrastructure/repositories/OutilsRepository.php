@@ -111,12 +111,34 @@ class OutilsRepository implements OutilsRepositoryInterface
     {
         $sql = "SELECT COUNT(*) AS stock
             FROM outils o
-            WHERE o.id_outillage = :id_outillage";
+            WHERE o.id_outillage = :id_outillage
+            AND o.disponible = true";
         $stmt = $this->pdo->prepare($sql);
         $stmt->bindParam(':id_outillage', $id_outillage, PDO::PARAM_INT);
         $stmt->execute();
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
         $stock = (int) $result['stock'];
         return $stock >= $quantite;
+    }
+
+    public function outilsDisponibles(int $id_outillage): array
+    {
+        $sql = "SELECT *
+            FROM outils o
+            WHERE o.id_outillage = :id_outillage
+            AND o.disponible = true";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindParam(':id_outillage', $id_outillage, PDO::PARAM_INT);
+        $stmt->execute();
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $outils = [];
+        foreach ($result as $row) {
+            $outils[] = new Outil(
+                $row['id_outil'],
+                $row['id_outillage'],
+                $row['disponible']
+            );
+        }
+        return $outils;
     }
 }

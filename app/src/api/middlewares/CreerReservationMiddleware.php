@@ -3,6 +3,8 @@
 namespace charlymatloc\api\middlewares;
 
 use charlymatloc\core\application\ports\api\dtos\ReservationDTO;
+use charlymatloc\core\application\ports\api\dtos\ReservOutilDTO;
+use charlymatloc\core\application\ports\api\serviceinterfaces\OutilsServiceInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
@@ -11,29 +13,39 @@ use Ramsey\Uuid\Uuid;
 
 class CreerReservationMiddleware implements MiddlewareInterface
 {
+    private OutilsServiceInterface $outilsService;
+
+    public function __construct(OutilsServiceInterface $outils)
+    {
+        $this->outilsService = $outils;
+    }
 
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
         $recup = $request->getParsedBody();
+        $outils = $recup['outils'];
+        $id_reservation = Uuid::uuid4();
+        $outilsDtos = [];
+        foreach ($outils as $outil) {
+            if (!$this->outilsService->checkAssezOutils($outil['id_outil'], $outil['quantite'])) {
+                $response = new \Slim\Psr7\Response();
+                $response->getBody()->write(json_encode(['message' => 'Quantité d\'outil insuffisante pour l\'outil id : ' . $outil['id_outil']]));
+                return $response->withHeader('Content-Type', 'application/json')->withStatus(400);
+            }
+            $outilsDisponibles = $this->outilsService->getOutilsDisponibles($outil['id_outil']);
+            for ($i = 0; $i < $outil['quantite']; $i++) {
+                $id_outil = $outilsDisponibles[$i]->getIdOutil();
+                $outilsDtos[] = new ReservOutilDTO($id_reservation, $id_outil, $outil['date_debut'], $outil['date_fin']);
+            }
+        }
         $credentials = $request->getAttribute('credentials');
-        $date_creation = $recup['date_creation'];
+        $date_creation = date('Y-m-d H:i:s');
         $id_user = $credentials['id_user'];
         $prix_total = 0;
-        $outils = [];
-        foreach ($recup['items'] as $key => $value) {
-            $prix_total += $key['sous_total'];
-            $outils[] = [
-                'id_outillage' => $key['id'],
-                'date_debut' => $key['date_debut'],
-                'date_fin' => $key['date_fin'],
-                'quantite' => $key['quantite'],
-            ];
-        }
         $status = 'validé';
-        $id_reservation = Uuid::uuid4();
         $reservationDTO = new ReservationDTO($id_reservation, $id_user, $date_creation, $status, $prix_total);
         $request = $request->withAttribute('reservationDTO', $reservationDTO);
-        $request = $request->withAttribute('outils', $outils);
+        $request = $request->withAttribute('outils', $outilsDtos);
         return $handler->handle($request);
     }
 }

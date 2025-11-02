@@ -18,5 +18,6 @@ interface OutilsRepositoryInterface
     // Categories //
     public function findAllCategories(): array;
     public function checkAssezOutils(int $id_outillage, int $quantite): bool;
+    public function outilsDisponibles(int $id_outillage): array;
 
 }

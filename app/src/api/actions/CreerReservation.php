@@ -5,6 +5,7 @@ namespace charlymatloc\api\actions;
 use charlymatloc\core\application\ports\api\dtos\ReservOutilDTO;
 use charlymatloc\core\application\ports\api\serviceinterfaces\OutilsServiceInterface;
 use charlymatloc\core\application\ports\api\serviceinterfaces\ReservServiceInterface;
+use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
 class CreerReservation{
@@ -17,15 +18,17 @@ class CreerReservation{
         $this->outilsService = $outilsService;
     }
 
-    public function __invoke(ServerRequestInterface $request, array $args){
+    public function __invoke(ServerRequestInterface $request, ResponseInterface $response,array $args){
         try{
-            $outillagesPayload = $request->getAttribute('outils');
-            foreach ( $outillagesPayload as $outillage){
-                if($this->outilsService->checkAssezOutils($outillage['id_outillage'], $outillage['quantite'])){
-
-                }
-            }
-
+            $reservationDTO = $request->getAttribute('reservationDTO');
+            $outilsPayload = $request->getAttribute('outils');
+            $this->reservService->registerReservation($reservationDTO);
+            $this->reservService->registerReservOutil($outilsPayload);
+            $payload = ['success' => true, 'message' => 'Compte cree'];
+            $response->getBody()->write(json_encode($payload, JSON_PRETTY_PRINT));
+            return $response
+                ->withHeader('Content-Type', 'application/json')
+                ->withStatus(201);
         }catch(\Exception $e){
             return $e->getMessage();
         }

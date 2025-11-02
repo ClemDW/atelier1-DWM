@@ -4,6 +4,7 @@ declare(strict_types=1);
 use charlymatloc\api\actions\AfficherOutillageAction;
 use charlymatloc\api\actions\ConnecterAction;
 use charlymatloc\api\actions\CreerCompteAction;
+use charlymatloc\api\actions\CreerReservation;
 use charlymatloc\api\actions\ListerOutillagesAction;
 use charlymatloc\api\actions\ListerCategoriesAction;
 use charlymatloc\api\middlewares\AuthnMiddleware;
@@ -12,6 +13,7 @@ use charlymatloc\api\middlewares\CreerCompteMiddleware;
 use charlymatloc\api\actions\AjouterAuPanierAction;
 use charlymatloc\api\actions\VerifierDisponibiliteAction;
 use charlymatloc\api\actions\AfficherHistoriqueAction;
+use charlymatloc\api\middlewares\CreerReservationMiddleware;
 use Slim\App;
 
 return function (App $app):App {
@@ -40,6 +42,12 @@ return function (App $app):App {
         ->add(AuthzMiddleware::class)
         ->setName('afficher_historique');
 
+    $app->options('/reservations', function ($request, $response) {return $response;});
+
+    $app->post('/reservations', CreerReservation::class)
+        ->add(AuthzMiddleware::class)
+        ->add(CreerReservationMiddleware::class)
+        ->setName('creer_reservation');
 
     return $app;
 };

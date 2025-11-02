@@ -112,4 +112,44 @@ class ReservRepository implements ReservRepositoryInterface
         return $reservations;
     }
 
+    public function createReservation(string $id_reservation, string $id_utiliateur, string $date_creation, string $statut, string $prix_total): Reservation
+    {
+        try {
+            $sql = "INSERT INTO reservations (id_reservation, id_utilisateur, date_creation, statut, prix_total)
+                    VALUES (:id_reservation, :id_utilisateur, :date_creation, :statut, :prix_total)";
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->bindParam(':id_reservation', $id_reservation, PDO::PARAM_STR);
+            $stmt->bindParam(':id_utilisateur', $id_utiliateur, PDO::PARAM_STR);
+            $stmt->bindParam(':date_creation', $date_creation, PDO::PARAM_STR);
+            $stmt->bindParam(':statut', $statut, PDO::PARAM_STR);
+            $stmt->bindParam(':prix_total', $prix_total, PDO::PARAM_STR);
+            $stmt->execute();
+            return new Reservation(
+                $id_reservation,
+                $id_utiliateur,
+                [],
+                $date_creation,
+                $statut,
+                $prix_total
+            );
+        } catch (PDOException $e) {
+            throw new \Exception("Error creating reservation: " . $e->getMessage());
+        }
+    }
+
+    public function createReservOutil(string $id_reservation, string $id_outil, string $date_debut, string $date_fin)
+    {
+        try {
+            $sql = "INSERT INTO reservation_outils (id_reservation, id_outil, date_debut, date_fin)
+                    VALUES (:id_reservation, :id_outil, :date_debut, :date_fin)";
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->bindParam(':id_reservation', $id_reservation, PDO::PARAM_STR);
+            $stmt->bindParam(':id_outil', $id_outil, PDO::PARAM_STR);
+            $stmt->bindParam(':date_debut', $date_debut, PDO::PARAM_STR);
+            $stmt->bindParam(':date_fin', $date_fin, PDO::PARAM_STR);
+            $stmt->execute();
+        } catch (PDOException $e) {
+            throw new \Exception("Error creating reservation outil: " . $e->getMessage());
+        }
+    }
 }
