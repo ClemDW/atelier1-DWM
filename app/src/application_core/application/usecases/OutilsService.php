@@ -70,15 +70,8 @@ class OutilsService implements OutilsServiceInterface
         );
     }
 
-    /**  a  voir plus tard
-    public function isOutilDisponible(string $id_outil, string $date): bool
+    public function checkAssezOutils(int $id_outillage, int $quantite): bool
     {
-        $outil = $this->outilsRepository->findById($id_outil);
-        $stock = $outil->getStock();
-
-        $reserved = $this->reservRepository->countReservedOutils($id_outil, $date);
-
-        return ($stock - $reserved) > 0;
+        return $this->outilsRepository->checkAssezOutils($id_outillage, $quantite);
     }
-     */
 }

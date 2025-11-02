@@ -10,4 +10,5 @@ interface OutilsServiceInterface
     public function ListerOutillagesParCategorie(int $categorieId): array;
     public function AfficherOutillage(string $id): OutillageAfficheDTO;
     //public function isOutilDisponible(string $id_outil, string $date): bool; a voir plus tard
+    public function checkAssezOutils(int $id_outillage, int $quantite): bool;
 }

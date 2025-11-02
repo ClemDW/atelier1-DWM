@@ -405,6 +405,25 @@ function displayPanier(container) {
     <h2>Sous total: ${sum}€</h2>
     <button id="validate" class="btn-validate">Valider le panier</button>
   `;
+  subtotal.querySelector(".btn-validate").addEventListener("click", () => {
+      let envoi = fetch(`${API_URL}/reservations`, {
+          method: "POST",
+          headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+          },
+          body: JSON.stringify({
+              outils: items.map((item) => ({
+                  id_outil: item.id,
+                  quantite: item.quantite,
+                  date_debut: item.date_debut,
+                  date_fin: item.date_fin,
+              })),
+              prix_total: sum,
+
+          })
+      })
+  })
 }
 
 function removeItemFromPanier(date) {

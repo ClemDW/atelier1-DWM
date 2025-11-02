@@ -107,4 +107,16 @@ class OutilsRepository implements OutilsRepositoryInterface
         return $categories;
     }
 
+    public function checkAssezOutils(int $id_outillage, int $quantite): bool
+    {
+        $sql = "SELECT COUNT(*) AS stock
+            FROM outils o
+            WHERE o.id_outillage = :id_outillage";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindParam(':id_outillage', $id_outillage, PDO::PARAM_INT);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        $stock = (int) $result['stock'];
+        return $stock >= $quantite;
+    }
 }
