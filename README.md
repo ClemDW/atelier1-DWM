@@ -5,7 +5,6 @@
 ![PHP](https://img.shields.io/badge/PHP-8.1-8892BF?style=flat-square&logo=php&logoColor=white)
 ![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat-square&logo=docker&logoColor=white)
 ![Slim](https://img.shields.io/badge/Slim_Framework-000000?style=flat-square&logo=slim&logoColor=white)
-![MySQL](https://img.shields.io/badge/MySQL-4479A1?style=flat-square&logo=mysql&logoColor=white)
 ![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=flat-square&logo=html5&logoColor=white)
 ![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=flat-square&logo=css3&logoColor=white)
 ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=black)
@@ -21,34 +20,22 @@
 
 ---
 
-## État d'avancement
-
 ### Fonctionnalités implémentées ✅
 
 | Fonctionnalité         | Description                                                      | État | Dev Front      | Dev Back |
 | ---------------------- | ---------------------------------------------------------------- | ---- | -------------- | -------- |
-| Data & Schema SQL      | Schémas et données SQL pour la base de données                   | ✅   | Clément        |          |
+| Data & Schema SQL      | Schémas et données SQL pour la base de données                   | ✅   | Clément        | Clément  |
 | Fonctionnalité 1       | Affichage du catalogue d'outils (nom, image, stock disponible)   | ✅   | Marcelin       | Manech   |
 | Fonctionnalité 2       | Détail d'un outil avec toutes les informations                   | ✅   | Semih          | Manech   |
-| Fonctionnalité 3       | Sélection d'un outil pour une date donnée et ajout au panier     | ✅   | X              | Vivien   |
-| Fonctionnalité 4       | Visualisation du panier et calcul du montant total               | ✅   | X              | X        |
+| Fonctionnalité 3       | Sélection d'un outil pour une date donnée et ajout au panier     | ✅   | Manech         | Vivien   |
+| Fonctionnalité 4       | Visualisation du panier et calcul du montant total               | ✅   | Clément        | Clément  |
 | Fonctionnalité 5       | Inscription sur la plateforme et création de compte              | ✅   | Semih & Vivien | Vivien   |
 | Fonctionnalité 6       | Authentification utilisateur                                     | ✅   | Semih & Vivien | Vivien   |
 | Fonctionnalité 7       | Gestion du panier pour utilisateur authentifié                   | ✅   | X              | X        |
 | Fonctionnalité 8       | Accès aux outils précédemment réservés (« Mes réservations »)    | ✅   | Marcelin       | Marcelin |
-| Fonctionnalité 9       | Réservation sur plusieurs jours avec validation de disponibilité | ✅   | X              | X        |
+| Fonctionnalité 9       | Réservation sur plusieurs jours avec validation de disponibilité | ✅   | Clément        | Marcelin |
 | Fonctionnalité 10      | Gestion des exemplaires multiples d'un outil                     | ✅   | X              | X        |
 | Filtrage par catégorie | Filtrage du catalogue par catégorie d'outils                     | ✅   | Vivien         | Vivien   |
-
-### Fonctionnalités à venir 🔄
-
-- Pagination du catalogue
-- Système de paiement
-- Notifications par email
-- Interface d'administration
-- API de gestion des stocks
-
----
 
 ## Description générale
 
@@ -116,7 +103,7 @@ CharlyMatLoc est une application web qui permet aux particuliers de louer du mat
 ### Conteneurisation (Docker)
 
 - **Environnement isolé** : Application entièrement dockerisée
-- **Services séparés** : PHP-FPM, Nginx, MySQL
+- **Services séparés** : PHP-FPM, Nginx
 - **Déploiement simplifié** : `docker-compose` pour l'orchestration
 
 ---
@@ -190,8 +177,7 @@ CharlyMatLoc est une application web qui permet aux particuliers de louer du mat
 ## Technologies utilisées
 
 - **Backend** : PHP 8.1, Slim Framework 4, PHP-DI
-- **Frontend** : HTML5, CSS3, JavaScript ES6+
-- **Base de données** : MySQL 8.0
+- **Frontend** : HTML5, CSS3, JavaScript
 - **Conteneurisation** : Docker, Docker Compose
 - **Outils** : Composer, npm, Sass
 
