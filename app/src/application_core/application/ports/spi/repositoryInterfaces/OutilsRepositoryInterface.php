@@ -21,4 +21,6 @@ interface OutilsRepositoryInterface
     public function checkAssezOutils(int $id_outillage, int $quantite): bool;
     public function outilsDisponibles(int $id_outillage): array;
 
+    public function setOutilStatus(string $id_outil, bool $disponible);
+
 }

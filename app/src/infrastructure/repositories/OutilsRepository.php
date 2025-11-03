@@ -60,7 +60,8 @@ class OutilsRepository implements OutilsRepositoryInterface
     {
         $sql = "SELECT COUNT(*) AS stock
             FROM outils o
-            WHERE o.id_outillage = :id_outillage";
+            WHERE o.id_outillage = :id_outillage
+            AND o.disponible = true";
 
         $stmt = $this->pdo->prepare($sql);
         $stmt->bindParam(':id_outillage', $id_outillage, PDO::PARAM_INT);
@@ -166,4 +167,13 @@ class OutilsRepository implements OutilsRepositoryInterface
         return $outil;
     }
 
+    public function setOutilStatus(string $id_outil, bool $disponible)
+    {
+        $dispoValue = $disponible ? '1' : '0';
+        $sql = "UPDATE outils SET disponible = :disponible WHERE id_outil = :id_outil";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindParam(':disponible', $dispoValue, PDO::PARAM_BOOL);
+        $stmt->bindParam(':id_outil', $id_outil, PDO::PARAM_STR);
+        $stmt->execute();
+    }
 }

@@ -24,7 +24,10 @@ class CreerReservation{
             $outilsPayload = $request->getAttribute('outils');
             $this->reservService->registerReservation($reservationDTO);
             $this->reservService->registerReservOutil($outilsPayload);
-            $payload = ['success' => true, 'message' => 'Compte cree'];
+            foreach($outilsPayload as $outil){
+                $this->outilsService->setOutilStatus($outil->id_outil, false);
+            }
+            $payload = ['success' => true, 'message' => 'reservation creee'];
             $response->getBody()->write(json_encode($payload, JSON_PRETTY_PRINT));
             return $response
                 ->withHeader('Content-Type', 'application/json')

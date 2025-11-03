@@ -79,4 +79,9 @@ class OutilsService implements OutilsServiceInterface
     {
         return $this->outilsRepository->outilsDisponibles($id_outillage);
     }
+
+    public function setOutilStatus(string $id_outil, bool $disponible): void
+    {
+        $this->outilsRepository->setOutilStatus($id_outil, $disponible);
+    }
 }
