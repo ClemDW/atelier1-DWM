@@ -425,11 +425,28 @@ function displayPanier(container) {
         })),
         prix_total: sum,
       }),
+    }).then(async (response) => {
+        if (response.status === 401) {
+            const text = await response.text().catch(() => null);
+            alert("Vous devez être connecté pour valider le panier.");
+            throw new Error(`Non authentifié (401) ${text || ""}`);
+        }
+        if(response.status === 400) {
+            const text = await response.text().catch(() => null);
+            alert("Requête invalide. Veuillez vérifier les informations du panier.");
+            throw new Error(`Requête invalide (400) ${text || ""}`);
+        }
+        if (!response.ok) {
+            const text = await response.text().catch(() => null);
+            alert("Erreur lors de la validation du panier.");
+            throw new Error(`HTTP ${response.status} ${text || ""}`);
+        }
+        if(response.ok) {
+            setCookie("panier", JSON.stringify({ items: [] }));
+            alert("Panier validé ! Vos outils ont été réservés.");
+            window.location.reload();
+        }
     });
-
-    setCookie("panier", JSON.stringify({ items: [] }));
-    alert("Panier validé ! Vos outils ont été réservés.");
-    window.location.reload();
   });
 }
 
