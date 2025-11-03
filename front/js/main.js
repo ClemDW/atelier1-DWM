@@ -287,8 +287,8 @@ function renderHistorique(items, container) {
         <ul>
           ${(r.outils || [])
             .map((o) => {
-                const nom = o.outillage?.nom_outillage
-                return `<li>${nom}</li>`; // Quantité ?
+              const nom = o.outillage?.nom_outillage;
+              return `<li>${nom}</li>`; // Quantité ?
             })
             .join("")}
         </ul>
@@ -306,7 +306,7 @@ function buttonListenerPanier(tool) {
   const plus = document.querySelector(".plus");
   const minus = document.querySelector(".minus");
   let quantite = parseInt(quantity.textContent);
-  let errorBox = document.createElement('p');
+  let errorBox = document.createElement("p");
 
   errorBox.classList.add("error-message");
 
@@ -320,13 +320,14 @@ function buttonListenerPanier(tool) {
     }
   });
 
-  ajoutPanier.addEventListener('click', () => {
+  ajoutPanier.addEventListener("click", () => {
     errorBox.textContent = "";
 
-    ajoutPanier.insertAdjacentElement('afterend', errorBox, );
+    ajoutPanier.insertAdjacentElement("afterend", errorBox);
 
     if (!dateDebut.value || !dateFin.value) {
-      errorBox.textContent = 'Veuillez sélectionner une date de début et de fin avant d’ajouter au panier.';
+      errorBox.textContent =
+        "Veuillez sélectionner une date de début et de fin avant d’ajouter au panier.";
       return;
     }
 
@@ -357,10 +358,10 @@ function buttonListenerPanier(tool) {
 }
 
 function calculerJoursEntreDates(date_debut, date_fin) {
-    const debut = new Date(date_debut);
-    const fin = new Date(date_fin);
-    const diffTime = Math.abs(fin - debut);
-    return Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1;
+  const debut = new Date(date_debut);
+  const fin = new Date(date_fin);
+  const diffTime = Math.abs(fin - debut);
+  return Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1;
 }
 
 function displayPanier(container) {
@@ -376,7 +377,10 @@ function displayPanier(container) {
   }
 
   items.forEach((item) => {
-    sum += item.prix * item.quantite * calculerJoursEntreDates(item.date_debut, item.date_fin);
+    sum +=
+      item.prix *
+      item.quantite *
+      calculerJoursEntreDates(item.date_debut, item.date_fin);
     const toolCard = document.createElement("div");
     toolCard.classList.add("panier-card");
     toolCard.innerHTML = `
@@ -389,9 +393,7 @@ function displayPanier(container) {
         </a>
         <h3 class="item-price">${item.prix}€/jour</h3>
         <h4 class="item-dates">du ${item.date_debut} au ${item.date_fin}</h4>
-        <input type="number" class="item-quantity" value="${
-          item.quantite
-        }" min="1" max="10">
+        <h4 class="item-quantity">${item.quantite} exemplaire(s)</h4>
         <button id="delete" class="btn-action">Supprimer</button>
       </div>
     `;
@@ -407,28 +409,28 @@ function displayPanier(container) {
     <button id="validate" class="btn-validate">Valider le panier</button>
   `;
   subtotal.querySelector(".btn-validate").addEventListener("click", () => {
-      const token = localStorage.getItem("access_token");
-      let envoi = fetch(`${API_URL}/reservations`, {
-          method: "POST",
-          headers: {
-              Authorization: `Bearer ${token}`,
-              "Content-Type": "application/json"
-          },
-          body: JSON.stringify({
-              outils: items.map((item) => ({
-                  id_outil: item.id,
-                  quantite: item.quantite,
-                  date_debut: item.date_debut,
-                  date_fin: item.date_fin,
-              })),
-              prix_total: sum,
-          })
-      })
+    const token = localStorage.getItem("access_token");
+    let envoi = fetch(`${API_URL}/reservations`, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        outils: items.map((item) => ({
+          id_outil: item.id,
+          quantite: item.quantite,
+          date_debut: item.date_debut,
+          date_fin: item.date_fin,
+        })),
+        prix_total: sum,
+      }),
+    });
 
-      setCookie("panier", JSON.stringify({ items: [] }));
-      alert("Panier validé ! Vos outils ont été réservés.");
-      window.location.reload();
-  })
+    setCookie("panier", JSON.stringify({ items: [] }));
+    alert("Panier validé ! Vos outils ont été réservés.");
+    window.location.reload();
+  });
 }
 
 function removeItemFromPanier(date) {

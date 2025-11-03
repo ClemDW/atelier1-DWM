@@ -47,4 +47,13 @@ INSERT INTO public.outils (id_outillage, id_outil, disponible) VALUES
 ((SELECT id_outillage FROM outillage WHERE nom_outillage = 'Caméra d''Inspection 20m'), '871df92d-6b27-4210-8c73-1dfdd8527c19', TRUE),
 ((SELECT id_outillage FROM outillage WHERE nom_outillage = 'Soudeuse PVC Électrique'), 'be83c120-a04e-41e6-9d4a-b7e12d1a6c18', TRUE),
 ((SELECT id_outillage FROM outillage WHERE nom_outillage = 'Furet Électrique'), 'a062b6fe-b3f1-48f9-b465-72bc85e2152a', TRUE),
-((SELECT id_outillage FROM outillage WHERE nom_outillage = 'Pince à Sertir Multicouche'), '383b27ec-f95e-4cb3-ada7-a855636c4508', TRUE);
+((SELECT id_outillage FROM outillage WHERE nom_outillage = 'Pince à Sertir Multicouche'), '383b27ec-f95e-4cb3-ada7-a855636c4508', TRUE),
+((SELECT id_outillage FROM outillage WHERE nom_outillage = 'Bétonnière 180L'), 'e9f1c5a1-3c2b-4b8e-9a2d-1e2f3a4b5c6d', TRUE),
+((SELECT id_outillage FROM outillage WHERE nom_outillage = 'Marteau-piqueur 10kg'), 'd6a2a8b7-4f2e-4a11-8f3b-2c9d0e1f2a3b', TRUE),
+((SELECT id_outillage FROM outillage WHERE nom_outillage = 'Carotteuse Diamant'), 'c3b4a5d6-7e8f-41a2-b3c4-d5e6f7a8b9c0', TRUE),
+((SELECT id_outillage FROM outillage WHERE nom_outillage = 'Niveau Laser Rotatif'), 'a1b2c3d4-e5f6-47a8-b9c0-d1e2f3a4b5c6', TRUE),
+((SELECT id_outillage FROM outillage WHERE nom_outillage = 'Tondeuse Autoportée'), 'f0e1d2c3-b4a5-4678-9abc-def012345678', TRUE),
+((SELECT id_outillage FROM outillage WHERE nom_outillage = 'Motoculteur 7CV'), '123e4567-e89b-12d3-a456-426614174000', TRUE),
+((SELECT id_outillage FROM outillage WHERE nom_outillage = 'Taille-haie Télescopique'), '223e4567-e89b-12d3-a456-426614174001', TRUE),
+((SELECT id_outillage FROM outillage WHERE nom_outillage = 'Débroussailleuse Pro'), '323e4567-e89b-12d3-a456-426614174002', TRUE),
+((SELECT id_outillage FROM outillage WHERE nom_outillage = 'Générateur Électrique 3kW'), '423e4567-e89b-12d3-a456-426614174003', TRUE);
