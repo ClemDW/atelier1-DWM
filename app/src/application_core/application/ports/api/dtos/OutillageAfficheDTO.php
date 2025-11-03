@@ -10,12 +10,14 @@ class OutillageAfficheDTO
     public string $description;
     public string $image;
     public float $prix;
+    public int $stock;
 
-    public function __construct(string $id_outillage, string $nom_outillage, string $description, float $prix, string $image){
+    public function __construct(string $id_outillage, string $nom_outillage, string $description, float $prix, string $image, int $stock){
         $this->id_outillage = $id_outillage;
         $this->nom_outillage = $nom_outillage;
         $this->description = $description;
         $this->prix = $prix;
         $this->image = $image;
+        $this->stock = $stock;
     }
 }

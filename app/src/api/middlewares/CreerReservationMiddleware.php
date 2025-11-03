@@ -53,7 +53,7 @@ class CreerReservationMiddleware implements MiddlewareInterface
         $date_creation = date('Y-m-d H:i:s');
         $id_user = $user->id;
         $prix_total = $recup['prix_total'];
-        $status = 'validé';
+        $status = 'Validé';
         $reservationDTO = new ReservationDTO($id_reservation, $id_user, $date_creation, $status, $prix_total);
         $request = $request->withAttribute('reservationDTO', $reservationDTO);
         $request = $request->withAttribute('outils', $outilsDtos);
