@@ -34,7 +34,7 @@
 | Fonctionnalité 7       | Gestion du panier pour utilisateur authentifié                   | ✅   | X              | X        |
 | Fonctionnalité 8       | Accès aux outils précédemment réservés (« Mes réservations »)    | ✅   | Marcelin       | Marcelin |
 | Fonctionnalité 9       | Réservation sur plusieurs jours avec validation de disponibilité | ✅   | Clément        | Marcelin |
-| Fonctionnalité 10      | Gestion des exemplaires multiples d'un outil                     | ✅   | X              | X        |
+| Fonctionnalité 10      | Gestion des exemplaires multiples d'un outil                     | ✅   | Marcelin       | Marcelin |
 | Filtrage par catégorie | Filtrage du catalogue par catégorie d'outils                     | ✅   | Vivien         | Vivien   |
 
 ## Description générale

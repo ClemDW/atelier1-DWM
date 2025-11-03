@@ -61,12 +61,15 @@ class OutilsService implements OutilsServiceInterface
     public function AfficherOutillage(string $id): OutillageAfficheDTO
     {
         $outillage = $this->outilsRepository->findOutillageById($id);
+        $stock = $this->outilsRepository->calculateStock($outillage->getIdOutillage());
+
         return new OutillageAfficheDTO(
             $outillage->getIdOutillage(),
             $outillage->getNomOutillage(),
             $outillage->getDescription(),
             $outillage->getPrixJournalier(),
-            $outillage->getImageUrl()
+            $outillage->getImageUrl(),
+            $stock,
         );
     }
 

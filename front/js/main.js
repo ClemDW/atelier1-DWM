@@ -343,7 +343,7 @@ function buttonListenerPanier(tool) {
   });
 
   plus.addEventListener("click", () => {
-    if (quantite < 10) {
+    if (quantite < tool.stock) {
       quantite = quantite + 1;
       quantity.textContent = quantite;
     }
