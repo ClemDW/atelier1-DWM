@@ -31,7 +31,7 @@
 | Fonctionnalité 4       | Visualisation du panier et calcul du montant total               | ✅   | Clément        | Clément  |
 | Fonctionnalité 5       | Inscription sur la plateforme et création de compte              | ✅   | Semih & Vivien | Vivien   |
 | Fonctionnalité 6       | Authentification utilisateur                                     | ✅   | Semih & Vivien | Vivien   |
-| Fonctionnalité 7       | Gestion du panier pour utilisateur authentifié                   | ✅   | X              | X        |
+| Fonctionnalité 7       | Gestion du panier pour utilisateur authentifié                   | ✅   | Manech              | Manech        |
 | Fonctionnalité 8       | Accès aux outils précédemment réservés (« Mes réservations »)    | ✅   | Marcelin       | Marcelin |
 | Fonctionnalité 9       | Réservation sur plusieurs jours avec validation de disponibilité | ✅   | Clément        | Marcelin |
 | Fonctionnalité 10      | Gestion des exemplaires multiples d'un outil                     | ✅   | Marcelin       | Marcelin |
